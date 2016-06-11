@@ -1,0 +1,38 @@
+Snippets Blade template
+
+formlabel
+
+{!! Form::label('keyName', 'keyDescr', ['class'=>'xxx']) !!}
+
+-----------------
+formpost
+
+{!! Form::open(['method'=>'POST', 'action'=>'XXXController@store']) !!}
+
+{!! Form::close() !!}
+
+-----------------
+formput
+
+{!! Form::model($post, ['method'=>'PUT', 'action'=>['XXXController@update', $xxx->id]]) !!}
+
+-----------------
+formsubmit
+
+{!! Form::submit('Save item', ['class'=>'xxx']) !!}
+
+-----------------
+formtext
+
+{!! Form::text('keyName', null, ['class'=>'xxx']) !!}
+
+-----------------
+formtextarea
+
+{!! Form::textarea('keyName', null, ['class'=>'xxx', 'rows'=>3]) !!}
+
+-----------------
+formpassword
+
+{!! Form::password('password', ['class'=>'xxx', 'placeholder'=>'Password']) !!}
+------------------

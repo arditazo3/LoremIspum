@@ -1,0 +1,9 @@
+// Install Gulp global
+
+npm install --g gulp
+
+npm install
+
+// Create Admin system
+
+php artisan make:auth
