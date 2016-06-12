@@ -35,6 +35,7 @@ elixir(function(mix) {
         // Custom and plugin javascript
         'libs/inspinia.js',
         'libs/pace.min.js',
+        'libs/wow.min.js',
 
         // iCheck
         'libs/icheck.min.js',
