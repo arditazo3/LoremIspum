@@ -26,7 +26,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                             <span>
-                                <img alt="image" class="img-circle" src="{{ $website }}/img/myAvatar.png" width="70"/>
+                                <img alt="image" class="img-circle" src="{{ $website }}img/myAvatar.png" width="70"/>
                             </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
@@ -50,7 +50,8 @@
                 </li>
 
                 <li class="{{ isset($activeOpen) && $activeOpen == 'DashboardPanel' ? 'active' : '' }}">
-                    <a href="{{ url('/admin') }}"><i class="fa fa-th-large"></i>Dashboards</a>
+
+                    <a href="{{ url('/admin') }}"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span> <span></span></a>
                 </li>
 
                 <li class="{{ isset($activeOpen) && $activeOpen == 'PatientPanel' ? 'active' : '' }}">
@@ -142,7 +143,7 @@
         {{--FOOTER--}}
         <div class="footer">
             <div class="pull-right">
-                <strong>Copyright</strong> WebApp.al
+                Copyright <strong>WebApp.al</strong>
             </div>
             <div>
 

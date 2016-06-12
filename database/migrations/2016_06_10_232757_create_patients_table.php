@@ -19,10 +19,14 @@ class CreatePatientsTable extends Migration
             $table->string('company_name', 255);
             $table->string('last_name', 255);
             $table->string('first_name', 255);
+            $table->string('nation', 255);
             $table->string('address', 255);
             $table->string('city', 100);
             $table->date('date_birth');
+            $table->string('marital_status', 20);
+            $table->string('language', 100);
             $table->string('email', 255);
+            $table->string('zip_code', 100);
             $table->string('birth_place', 200);
             $table->string('personal_phone', 30);
             $table->string('office_phone', 30);
@@ -45,7 +49,6 @@ class CreatePatientsTable extends Migration
             $table->string('province', 50);
             $table->string('id_family', 50);
             $table->integer('family_type');
-            $table->string('nation', 255);
             $table->string('site', 255);
             $table->text('note1');
             $table->text('note2');

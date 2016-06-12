@@ -21,6 +21,8 @@ elixir(function(mix) {
         'libs/custom.css',
         'libs/animate.css',
         'libs/style.css',
+        'libs/jasny-bootstrap.css',
+        'libs/my-style.css',
 
     ], './public/css/libs.css')
 
@@ -36,6 +38,7 @@ elixir(function(mix) {
         'libs/inspinia.js',
         'libs/pace.min.js',
         'libs/wow.min.js',
+        'libs/jasny-bootstrap.js',
 
         // iCheck
         'libs/icheck.min.js',
