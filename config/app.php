@@ -158,6 +158,9 @@ return [
 
         /** Laravel Collective */
         Collective\Html\HtmlServiceProvider::class,
+        
+        /** Laravel Datatables */
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
     ],
 
@@ -208,6 +211,9 @@ return [
         /** Laravel Collective*/
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        /** Laravel Datatables */
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

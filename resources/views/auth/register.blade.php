@@ -27,9 +27,9 @@
             </div>
         </div>
 
-        @include('includes.form-error-specify', ['field'=>'name'])
-        @include('includes.form-error-specify', ['field'=>'email'])
-        @include('includes.form-error-specify', ['field'=>'password'])
+        @include('includes.form-error-specify', ['field'=>'name', 'typeAlert'=>'danger'])
+        @include('includes.form-error-specify', ['field'=>'email', 'typeAlert'=>'danger'])
+        @include('includes.form-error-specify', ['field'=>'password', 'typeAlert'=>'danger'])
 
         {!! Form::submit('Register', ['class'=>'btn btn-primary block full-width m-b']) !!}
 

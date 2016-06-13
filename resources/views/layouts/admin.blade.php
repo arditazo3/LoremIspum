@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="WebApp.al" name="description"/>
     <meta content="WebApp.al" name="author"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ URL::asset('img/logo.ico') }}"/>
 
     <title>WebApp.al</title>
@@ -60,7 +61,7 @@
                     <ul class="nav nav-second-level collapse">
 
                         <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'NewPatient' ? 'active' : '' }}">
-                            <a href="{{ route('admin.client.create') }}"><i class="fa fa-user"></i>New Patient</a></li>
+                            <a href="{{ route('admin.patient.create') }}"><i class="fa fa-user"></i>New Patient</a></li>
 
                     </ul>
                 </li>
@@ -158,6 +159,9 @@
 <!-- BEGIN CORE PLUGINS -->
 <script src="{{ URL::asset('js/libs.js') }}" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
+
+{{--PUT SOME NICE SCRIPT HERE--}}
+@yield('myScript')
 
 </body>
 

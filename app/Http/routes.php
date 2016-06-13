@@ -37,7 +37,15 @@ Route::group(['middleware'=>'admin'], function () {
     /**
      * ClientController CRUD operations
      */
-    Route::resource('admin/client', 'ClientController');
+    Route::resource('admin/patient', 'PatientController');
+
+    /*
+     * GET ALL PATIENTS, AJAX REQUEST
+     */
+    Route::get('allPatientsAjax', [
+        'uses' => 'PatientController@allPatientsAjax',
+        'as'   => 'allPatientsAjax'
+    ]);
 
 });
 
