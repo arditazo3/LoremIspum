@@ -14,13 +14,22 @@
 
 
         <div class="form-group">
-            {!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Full Name']) !!}
+            <div class="input-group m-b"><span class="input-group-addon"><i
+                            class="fa fa-github-alt"></i></span>
+                {!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Full Name']) !!}
+            </div>
         </div>
         <div class="form-group">
-            <input type="email" name="email" class="form-control" placeholder="Email">
+            <div class="input-group m-b"><span class="input-group-addon"><i
+                            class="fa fa-envelope"></i></span>
+                <input type="email" name="email" class="form-control" placeholder="Email">
+            </div>
         </div>
         <div class="form-group">
-            {!! Form::password('password', ['class'=>'form-control placeholder-no-fix', 'placeholder'=>'Password']) !!}
+            <div class="input-group m-b"><span class="input-group-addon"><i
+                            class="fa fa-lock"></i></span>
+                {!! Form::password('password', ['class'=>'form-control placeholder-no-fix', 'placeholder'=>'Password']) !!}
+            </div>
         </div>
         <div class="form-group">
             <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label>

@@ -9,3 +9,9 @@
 .panel-heading a.collapsed:after {
     content:"\e080";
 }
+
+/*Calendar*/
+
+#calendar {
+    margin: 0 auto;
+}

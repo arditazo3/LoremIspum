@@ -65,23 +65,21 @@
 
                     </ul>
                 </li>
-                <li>
-                    <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span
+
+                <li class="{{ isset($activeOpen) && $activeOpen == 'CalendarPanel' ? 'active' : '' }}">
+                    <a href="index.html"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar</span> <span
                                 class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="graph_flot.html">Flot Charts</a></li>
-                        <li><a href="graph_morris.html">Morris.js Charts</a></li>
-                        <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
-                        <li><a href="graph_chartjs.html">Chart.js</a></li>
-                        <li><a href="graph_chartist.html">Chartist</a></li>
-                        <li><a href="c3.html">c3 charts</a></li>
-                        <li><a href="graph_peity.html">Peity Charts</a></li>
-                        <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
+
+                        <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'Calendar' ? 'active' : '' }}">
+                            <a href="{{ route('admin.calendar.index') }}"><i class="fa fa-calendar"></i>Appointments</a></li>
+
+                        <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'NewCalendar' ? 'active' : '' }}">
+                            <a href="{{ route('admin.calendar.create') }}"><i class="fa fa-calendar-plus-o"></i>New Event</a></li>
+
                     </ul>
                 </li>
+
             </ul>
 
         </div>

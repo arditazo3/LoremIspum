@@ -301,7 +301,7 @@
 
             // retrive all patients whith AJAX
             $.ajax({
-                url: 'http://loremispum.app:88/allPatientsAjax',
+                url: '{{ \App\Option::findOrFail(1)->value }}allPatientsAjax',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN
@@ -325,7 +325,7 @@
             $('#tableAllPatients').DataTable( {
                 processing: true,
                 serverSide: true,
-                ajax: 'http://loremispum.app:88/allPatientsAjax',
+                ajax: '{{ \App\Option::findOrFail(1)->value }}allPatientsAjax',
                 columns: [
                     { data: 'first_name', name: 'first_name' },
                     { data: 'last_name', name: 'last_name' }

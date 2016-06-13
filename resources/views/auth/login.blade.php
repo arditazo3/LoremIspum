@@ -11,11 +11,17 @@
         <p>Login in. To see it in action.</p>
         {!! Form::open(['method'=>'POST', 'action'=>'Auth\AuthController@login', 'class'=>'m-t', 'role'=>'form']) !!}
         <div class="form-group">
-            <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+            <div class="input-group m-b"><span class="input-group-addon"><i
+                            class="fa fa-envelope"></i></span>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+            </div>
         </div>
 
         <div class="form-group">
-            {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password']) !!}
+            <div class="input-group m-b"><span class="input-group-addon"><i
+                            class="fa fa-lock"></i></span>
+                {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password']) !!}
+            </div>
         </div>
 
         {{--Notifications login--}}

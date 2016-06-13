@@ -39,6 +39,11 @@ Route::group(['middleware'=>'admin'], function () {
      */
     Route::resource('admin/patient', 'PatientController');
 
+    /**
+     * ClientController CRUD operations
+     */
+    Route::resource('admin/calendar', 'CalendarController');
+
     /*
      * GET ALL PATIENTS, AJAX REQUEST
      */
@@ -46,6 +51,16 @@ Route::group(['middleware'=>'admin'], function () {
         'uses' => 'PatientController@allPatientsAjax',
         'as'   => 'allPatientsAjax'
     ]);
+
+    Route::get('/calendarAjax', function () {
+        $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->get();
+        foreach($events as $event)
+        {
+            $event->title = $event->title . ' - ' .$event->name;
+            $event->url = url('admin/calendar/' . $event->id . '/edit');
+        }
+        return $events;
+    });
 
 });
 
