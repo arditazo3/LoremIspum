@@ -56,11 +56,25 @@ Route::group(['middleware'=>'admin'], function () {
         $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->get();
         foreach($events as $event)
         {
+
+            $event->nameModal = $event->name;
+            $event->titleModal = $event->title;
+
             $event->title = $event->title . ' - ' .$event->name;
-            $event->url = url('admin/calendar/' . $event->id . '/edit');
+            // manage the modification through AJAX
+            // $event->url = url('#');
+
         }
         return $events;
     });
+
+    /**
+     * HERE ARE ALL ROUTE REQUEST MADE WITH AJAX
+     */
+    Route::post('api/updateEventAjax', [
+        'uses' => 'CalendarController@updateEventAjax',
+        'as'   => 'api/updateEventAjax'
+    ]);
 
 });
 

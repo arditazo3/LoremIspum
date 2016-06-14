@@ -103,28 +103,7 @@ class CalendarController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        // Validation
-        $this->validate($request, [
-            'name'	=> 'required|min:5|max:15',
-            'title' => 'required|min:5|max:100',
-            'time'	=> 'required'
-        ]);
-
-        $event = Event::findOrFail($id);
-        $inputs = $request->all();
-
-        $time = explode(" - ", $request->input('time'));
-
-        $inputs['start_time'] = $this->change_date_format($time[0]);
-        $inputs['end_time'] = $this->change_date_format($time[1]);
-
-        $updated = $event->update($inputs);
-
-        if ($updated)
-            Session::flash('updated_event', 'The event was successfully updated!');
-
-        return redirect('admin/calendar');
+        //
     }
 
     /**
@@ -145,6 +124,35 @@ class CalendarController extends Controller
 
         return redirect('admin/calendar');
 
+    }
+
+    public function updateEventAjax(Request $request) {
+
+        // Validation
+        $this->validate($request, [
+            'name'	=> 'required|min:5|max:15',
+            'title' => 'required|min:5|max:100',
+            'time'	=> 'required'
+        ]);
+
+        $inputs = $request->all();
+
+        $event = Event::findOrFail($inputs['id']);
+
+        $time = explode(" - ", $request->input('time'));
+
+        $inputs['start_time'] = $this->change_date_format($time[0]);
+        $inputs['end_time'] = $this->change_date_format($time[1]);
+
+        $updated = $event->update($inputs);
+
+        if ($updated)
+            Session::flash('updated_event', 'The event was successfully updated!');
+
+        if ($updated)
+            return response()->json(['message'=>'The event has been updated.', 'newName'=>$event->name], 200);
+        else
+            return response()->json(['message'=>'The event has not been updated.'], 401);
     }
 
     public function change_date_format($date)

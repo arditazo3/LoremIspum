@@ -45,6 +45,56 @@
         </div>
     </div>
 
+    {{--EDIT MODEL--}}
+    <div class="modal inmodal fade" id="calendarModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form id="updateEventForm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title pull-left">Update event</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row" id="rowUpdateModalDataAtr" data-eventId="">
+
+                            <div class="form-group ">
+                                {!! Form::label('name', 'Name', ['class'=>'control-label']) !!}
+                                {!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Name']) !!}
+                                @include('includes.form-error-specify', ['field'=>'name', 'typeAlert'=>'danger'])
+                            </div>
+
+                            <div class="form-group ">
+                                {!! Form::label('title', 'Title', ['class'=>'control-label']) !!}
+                                {!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title']) !!}
+                                @include('includes.form-error-specify', ['field'=>'title', 'typeAlert'=>'danger'])
+                            </div>
+
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="time" id="time"
+                                           placeholder="Select your time">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        {!! Form::submit('Delete event', ['class'=>'btn btn-danger btn-sm']) !!}
+                        <button type="button" class="btn btn-primary btn-sm" id="btnUpdateEvent">Update event</button>
+                        <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </form>
+            {{--END FORM--}}
+        </div>
+    </div>
+    {{--END EDIT MODAL--}}
+
 @endsection
 
 @section('myScript')
@@ -69,8 +119,73 @@
                     error: function () {
                         alert("cannot load json");
                     }
+                },
+                eventClick: function (event, jsEvent, view) {
+                    $('#name').val(event.nameModal);
+                    $('#title').val(event.titleModal);
+                    //  $('#time').val(  showDateConverted(event.start, event.end) );
+                    showDateConverted(event.start, event.end);
+                    //  $('#eventUrl').attr('href',event.url);
+                    $('#rowUpdateModalDataAtr').data('eventId',event.id);
+                    $('#calendarModal').modal({backdrop: 'static', keyboard: false});
                 }
             });
+        });
+
+        function showDateConverted(start, end) {
+
+            $("#time").data('daterangepicker').setStartDate(convertDate(start));
+            $("#time").data('daterangepicker').setEndDate(convertDate(end));
+        }
+
+        function convertDate(date) {
+
+            var dateTime = new Date(date);
+            dateTime = moment(dateTime).utc().format("DD/MM/YYYY HH:mm:ss");
+
+            return dateTime;
+        }
+
+        // setting the datarangepicker field
+        $(function () {
+            $('input[name="time"]').daterangepicker({
+                timePicker: true,
+                "timePicker24Hour": true,
+                "timePickerIncrement": 15,
+                "autoApply": true,
+                "locale": {
+                    "format": "DD/MM/YYYY HH:mm:ss",
+                    "separator": " - ",
+                }
+            });
+        });
+
+        /**
+         * update event with AJAX
+         **/
+        var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
+        var url = '{{ route('api/updateEventAjax') }}';
+
+
+        $('#btnUpdateEvent').on('click', function () {
+
+            var eventId = $('#rowUpdateModalDataAtr').data('eventId');
+
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    name: $('#name').val(),
+                    title: $('#title').val(),
+                    time: $('#time').val(),
+                    id: eventId,
+                    _token: token
+                }
+            })
+                    .done(function (msg) {
+                        $('#calendarModal').modal('hide');
+                        console.log(JSON.stringify(msg));
+                    });
         });
 
     </script>
