@@ -42,7 +42,13 @@ Route::group(['middleware'=>'admin'], function () {
     /**
      * ClientController CRUD operations
      */
-    Route::resource('admin/calendar', 'CalendarController');
+     Route::resource('admin/calendar', 'CalendarController');
+
+    /**
+     * -------------------------------------------
+     * HERE ARE ALL ROUTE REQUEST MADE WITH AJAX -
+     * -------------------------------------------
+     */
 
     /*
      * GET ALL PATIENTS, AJAX REQUEST
@@ -68,12 +74,20 @@ Route::group(['middleware'=>'admin'], function () {
         return $events;
     });
 
-    /**
-     * HERE ARE ALL ROUTE REQUEST MADE WITH AJAX
-     */
+
     Route::post('api/updateEventAjax', [
         'uses' => 'CalendarController@updateEventAjax',
         'as'   => 'api/updateEventAjax'
+    ]);
+
+    Route::post('api/deleteEventAjax', [
+        'uses' => 'CalendarController@deleteEventAjax',
+        'as'   => 'api/deleteEventAjax'
+    ]);
+
+    Route::post('api/createEventAjax', [
+        'uses' => 'CalendarController@createEventAjax',
+        'as'   => 'api/createEventAjax'
     ]);
 
 });

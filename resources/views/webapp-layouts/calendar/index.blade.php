@@ -21,18 +21,10 @@
                 <div class="ibox-title">
                     <h5>The calendar</h5>
                     <div class="ibox-tools">
+                        <button type="button" class="btn btn-info btn-sm" id="btnOpenCreateEventModal">New event</button>
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="calendar.html#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="calendar.html#">Config option 1</a>
-                            </li>
-                            <li><a href="calendar.html#">Config option 2</a>
-                            </li>
-                        </ul>
                         <a class="close-link">
                             <i class="fa fa-times"></i>
                         </a>
@@ -48,13 +40,13 @@
     {{--EDIT MODEL--}}
     <div class="modal inmodal fade" id="calendarModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <form id="updateEventForm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span
-                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title pull-left">Update event</h4>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title pull-left">Update event</h4>
+                </div>
+                <form id="updateEventForm">
                     <div class="modal-body">
 
                         <div class="row" id="rowUpdateModalDataAtr" data-eventId="">
@@ -82,15 +74,15 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="modal-footer">
-                        {!! Form::submit('Delete event', ['class'=>'btn btn-danger btn-sm']) !!}
-                        <button type="button" class="btn btn-primary btn-sm" id="btnUpdateEvent">Update event</button>
-                        <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
-                    </div>
+                </form>
+                {{--END FORM--}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btn-sm" id="btnCreateEvent">Create event</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="btnDeleteEvent">Delete event</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="btnUpdateEvent">Update event</button>
+                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
                 </div>
-            </form>
-            {{--END FORM--}}
+            </div>
         </div>
     </div>
     {{--END EDIT MODAL--}}
@@ -104,6 +96,10 @@
         $(document).ready(function () {
 
             var base_url = '{{ url('/') }}';
+
+            var $btnDeleteGlob = $('#btnDeleteEvent').hide();
+            var $btnUpdateGlob = $('#btnUpdateEvent').hide();
+            var $btnCreateGlob = $('#btnCreateEvent').hide();
 
             $('#calendar').fullCalendar({
                 weekends: true,
@@ -123,69 +119,135 @@
                 eventClick: function (event, jsEvent, view) {
                     $('#name').val(event.nameModal);
                     $('#title').val(event.titleModal);
-                    //  $('#time').val(  showDateConverted(event.start, event.end) );
+
                     showDateConverted(event.start, event.end);
-                    //  $('#eventUrl').attr('href',event.url);
-                    $('#rowUpdateModalDataAtr').data('eventId',event.id);
+
+                    $('#rowUpdateModalDataAtr').data('eventId', event.id);
                     $('#calendarModal').modal({backdrop: 'static', keyboard: false});
+
+                    // create/update event will show and hide these btns
+                    $btnDeleteGlob.show();
+                    $btnUpdateGlob.show();
+                    $btnCreateGlob.hide();
+                    $('.modal-title').text('Update/Delete Event');
                 }
             });
-        });
 
-        function showDateConverted(start, end) {
 
-            $("#time").data('daterangepicker').setStartDate(convertDate(start));
-            $("#time").data('daterangepicker').setEndDate(convertDate(end));
-        }
+            // set the value correct to start and end of dateRangePicker
+            function showDateConverted(start, end) {
 
-        function convertDate(date) {
+                $("#time").data('daterangepicker').setStartDate(convertDate(start));
+                $("#time").data('daterangepicker').setEndDate(convertDate(end));
+            }
 
-            var dateTime = new Date(date);
-            dateTime = moment(dateTime).utc().format("DD/MM/YYYY HH:mm:ss");
+            // convert the date to correct format
+            function convertDate(date) {
 
-            return dateTime;
-        }
+                var dateTime = new Date(date);
+                dateTime = moment(dateTime).utc().format("DD/MM/YYYY HH:mm:ss");
 
-        // setting the datarangepicker field
-        $(function () {
-            $('input[name="time"]').daterangepicker({
-                timePicker: true,
-                "timePicker24Hour": true,
-                "timePickerIncrement": 15,
-                "autoApply": true,
-                "locale": {
-                    "format": "DD/MM/YYYY HH:mm:ss",
-                    "separator": " - ",
-                }
+                return dateTime;
+            }
+
+            // setting the datarangepicker field
+            $(function () {
+                $('input[name="time"]').daterangepicker({
+                    timePicker: true,
+                    "timePicker24Hour": true,
+                    "timePickerIncrement": 15,
+                    "autoApply": true,
+                    "locale": {
+                        "format": "DD/MM/YYYY HH:mm:ss",
+                        "separator": " - ",
+                    }
+                });
             });
-        });
 
-        /**
-         * update event with AJAX
-         **/
-        var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
-        var url = '{{ route('api/updateEventAjax') }}';
+            /**
+             * update/delete/create event with AJAX
+             **/
+            var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
+            var url = '{{ route('api/updateEventAjax') }}';
+            var urlDeleteEvent = '{{ route('api/deleteEventAjax') }}';
+            var urlCreateEvent = '{{ route('api/createEventAjax') }}';
 
 
-        $('#btnUpdateEvent').on('click', function () {
+            $('#btnUpdateEvent').click(function () {
 
-            var eventId = $('#rowUpdateModalDataAtr').data('eventId');
+                var eventId = $('#rowUpdateModalDataAtr').data('eventId');
 
-            $.ajax({
-                method: 'POST',
-                url: url,
-                data: {
-                    name: $('#name').val(),
-                    title: $('#title').val(),
-                    time: $('#time').val(),
-                    id: eventId,
-                    _token: token
-                }
-            })
+                $.ajax({
+                    method: 'POST',
+                    url: urlCreateEvent,
+                    data: {
+                        name: $('#name').val(),
+                        title: $('#title').val(),
+                        time: $('#time').val(),
+                        _token: token
+                    }
+                })
                     .done(function (msg) {
                         $('#calendarModal').modal('hide');
+                        $('#calendar').fullCalendar('refetchEvents');
                         console.log(JSON.stringify(msg));
                     });
+            });
+
+            $('#btnDeleteEvent').click(function () {
+
+                var eventId = $('#rowUpdateModalDataAtr').data('eventId');
+
+                $.ajax({
+                    method: 'POST',
+                    url: urlDeleteEvent,
+                    data: {
+                        id: eventId,
+                        _token: token
+                    }
+                })
+                    .done(function (msg) {
+                        $('#calendarModal').modal('hide');
+                        $('#calendar').fullCalendar('refetchEvents');
+                        console.log(JSON.stringify(msg));
+                    });
+
+            });
+
+            // Hide update and delete button and open modal
+            $('#btnOpenCreateEventModal').click(function () {
+
+                $('#name').val('');
+                $('#title').val('');
+                $('#time').val('{{ old('time') }}');
+                $('.modal-title').text('Create Event');
+
+                $btnDeleteGlob.hide();
+                $btnUpdateGlob.hide();
+                $btnCreateGlob.show();
+
+                $('#calendarModal').modal({backdrop: 'static', keyboard: false});
+            });
+
+            $('#btnCreateEvent').click(function () {
+
+                $.ajax({
+                    method: 'POST',
+                    url: urlCreateEvent,
+                    data: {
+                        name: $('#name').val(),
+                        title: $('#title').val(),
+                        time: $('#time').val(),
+                        _token: token
+                    }
+                })
+                    .done(function (msg) {
+                        $('#calendarModal').modal('hide');
+                        $('#calendar').fullCalendar('refetchEvents');
+                        console.log(JSON.stringify(msg));
+                    });
+            });
+
         });
 
     </script>

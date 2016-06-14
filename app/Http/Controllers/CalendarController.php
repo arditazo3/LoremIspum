@@ -72,7 +72,7 @@ class CalendarController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('admin/calendar');
     }
 
     /**
@@ -103,7 +103,7 @@ class CalendarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect('admin/calendar');
     }
 
     /**
@@ -130,30 +130,81 @@ class CalendarController extends Controller
 
         // Validation
         $this->validate($request, [
-            'name'	=> 'required|min:5|max:15',
+            'name'	=> 'required|min:5|max:50',
             'title' => 'required|min:5|max:100',
             'time'	=> 'required'
         ]);
 
         $inputs = $request->all();
 
+        /**
+         * We delete the event and create/save the new one
+         * because of problems updating the old one
+         * */
         $event = Event::findOrFail($inputs['id']);
+        $event->delete();
 
         $time = explode(" - ", $request->input('time'));
 
         $inputs['start_time'] = $this->change_date_format($time[0]);
         $inputs['end_time'] = $this->change_date_format($time[1]);
 
-        $updated = $event->update($inputs);
+        //$updated = $event->update($inputs);
 
-        if ($updated)
-            Session::flash('updated_event', 'The event was successfully updated!');
+     // $event->id = $inputs['id'];
+        $event->name = $inputs['name'];
+        $event->title = $inputs['title'];
+        $event->start_time = $inputs['start_time'];
+        $event->end_time = $inputs['end_time'];
 
-        if ($updated)
-            return response()->json(['message'=>'The event has been updated.', 'newName'=>$event->name], 200);
-        else
-            return response()->json(['message'=>'The event has not been updated.'], 401);
+        $event->save();
+
+        Session::flash('updated_event', 'The event was successfully updated!');
+
+        return response()->json(['message'=>'The event has been updated.', 'newName'=>$event->name], 200);
+
     }
+
+    public function deleteEventAjax(Request $request) {
+
+        $inputs = $request->all();
+
+        $event = Event::findOrFail($inputs['id']);
+
+        $deleted = $event->delete();
+
+        if ($deleted)
+            Session::flash('deleted_event', 'The event was successfully deleted!');
+
+        if ($deleted)
+            return response()->json(['message' => 'The event has been deleted.', 'newName' => $event->name], 200);
+        else
+            return response()->json(['message' => 'The event has not been deleted.'], 401);
+    }
+
+    public function createEventAjax(Request $request) {
+
+        // Validation
+        $this->validate($request, [
+            'name'	=> 'required|min:5|max:50',
+            'title' => 'required|min:5|max:100',
+            'time'	=> 'required'
+        ]);
+
+        $inputs = $request->all();
+
+        $time = explode(" - ", $request->input('time'));
+
+        $inputs['start_time'] = $this->change_date_format($time[0]);
+        $inputs['end_time'] = $this->change_date_format($time[1]);
+
+        Event::create($inputs);
+
+        Session::flash('created_event', 'The event was successfully created!');
+
+        return response()->json(['message' => 'The event has been created.', 'newName' => 'New event created'], 200);
+    }
+
 
     public function change_date_format($date)
     {
