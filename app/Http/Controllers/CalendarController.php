@@ -44,8 +44,8 @@ class CalendarController extends Controller
 
         // Validation
         $this->validate($request, [
-            'name' => 'required|min:5|max:20',
-            'title' => 'required|min:5|max:100',
+            'title' => 'required|min:5|max:20',
+            'content' => 'required|min:5|max:100',
             'time' => 'required',
         ]);
 
@@ -130,8 +130,8 @@ class CalendarController extends Controller
 
         // Validation
         $this->validate($request, [
-            'name'	=> 'required|min:5|max:50',
-            'title' => 'required|min:5|max:100',
+            'title'	=> 'required|min:3|max:50',
+            'content' => 'required|min:5|max:100',
             'time'	=> 'required'
         ]);
 
@@ -152,8 +152,8 @@ class CalendarController extends Controller
         //$updated = $event->update($inputs);
 
      // $event->id = $inputs['id'];
-        $event->name = $inputs['name'];
         $event->title = $inputs['title'];
+        $event->content = $inputs['content'];
         $event->start_time = $inputs['start_time'];
         $event->end_time = $inputs['end_time'];
 
@@ -186,8 +186,8 @@ class CalendarController extends Controller
 
         // Validation
         $this->validate($request, [
-            'name'	=> 'required|min:5|max:50',
-            'title' => 'required|min:5|max:100',
+            'title'	=> 'required|min:5|max:50',
+            'content' => 'required|min:5|max:100',
             'time'	=> 'required'
         ]);
 

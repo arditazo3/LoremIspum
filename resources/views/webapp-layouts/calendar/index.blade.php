@@ -3,6 +3,10 @@
      'activeOpen'=> 'CalendarPanel', 'activeOpenSub'=> 'Calendar',
      'website'=>\App\Option::findOrFail(1)->value])
 
+@section('myCSS')
+    @include('includes.myCSS.summernote')
+@endsection
+
 @section('content')
 
     <div class="row">
@@ -52,14 +56,21 @@
                         <div class="row" id="rowUpdateModalDataAtr" data-eventId="">
 
                             <div class="form-group ">
-                                {!! Form::label('name', 'Name', ['class'=>'control-label']) !!}
-                                {!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Name']) !!}
+                                {!! Form::label('title', 'Title', ['class'=>'control-label']) !!}
+                                {!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title']) !!}
                                 @include('includes.form-error-specify', ['field'=>'name', 'typeAlert'=>'danger'])
                             </div>
 
                             <div class="form-group ">
-                                {!! Form::label('title', 'Title', ['class'=>'control-label']) !!}
-                                {!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title']) !!}
+                                {!! Form::label('content', 'Content', ['class'=>'control-label']) !!}
+                                {{--{!! Form::text('content', null, ['class'=>'form-control', 'placeholder'=>'Put the content here...']) !!}--}}
+
+                                {!! Form::textarea('title', null, ['class'=>'form-control', 'rows'=>3,
+                                    'placeholder'=>'Title', 'id'=>'newEventSummernote']) !!}
+
+                                {{--<textarea class="input-block-level" id="summernote" name="content" rows="18">--}}
+					            {{--</textarea>--}}
+
                                 @include('includes.form-error-specify', ['field'=>'title', 'typeAlert'=>'danger'])
                             </div>
 
@@ -91,6 +102,8 @@
 
 @section('myScript')
 
+    @include('includes.myScript.summernote')
+
     <script>
 
         $(document).ready(function () {
@@ -117,8 +130,8 @@
                     }
                 },
                 eventClick: function (event, jsEvent, view) {
-                    $('#name').val(event.nameModal);
                     $('#title').val(event.titleModal);
+                    $('#content').val(event.contentModal);
 
                     showDateConverted(event.start, event.end);
 
@@ -179,12 +192,14 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: urlCreateEvent,
+                    url: url,
                     data: {
-                        name: $('#name').val(),
                         title: $('#title').val(),
+                       // content: $('#content').val(),
+                        content: $('#summernote').summernote
                         time: $('#time').val(),
-                        _token: token
+                        _token: token,
+                        id: eventId
                     }
                 })
                     .done(function (msg) {
@@ -217,8 +232,8 @@
             // Hide update and delete button and open modal
             $('#btnOpenCreateEventModal').click(function () {
 
-                $('#name').val('');
                 $('#title').val('');
+                $('#content').val('');
                 $('#time').val('{{ old('time') }}');
                 $('.modal-title').text('Create Event');
 
@@ -235,8 +250,8 @@
                     method: 'POST',
                     url: urlCreateEvent,
                     data: {
-                        name: $('#name').val(),
                         title: $('#title').val(),
+                        content: $('#content').val(),
                         time: $('#time').val(),
                         _token: token
                     }
@@ -247,6 +262,14 @@
                         console.log(JSON.stringify(msg));
                     });
             });
+
+
+            $('#newEventSummernote').summernote({
+                height: "500px"
+            });
+//            var postForm = function() {
+//                var content = $('textarea[name="content"]').html($('#summernote').code());
+//            }
 
         });
 

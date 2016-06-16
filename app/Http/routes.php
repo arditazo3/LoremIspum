@@ -59,14 +59,14 @@ Route::group(['middleware'=>'admin'], function () {
     ]);
 
     Route::get('/calendarAjax', function () {
-        $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->get();
+        $events = DB::table('events')->select('id', 'title', 'content', 'start_time as start', 'end_time as end')->get();
         foreach($events as $event)
         {
 
-            $event->nameModal = $event->name;
             $event->titleModal = $event->title;
+            $event->contentModal = $event->content;
 
-            $event->title = $event->title . ' - ' .$event->name;
+            $event->title = $event->title . ' - ' .$event->content;
             // manage the modification through AJAX
             // $event->url = url('#');
 

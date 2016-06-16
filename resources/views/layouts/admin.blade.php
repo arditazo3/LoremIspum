@@ -15,6 +15,9 @@
     <link href="{{ URL::asset('css/libs.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
 
+    {{--PUT SOME CSS WITH LOVE, BELLOW--}}
+    @yield('myCSS')
+
 </head>
 
 <body>

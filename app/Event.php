@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
 
-    protected $fillable = ['name', 'title', 'start_time', 'end_time'];
+    protected $fillable = ['title', 'content', 'start_time', 'end_time'];
 
-    protected $guarded = ['nameModal', 'titleModal'];
+    protected $guarded = ['titleModal', 'contentModal'];
 }
