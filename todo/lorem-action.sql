@@ -6,3 +6,7 @@ select * from patients;
 truncate table patients;
 
 select * from events;
+
+select * from users;
+
+SELECT * from roles;

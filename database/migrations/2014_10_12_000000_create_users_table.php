@@ -14,9 +14,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+
+            // make query little bit faster, positive no and not null
+            // if is 0 the user is not active, if is 1 is active
+
+            $table->integer('role_id')->index()->unsigned()->nullable();
+            $table->integer('image_id')->index()->unsigned()->nullable();
+            $table->integer('is_active')->default(0);
+            $table->string('first_name', 255);
+            $table->string('last_name', 255);
+            $table->string('email', 200)->unique();
+            $table->string('phone', 50);
+            $table->string('password', 255);
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -35,9 +35,12 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                     <span class="block m-t-xs">
-                                        <strong class="font-bold">David Williams</strong>
-                                    </span> <span class="text-muted text-xs block">Art Director <b
-                                                class="caret"></b></span>
+                                        <strong class="font-bold">
+                                            {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                                        </strong>
+                                    </span> <span class="text-muted text-xs block">
+                                        {{ Auth::user()->role ? Auth::user()->role->status : 'Guess' }}
+                                        <b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -58,6 +61,8 @@
                     <a href="{{ url('/admin') }}"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span> <span></span></a>
                 </li>
 
+                {{--PATIENT ITEM--}}
+                {{--- NEW PATIENT--}}
                 <li class="{{ isset($activeOpen) && $activeOpen == 'PatientPanel' ? 'active' : '' }}">
                     <a href="index.html"><i class="fa fa-users"></i> <span class="nav-label">Patients</span> <span
                                 class="fa arrow"></span></a>
@@ -69,6 +74,9 @@
                     </ul>
                 </li>
 
+                {{--CALENDAR ITEM--}}
+                {{--- APPOINTMENTS--}}
+                {{--- NEW EVENT--}}
                 <li class="{{ isset($activeOpen) && $activeOpen == 'CalendarPanel' ? 'active' : '' }}">
                     <a href="index.html"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar</span> <span
                                 class="fa arrow"></span></a>
@@ -82,6 +90,26 @@
 
                     </ul>
                 </li>
+
+
+                <li class="{{ isset($activeOpen) && $activeOpen == 'MyAccountPanel' ? 'active' : '' }}">
+                    <a href="index.html"><i class="fa fa-user-md"></i> <span class="nav-label">My Account</span> <span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+
+                        <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'MyProfile' ? 'active' : '' }}">
+                            <a href="{{ route('admin.user.profile') }}"><i class="fa fa-meh-o"></i>My Profile</a></li>
+
+                        <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'Contacts' ? 'active' : '' }}">
+                            <a href="{{ route('admin.user.contacts') }}"><i class="fa fa-phone"></i>Contacts</a></li>
+
+                        <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'Mailbox' ? 'active' : '' }}">
+                            <a href="{{ route('admin.user.mailbox') }}"><i class="fa fa-envelope"></i>Mailbox</a></li>
+
+                    </ul>
+                </li>
+
+
 
             </ul>
 
@@ -120,7 +148,7 @@
                 <h2>{{ (isset($subTitle)== true) ? $subTitle : 'Dashboard' }}</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{ url('/') }}">{{ (isset($title)== true) ? $title : 'Dashboard' }}</a>
+                        <a href="{{ url('/admin') }}">{{ (isset($title)== true) ? $title : 'Dashboard' }}</a>
                     </li>
                     <li class="active">
                         <strong>{{ (isset($subTitle)== true) ? $subTitle : 'Dashboard' }}</strong>

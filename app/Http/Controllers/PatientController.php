@@ -42,7 +42,7 @@ class PatientController extends Controller
         $adults = DB::table('domains')->where('des_dom', 'adult')->lists('description', 'value');
         $genders = DB::table('domains')->where('des_dom', 'gender')->lists('description', 'value');
 
-        return view('webapp-layouts.patient.newPatient',
+        return view('webapp-layouts.patient.new_patient',
             compact([
                 'cities', 'countries', 'proffessions', 'marital_status', 'languages',
                 'adults', 'genders'

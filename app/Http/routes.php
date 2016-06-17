@@ -45,6 +45,17 @@ Route::group(['middleware'=>'admin'], function () {
      Route::resource('admin/calendar', 'CalendarController');
 
     /**
+     * My Account
+     * - My Profile
+     * - Contacts
+     * - Mailbox
+     */
+    Route::get('admin/account/profile', [ 'uses' => 'UserController@showProfile', 'as'   => 'admin.user.profile' ]);
+    Route::post('admin/account/profile', [ 'uses' => 'UserController@updateProfile', 'as'   => 'admin.user.updateProfile' ]);
+    Route::get('admin/account/contacts', [ 'uses' => 'UserController@showContacts', 'as'   => 'admin.user.contacts' ]);
+    Route::get('admin/account/mailbox', [ 'uses' => 'UserController@showMailbox', 'as'   => 'admin.user.mailbox' ]);
+
+    /**
      * -------------------------------------------
      * HERE ARE ALL ROUTE REQUEST MADE WITH AJAX -
      * -------------------------------------------

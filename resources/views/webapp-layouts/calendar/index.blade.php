@@ -63,10 +63,11 @@
 
                             <div class="form-group ">
                                 {!! Form::label('content', 'Content', ['class'=>'control-label']) !!}
-                                {{--{!! Form::text('content', null, ['class'=>'form-control', 'placeholder'=>'Put the content here...']) !!}--}}
+                                {!! Form::textarea('content', null, ['class'=>'form-control',
+                                    'rows'=>'3', 'placeholder'=>'Put the content here...']) !!}
 
-                                {!! Form::textarea('title', null, ['class'=>'form-control', 'rows'=>3,
-                                    'placeholder'=>'Title', 'id'=>'newEventSummernote']) !!}
+                                {{--{!! Form::textarea('title', null, ['class'=>'form-control', 'rows'=>3,--}}
+                                    {{--'placeholder'=>'Title', 'id'=>'newEventSummernote']) !!}--}}
 
                                 {{--<textarea class="input-block-level" id="summernote" name="content" rows="18">--}}
 					            {{--</textarea>--}}
@@ -102,7 +103,7 @@
 
 @section('myScript')
 
-    @include('includes.myScript.summernote')
+    {{--@include('includes.myScript.summernote')--}}
 
     <script>
 
@@ -195,8 +196,8 @@
                     url: url,
                     data: {
                         title: $('#title').val(),
-                       // content: $('#content').val(),
-                        content: $('#summernote').summernote
+                        content: $('#content').val(),
+                    //  content: $('#summernote').summernote,
                         time: $('#time').val(),
                         _token: token,
                         id: eventId
@@ -264,9 +265,10 @@
             });
 
 
-            $('#newEventSummernote').summernote({
-                height: "500px"
-            });
+//            $('#newEventSummernote').summernote({
+//                height: "500px"
+//            });
+
 //            var postForm = function() {
 //                var content = $('textarea[name="content"]').html($('#summernote').code());
 //            }

@@ -2,9 +2,7 @@
 
 insert into options (id, option, section, description, value, created_at, updated_at) VALUES (1, 'GLOBAL', 'PATH', 'Root URL to access the asset at public folder', 'http://loremispum.app:88/', NOW(), NOW());
 
-insert into options (id, option, section, description, value, created_at, updated_at) VALUES (1, 'GLOBAL', 'PATH', 'Root URL to access the asset at public folder', 'http://loremispum.app/', NOW(), NOW());
-
-INSERT INTO laravel_loremispum.users (name, email, password, remember_token, created_at, updated_at) VALUES ('Ardit', 'ardit@gmail.com', '$2y$10$j8Vj1Yg9CfbVQZtjyXBjMOdSx35pDCQH9gEg7bJ..cm2GL86lK7wG', 'a1zkl1q0jHi2draDDoZQQ0Qp1rTBTyA6DzXiNQ172f7tHkBoq4124zvDrDYS', '2016-06-11 20:32:38', '2016-06-11 21:57:02');
+INSERT INTO users (role_id, first_name, last_name, email, phone, password, remember_token, created_at, updated_at) VALUES (1, 'Ardit', 'Azo', 'ardit@gmail.com', '123456789', '$2y$10$j8Vj1Yg9CfbVQZtjyXBjMOdSx35pDCQH9gEg7bJ..cm2GL86lK7wG', 'a1zkl1q0jHi2draDDoZQQ0Qp1rTBTyA6DzXiNQ172f7tHkBoq4124zvDrDYS', '2016-06-11 20:32:38', '2016-06-11 21:57:02');
 
 insert into domains(des_dom, description, value) VALUES ('cities', 'New York', 'NY');
 insert into domains(des_dom, description, value) VALUES ('cities', 'Los Angeles', 'LA');
@@ -48,3 +46,6 @@ insert into domains(des_dom, description, value) VALUES ('gender', 'Female', 'FE
 select * from events;
 
 INSERT INTO events (title, content, start_time, end_time, created_at, updated_at) VALUES ('Test', 'Some nice test here', '2016-06-13 20:12:41', '2016-06-13 22:11:41', NOW(), NOW());
+
+INSERT INTO roles(status, created_at, updated_at) VALUES ('Administrator', now(), now());
+INSERT INTO roles(status, created_at, updated_at) VALUES ('Dentist', now(), now());
