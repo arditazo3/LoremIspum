@@ -5,6 +5,7 @@
 
 @section('myCSS')
     @include('includes.myCSS.toastr')
+    @include('includes.myCSS.datatablesCSS')
 @endsection
 
 @section('content')
@@ -264,8 +265,12 @@
                            id="tableAllPatients">
                         <thead>
                         <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
+                            <th>ID</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Company name</th>
+                            <th>Address</th>
+                            <th>City</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -290,11 +295,13 @@
 
     @include('includes.myScript.toastr')
     @include('includes.myScript.jquery_validate')
+    @include('includes.myScript.datatablesJS')
 
 <script>
 
     $(document).ready(function () {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        var allPatientsDataGlob = '';
 
         // Create Patient open list of patient when button is clicked
         $('#searchPatientsModal').click(function () {
@@ -316,7 +323,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                     console.log(data);
-                    // $(this).attr("data-all-patients", data);
+                    allPatientsDataGlob = data;
                     cicleDataPatientsAjax(data);
                 },
                 error: function () {
@@ -354,20 +361,61 @@
             });
         });
 
+        var tableAllPatientsGlob = '';
+
+        // load the data to table
         function cicleDataPatientsAjax(data) {
 
+            tableAllPatientsGlob =
             $('#tableAllPatients').DataTable( {
                 processing: true,
                 serverSide: true,
                 ajax: '{{ \App\Option::findOrFail(1)->value }}allPatientsAjax',
                 columns: [
+                    { data: 'id_patient', name: 'id_patient' },
                     { data: 'first_name', name: 'first_name' },
-                    { data: 'last_name', name: 'last_name' }
+                    { data: 'last_name', name: 'last_name' },
+                    { data: 'company_name', name: 'company_name' },
+                    { data: 'address', name: 'address' },
+                    { data: 'city', name: 'city' },
                 ]
             } );
         }
 
+        $('#tableAllPatients tbody').on( 'dblclick', 'tr', function () {
+            var table = $('#tableAllPatients').DataTable();
+
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+
+                $.each($("#tableAllPatients tr.selected"),function(){
+                    id = $(this).find('td').eq(0).text();
+                    $('#searchModal').modal('hide');
+
+                    formFillUpAllFields(id, allPatientsDataGlob);
+                });
+            //    console.log(id);
+            }
+        });
+
     });
+
+    function formFillUpAllFields(id, allPatientData) {
+
+        var listPatientData = allPatientData.data;
+
+        $.each(listPatientData, function( key, value ) {
+            if (value.id_patient === id) {
+                console.log(value);
+
+                $('#first_name').val( value.first_name );
+            }
+        });
+    }
 
 </script>
 

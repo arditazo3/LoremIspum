@@ -30,7 +30,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                             <span>
-                                <img alt="image" class="img-circle" src="{{ $website }}img/myAvatar.png" width="70"/>
+                                <img alt="image" class="img-circle" src="{{ Auth::user()->image ? ($website . Auth::user()->image->path) : ($website . 'img/user-no_photo.png')}}" width="70"/>
                             </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">

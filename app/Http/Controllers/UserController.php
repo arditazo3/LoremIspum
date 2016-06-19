@@ -18,14 +18,17 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        $rootUrl = Option::findOrFail(1)->value;
+        $website = Option::findOrFail(1)->value;
 
-        return view('webapp-layouts.my_account.my_profile', compact(['user', 'rootUrl']));
+        return view('webapp-layouts.my_account.my_profile', compact(['user', 'website']));
     }
 
     public function showContacts() {
 
-        return view('webapp-layouts.my_account.contacts');
+        $website = Option::findOrFail(1)->value;
+        $users = User::all();
+
+        return view('webapp-layouts.my_account.contacts', compact(['users', 'website']));
     }
 
     public function showMailbox() {

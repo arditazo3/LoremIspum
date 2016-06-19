@@ -134,8 +134,8 @@ class PatientController extends Controller
 
     public function allPatientsAjax(Request $request) {
 
+        $test = Datatables::eloquent(Patient::query())->make(true);
 
-        // Using Eloquent
         return Datatables::eloquent(Patient::query())->make(true);
     }
 
