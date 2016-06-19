@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class CalendarController extends Controller
 {
@@ -183,13 +184,6 @@ class CalendarController extends Controller
     }
 
     public function createEventAjax(Request $request) {
-
-        // Validation
-        $this->validate($request, [
-            'title'	=> 'required|min:5|max:50',
-            'content' => 'required|min:5|max:100',
-            'time'	=> 'required'
-        ]);
 
         $inputs = $request->all();
 

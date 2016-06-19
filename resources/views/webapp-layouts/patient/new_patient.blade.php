@@ -3,13 +3,17 @@
      'activeOpen'=> 'PatientPanel', 'activeOpenSub'=> 'NewPatient',
      'website'=>\App\Option::findOrFail(1)->value])
 
+@section('myCSS')
+    @include('includes.myCSS.toastr')
+@endsection
 
 @section('content')
 
     <div class="row">
         <div class="col-lg-12">
             {{--START FORM--}}
-            {!! Form::open(['method'=>'POST', 'action'=>'PatientController@store', 'role'=>'form', 'files'=>true]) !!}
+            {!! Form::open(['method'=>'POST', 'action'=>'PatientController@store', 'role'=>'form',
+                'id'=>'formSaveNewPatient', 'files'=>true]) !!}
 
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -22,7 +26,7 @@
                             <i class="fa fa-search"></i> Search
                         </button>
 
-                        {!! Form::submit('Save patient', ['class'=>'btn btn-primary btn-sm']) !!}
+                        {!! Form::submit('Save patient', ['class'=>'btn btn-primary btn-sm', 'id'=>'btnSavePatientForm']) !!}
 
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -81,13 +85,13 @@
                         <div class="col-sm-3 b-r">
                             <div class="form-group ">
                                 {!! Form::label('nation', 'Country', ['class'=>'control-label']) !!}
-                                {!! Form::select('nation', ['0'=>'Select a nation...'] + $countries, null, ['class'=>'form-control']) !!}
+                                {!! Form::select('nation', [''=>'Select a nation...'] + $countries, null, ['class'=>'form-control']) !!}
                                 @include('includes.form-error-specify', ['field'=>'nation', 'typeAlert'=>'danger'])
                             </div>
 
                             <div class="form-group ">
                                 {!! Form::label('city', 'City', ['class'=>'control-label']) !!}
-                                {!! Form::select('city', ['0'=>'Select a city...'] + $cities, null, ['class'=>'form-control']) !!}
+                                {!! Form::select('city', [''=>'Select a city...'] + $cities, null, ['class'=>'form-control']) !!}
                                 @include('includes.form-error-specify', ['field'=>'city', 'typeAlert'=>'danger'])
                             </div>
 
@@ -197,8 +201,8 @@
                                                 <div class="input-group m-b"><span class="input-group-addon"><i
                                                                 class="fa fa-envelope"></i></span>
                                                     {!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Email']) !!}
-                                                    {{--<input type="email" name="email" id="email" class="form-control" placeholder="Email">--}}
                                                 </div>
+                                                @include('includes.form-error-specify', ['field'=>'email', 'typeAlert'=>'danger'])
                                             </div>
                                         </div>
                                         {{--END PERSONAL DATA--}}
@@ -284,6 +288,9 @@
 
 @section('myScript')
 
+    @include('includes.myScript.toastr')
+    @include('includes.myScript.jquery_validate')
+
 <script>
 
     $(document).ready(function () {
@@ -317,6 +324,33 @@
                     console.log('CSRF_TOKEN' + CSRF_TOKEN);
                 },
 
+            });
+        });
+        
+        $('#btnSavePatientForm').on('click', function () {
+            $('#formSaveNewPatient').validate({
+                rules: {
+                    first_name: {
+                        required: true
+                    },
+                    last_name: {
+                        required: true
+                    },
+                    address: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    }
+                },
+
+                messages: {
+                    first_name: "Please enter the first name",
+                    last_name: "Please enter the last name",
+                    address: "Please enter the address",
+                    email: "Please enter the email"
+                }
             });
         });
 

@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    {{--EDIT MODEL--}}
+    {{-- EDIT MODAL --}}
     <div class="modal inmodal fade" id="calendarModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -50,7 +50,7 @@
                                 aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title pull-left">Update event</h4>
                 </div>
-                <form id="updateEventForm">
+                <form id="formCreateUpdateEvent">
                     <div class="modal-body">
 
                         <div class="row" id="rowUpdateModalDataAtr" data-eventId="">
@@ -58,21 +58,14 @@
                             <div class="form-group ">
                                 {!! Form::label('title', 'Title', ['class'=>'control-label']) !!}
                                 {!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title']) !!}
-                                @include('includes.form-error-specify', ['field'=>'name', 'typeAlert'=>'danger'])
+                                @include('includes.form-error-specify', ['field'=>'title', 'typeAlert'=>'danger'])
                             </div>
 
                             <div class="form-group ">
                                 {!! Form::label('content', 'Content', ['class'=>'control-label']) !!}
                                 {!! Form::textarea('content', null, ['class'=>'form-control',
                                     'rows'=>'3', 'placeholder'=>'Put the content here...']) !!}
-
-                                {{--{!! Form::textarea('title', null, ['class'=>'form-control', 'rows'=>3,--}}
-                                    {{--'placeholder'=>'Title', 'id'=>'newEventSummernote']) !!}--}}
-
-                                {{--<textarea class="input-block-level" id="summernote" name="content" rows="18">--}}
-					            {{--</textarea>--}}
-
-                                @include('includes.form-error-specify', ['field'=>'title', 'typeAlert'=>'danger'])
+                                @include('includes.form-error-specify', ['field'=>'content', 'typeAlert'=>'danger'])
                             </div>
 
                             <div class="form-group ">
@@ -83,17 +76,19 @@
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                                 </div>
+                                @include('includes.form-error-specify', ['field'=>'time', 'typeAlert'=>'danger'])
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info btn-sm" id="btnCreateEvent">Create event</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnDeleteEvent">Delete event</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="btnUpdateEvent">Update event</button>
+                        <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+                    </div>
                 </form>
                 {{--END FORM--}}
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info btn-sm" id="btnCreateEvent">Create event</button>
-                    <button type="button" class="btn btn-danger btn-sm" id="btnDeleteEvent">Delete event</button>
-                    <button type="button" class="btn btn-primary btn-sm" id="btnUpdateEvent">Update event</button>
-                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
     </div>
@@ -103,7 +98,7 @@
 
 @section('myScript')
 
-    {{--@include('includes.myScript.summernote')--}}
+    @include('includes.myScript.jquery_validate')
 
     <script>
 
@@ -189,6 +184,8 @@
 
             $('#btnUpdateEvent').click(function () {
 
+                var validate = formValidation();
+
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
 
                 $.ajax({
@@ -247,33 +244,52 @@
 
             $('#btnCreateEvent').click(function () {
 
-                $.ajax({
-                    method: 'POST',
-                    url: urlCreateEvent,
-                    data: {
-                        title: $('#title').val(),
-                        content: $('#content').val(),
-                        time: $('#time').val(),
-                        _token: token
-                    }
-                })
-                    .done(function (msg) {
-                        $('#calendarModal').modal('hide');
-                        $('#calendar').fullCalendar('refetchEvents');
-                        console.log(JSON.stringify(msg));
+                var validate = formValidation();
+
+                if (validate.errorList.length == 0) {
+                    $.ajax({
+                            method: 'POST',
+                            url: urlCreateEvent,
+                            data: {
+                                title: $('#title').val(),
+                                content: $('#content').val(),
+                                time: $('#time').val(),
+                                _token: token
+                            }
+                        })
+                        .done(function (msg) {
+                            $('#calendarModal').modal('hide');
+                            $('#calendar').fullCalendar('refetchEvents');
+                            console.log(JSON.stringify(msg));
                     });
+                }
+
             });
 
-
-//            $('#newEventSummernote').summernote({
-//                height: "500px"
-//            });
-
-//            var postForm = function() {
-//                var content = $('textarea[name="content"]').html($('#summernote').code());
-//            }
-
         });
+
+        function formValidation() {
+
+          return $('#formCreateUpdateEvent').validate({
+                rules: {
+                    title: {
+                        required: true
+                    },
+                    content: {
+                        required: true
+                    },
+                    time: {
+                        required: true
+                    }
+                },
+
+                messages: {
+                    title: "Please enter the title",
+                    content: "Please enter the content",
+                    time: "Please enter the time"
+                }
+            });
+        }
 
     </script>
 

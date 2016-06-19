@@ -29,14 +29,14 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
+    public function image() {
+        return $this->belongsTo('App\Image');
+    }
+
     public function isAdmin() {
         if($this->role->status == 'Administrator') {
             return true;
         }
         return false;
-    }
-
-    public function profileImage() {
-        return $this->belongsTo('App\Image');
     }
 }

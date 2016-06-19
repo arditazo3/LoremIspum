@@ -64,10 +64,7 @@ Route::group(['middleware'=>'admin'], function () {
     /*
      * GET ALL PATIENTS, AJAX REQUEST
      */
-    Route::get('allPatientsAjax', [
-        'uses' => 'PatientController@allPatientsAjax',
-        'as'   => 'allPatientsAjax'
-    ]);
+    Route::get('allPatientsAjax', ['uses' => 'PatientController@allPatientsAjax', 'as'   => 'allPatientsAjax' ]);
 
     Route::get('/calendarAjax', function () {
         $events = DB::table('events')->select('id', 'title', 'content', 'start_time as start', 'end_time as end')->get();
@@ -86,20 +83,11 @@ Route::group(['middleware'=>'admin'], function () {
     });
 
 
-    Route::post('api/updateEventAjax', [
-        'uses' => 'CalendarController@updateEventAjax',
-        'as'   => 'api/updateEventAjax'
-    ]);
+    Route::post('api/updateEventAjax', ['uses' => 'CalendarController@updateEventAjax', 'as'   => 'api/updateEventAjax' ]);
 
-    Route::post('api/deleteEventAjax', [
-        'uses' => 'CalendarController@deleteEventAjax',
-        'as'   => 'api/deleteEventAjax'
-    ]);
+    Route::post('api/deleteEventAjax', ['uses' => 'CalendarController@deleteEventAjax', 'as'   => 'api/deleteEventAjax' ]);
 
-    Route::post('api/createEventAjax', [
-        'uses' => 'CalendarController@createEventAjax',
-        'as'   => 'api/createEventAjax'
-    ]);
+    Route::post('api/createEventAjax', ['uses' => 'CalendarController@createEventAjax', 'as'   => 'api/createEventAjax' ]);
 
 });
 

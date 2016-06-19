@@ -29,6 +29,7 @@ class NewPatientRequest extends Request
             'address'=>'required',
             'nation'=>'required',
             'city'=>'required',
+            'email'=>'required|email',
         ];
     }
 }

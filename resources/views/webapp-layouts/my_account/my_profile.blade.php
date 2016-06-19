@@ -3,13 +3,17 @@
      'activeOpen'=> 'MyAccountPanel', 'activeOpenSub'=> 'MyProfile',
      'website'=>$rootUrl])
 
+@section('myCSS')
+    @include('includes.myCSS.toastr')
+@endsection
 
 @section('content')
 
     <div class="row">
         <div class="col-lg-12">
             {{--START FORM--}}
-            {!! Form::open(['method'=>'POST', 'action'=>'UserController@updateProfile']) !!}
+            {!! Form::open(['method'=>'POST', 'action'=>'UserController@updateProfile',
+                    'files'=>true, 'id'=>'formUpdateProfile']) !!}
 
             <div class="ibox float-e-margins">
 
@@ -17,9 +21,9 @@
                     <h5>My profile information</h5>
                     <div class="ibox-tools">
 
-                        <button type="button" class="btn btn-primary btn-sm" id="editUserProfileData">
-                            <i class="fa fa-edit"></i> Edit
-                        </button>
+                        <button type="button" class="btn btn-info btn-sm" id="btnEditUserProfileData"><i class="fa fa-edit"></i> Edit</button>
+
+                        {!! Form::submit('Save edit', ['class'=>'btn btn-primary btn-sm', 'id'=>'btnSaveEditUser']) !!}
 
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -38,7 +42,7 @@
                         <div class="col-sm-4 b-r">
 
                             <div id="defaultProfilePicture">
-                                <img src="{{ $user->profileImage ? $user->profileImage->path : ($rootUrl . '/img/user-no_photo.png')}}"
+                                <img src="{{ $user->image ? ($rootUrl . $user->image->path) : ($rootUrl . 'img/user-no_photo.png')}}"
                                      class="img-responsive" alt=""
                                      style="max-width: 200px; max-height: 150px;">
 
@@ -61,7 +65,7 @@
                                 <div>
                                     <span class="btn btn-w-m btn-info btn-sm btn-file"><span
                                                 class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input
-                                                type="file" name="..."></span>
+                                                type="file" name="file"></span>
                                     <a href="#" class="btn btn-w-m btn-danger btn-sm fileinput-exists"
                                        data-dismiss="fileinput">Remove</a>
 
@@ -109,8 +113,14 @@
 
                             <div class="form-group ">
                                 {!! Form::label('password', 'Password', ['class'=>'control-label']) !!}
-                                {!! Form::text('password', null, ['class'=>'form-control', 'placeholder'=>'Change the password']) !!}
+                                {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Change the password']) !!}
                                 @include('includes.form-error-specify', ['field'=>'password', 'typeAlert'=>'danger'])
+                            </div>
+
+                            <div class="form-group " id="divComfirmPassword">
+                                {!! Form::label('confirm_password', 'Confirm Password', ['class'=>'control-label']) !!}
+                                {!! Form::password('confirm_password', ['class'=>'form-control', 'placeholder'=>'Confirm Password']) !!}
+                                @include('includes.form-error-specify', ['field'=>'confirm_password', 'typeAlert'=>'danger'])
                             </div>
 
                         </div>
@@ -128,26 +138,9 @@
 
 @section('myScript')
 
-    <script>
+    @include('includes.myScript.toastr')
+    @include('includes.myScript.jquery_validate')
 
-        $(document).ready(function () {
-
-            var changeProfPicGlob = $('#changeProfilePicture').hide();
-            var defaultProfPicGlob = $('#defaultProfilePicture').show();
-
-            $('#btnChangeProfilePicture').click(function () {
-
-                changeProfPicGlob.show();
-                defaultProfPicGlob.hide();
-            });
-
-            $('#btnBackProfilePicture').click(function () {
-
-                changeProfPicGlob.hide();
-                defaultProfPicGlob.show();
-            });
-        });
-
-    </script>
+    @include('includes.myScript.my_profileJS')
 
 @endsection

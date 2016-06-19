@@ -36,3 +36,9 @@ formpassword
 
 {!! Form::password('password', ['class'=>'xxx', 'placeholder'=>'Password']) !!}
 ------------------
+jQueryOnClickEvent
+
+$('#btnXXX').on('click', function () {
+
+});
+------------------

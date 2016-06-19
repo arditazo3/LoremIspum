@@ -14,4 +14,12 @@ class Patient extends Model
         'personal_phone', 'office_phone', 'email'
     ];
 
+
+    /**
+     * Eloquent will also assume that each table has a primary key column named id.
+     * You may define a $primaryKey property to override this convention.
+     */
+    public $incrementing = false;
+
+    public $primaryKey = 'id_patient';
 }

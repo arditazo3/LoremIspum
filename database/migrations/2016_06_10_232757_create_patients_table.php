@@ -13,7 +13,8 @@ class CreatePatientsTable extends Migration
     public function up()
     {
         Schema::create('patients', function (Blueprint $table) {
-            $table->increments('id_patient');
+            // primary key
+            $table->string('id_patient');
 
             $table->string('proffession', 50);
             $table->string('company_name', 255);

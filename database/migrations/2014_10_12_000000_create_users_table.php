@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
 
             // make query little bit faster, positive no and not null
             // if is 0 the user is not active, if is 1 is active
-
             $table->integer('role_id')->index()->unsigned()->nullable();
             $table->integer('image_id')->index()->unsigned()->nullable();
             $table->integer('is_active')->default(0);
@@ -26,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 200)->unique();
             $table->string('phone', 50);
             $table->string('password', 255);
+            $table->integer('user_update')->unsigned()->default(0);
 
             $table->rememberToken();
             $table->timestamps();
