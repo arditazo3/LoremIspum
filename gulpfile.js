@@ -27,13 +27,14 @@ elixir(function(mix) {
         'libs/datepicker3.css',
 
         // data tables
-        // 'libs/dataTables.bootstrap.css',
-        // 'libs/dataTables.responsive.css',
-        // 'libs/dataTables.tableTools.min.css',
+        'libs/dataTables.bootstrap.css',
+        'libs/dataTables.responsive.css',
+        'libs/dataTables.tableTools.min.css',
 
         // calendar
         'libs/daterangepicker.css',
         'libs/fullcalendar.css',
+     // 'libs/fullcalendar.print.css',
 
         'libs/animate.css',
         'libs/style.css',
@@ -61,10 +62,10 @@ elixir(function(mix) {
         'libs/custom.components.js',
         
         // data tables
-        // 'libs/jquery.dataTables.js',
-        // 'libs/dataTables.bootstrap.js',
-        // 'libs/dataTables.responsive.js',
-        // 'libs/dataTables.tableTools.min.js',
+        'libs/jquery.dataTables.js',
+        'libs/dataTables.bootstrap.js',
+        'libs/dataTables.responsive.js',
+        'libs/dataTables.tableTools.min.js',
 
         // calendar
         'libs/moment.min.js',
