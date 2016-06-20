@@ -49,8 +49,8 @@ class UserController extends Controller
 
         // check if the password field is not set remove it from array
         if($request->password == "") {
-            $inputs = $request->except('password');
             $inputs = $request->except('confirm_password');
+            $inputs = $request->except('password');
         } else {
             $inputs = $request->except('confirm_password');
             $inputs['password'] = bcrypt( $request->password );
