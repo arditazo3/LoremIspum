@@ -102,7 +102,7 @@
 
                         <div class="form-group ">
                             {!! Form::label('address', 'Address', ['class'=>'control-label']) !!}
-                            {!! Form::text('address', $user->address, ['class'=>'form-control', 'placeholder'=>'Address']) !!}
+                            {!! Form::text('address', $user->phone, ['class'=>'form-control', 'placeholder'=>'Address']) !!}
                             @include('includes.form-error-specify', ['field'=>'address', 'typeAlert'=>'danger'])
                         </div>
 
