@@ -65,6 +65,8 @@ class CreatePatientsTable extends Migration
             $table->string('id_dentist', 50); // foreign key
 
             $table->timestamps();
+
+            $table->primary('id_patient');
         });
     }
 

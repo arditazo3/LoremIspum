@@ -32,8 +32,8 @@ elixir(function(mix) {
         // 'libs/dataTables.tableTools.min.css',
 
         // calendar
-        'libs/daterangepicker.css',
-        'libs/fullcalendar.css',
+        // 'libs/daterangepicker.css',
+        // 'libs/fullcalendar.css',
 
         'libs/animate.css',
         'libs/style.css',
@@ -67,9 +67,9 @@ elixir(function(mix) {
         // 'libs/dataTables.tableTools.min.js',
 
         // calendar
-        'libs/moment.min.js',
-        'libs/daterangepicker.js',
-        'libs/fullcalendar.min.js',
+        // 'libs/moment.min.js',
+        // 'libs/daterangepicker.js',
+        // 'libs/fullcalendar.min.js',
 
         'libs/my-script.js',
 

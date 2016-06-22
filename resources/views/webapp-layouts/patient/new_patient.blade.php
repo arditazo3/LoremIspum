@@ -302,21 +302,17 @@
     $(document).ready(function () {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         var allPatientsDataGlob = '';
+        var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
 
         // Create Patient open list of patient when button is clicked
         $('#searchPatientsModal').click(function () {
 
-
-//            $(document).ready(function() {
-//                $('#tableAllPatients').DataTable( {
-//                    "ajax": "http://loremispum.app:88/allPatientsAjax"
-//                } );
-//            } );
-
             // retrive all patients whith AJAX
             $.ajax({
-                url: '{{ \App\Option::findOrFail(1)->value }}allPatientsAjax',
+                url: urlAllPatients,
                 type: 'GET',
+                paging: false,
+                searching: false,
                 data: {
                     _token: CSRF_TOKEN
                 },
@@ -370,7 +366,7 @@
             $('#tableAllPatients').DataTable( {
                 processing: true,
                 serverSide: true,
-                ajax: '{{ \App\Option::findOrFail(1)->value }}allPatientsAjax',
+                ajax: urlAllPatients,
                 columns: [
                     { data: 'id_patient', name: 'id_patient' },
                     { data: 'first_name', name: 'first_name' },

@@ -64,24 +64,16 @@ Route::group(['middleware'=>'admin'], function () {
     /*
      * GET ALL PATIENTS, AJAX REQUEST
      */
-    Route::get('allPatientsAjax', ['uses' => 'PatientController@allPatientsAjax', 'as'   => 'allPatientsAjax' ]);
 
-    Route::get('/calendarAjax', function () {
-        $events = DB::table('events')->select('id', 'title', 'content', 'start_time as start', 'end_time as end')->get();
-        foreach($events as $event)
-        {
+    /**
+     * PATIENT
+     */
+    Route::get('api/allPatientsAjax', ['uses' => 'PatientController@allPatientsAjax', 'as'   => 'api/allPatientsAjax' ]);
 
-            $event->titleModal = $event->title;
-            $event->contentModal = $event->content;
-
-            $event->title = $event->title . ' - ' .$event->content;
-            // manage the modification through AJAX
-            // $event->url = url('#');
-
-        }
-        return $events;
-    });
-
+    /**
+     * CALENDAR
+     */
+    Route::get('api/allEventsAjax', ['uses' => 'CalendarController@allEventsAjax', 'as'   => 'api/allEventsAjax' ]);
 
     Route::post('api/updateEventAjax', ['uses' => 'CalendarController@updateEventAjax', 'as'   => 'api/updateEventAjax' ]);
 

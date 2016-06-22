@@ -4,7 +4,7 @@
      'website'=>\App\Option::findOrFail(1)->value])
 
 @section('myCSS')
-    @include('includes.myCSS.summernote')
+    @include('includes.myCSS.fullcalendarCSS')
 @endsection
 
 @section('content')
@@ -55,6 +55,33 @@
 
                         <div class="row" id="rowUpdateModalDataAtr" data-eventId="">
 
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        {!! Form::label('first_name', 'First name', ['class'=>'control-label']) !!}
+                                        {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'First name', 'disabled']) !!}
+                                        @include('includes.form-error-specify', ['field'=>'first_name', 'typeAlert'=>'danger'])
+                                    </div>
+                                    <div class="col-sm-5">
+                                        {!! Form::label('last_name', 'Last name', ['class'=>'control-label']) !!}
+                                        {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Last name', 'disabled']) !!}
+                                        @include('includes.form-error-specify', ['field'=>'last_name', 'typeAlert'=>'danger'])
+                                    </div>
+
+                                    <input type="hidden" name="id_patient" id="modal_id_patient">
+
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                data-target="#searchModal" data-backdrop="static" data-keyboard="false"
+                                                id="searchPatientsModal" style="margin-top: 25px">
+                                            <i class="fa fa-search"></i> Search
+                                        </button>
+                                    </div>
+
+                                </div>
+                                @include('includes.form-error-specify', ['field'=>'title', 'typeAlert'=>'danger'])
+                            </div>
+
                             <div class="form-group ">
                                 {!! Form::label('title', 'Title', ['class'=>'control-label']) !!}
                                 {!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title']) !!}
@@ -94,10 +121,52 @@
     </div>
     {{--END EDIT MODAL--}}
 
+    {{--SEARCH MODAL--}}
+    <div class="modal inmodal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title pull-left">Search patient</h4>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table table-striped table-bordered table-hover dataTables-example"
+                           id="tableAllPatients">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Company name</th>
+                            <th>Address</th>
+                            <th>City</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--END SEARCH MODAL--}}
+
 @endsection
 
 @section('myScript')
 
+    @include('includes.myScript.datatablesJS')
+    @include('includes.myScript.fullcalendarJS')
+    @include('includes.myScript.toastr')
     @include('includes.myScript.jquery_validate')
 
     <script>
@@ -110,6 +179,9 @@
             var $btnUpdateGlob = $('#btnUpdateEvent').hide();
             var $btnCreateGlob = $('#btnCreateEvent').hide();
 
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var allPatientsDataGlob = '';
+
             $('#calendar').fullCalendar({
                 weekends: true,
                 header: {
@@ -120,12 +192,14 @@
                 editable: false,
                 eventLimit: true, // allow "more" link when too many events
                 events: {
-                    url: base_url + '/calendarAjax',
+                    url: base_url + '/api/allEventsAjax',
                     error: function () {
                         alert("cannot load json");
                     }
                 },
                 eventClick: function (event, jsEvent, view) {
+                    $('#first_name').val(event.first_name);
+                    $('#last_name').val(event.last_name);
                     $('#title').val(event.titleModal);
                     $('#content').val(event.contentModal);
 
@@ -177,9 +251,10 @@
              * update/delete/create event with AJAX
              **/
             var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
-            var url = '{{ route('api/updateEventAjax') }}';
+            var urlUpdateEvent = '{{ route('api/updateEventAjax') }}';
             var urlDeleteEvent = '{{ route('api/deleteEventAjax') }}';
             var urlCreateEvent = '{{ route('api/createEventAjax') }}';
+            var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
 
 
             $('#btnUpdateEvent').click(function () {
@@ -190,11 +265,10 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: url,
+                    url: urlUpdateEvent,
                     data: {
                         title: $('#title').val(),
                         content: $('#content').val(),
-                    //  content: $('#summernote').summernote,
                         time: $('#time').val(),
                         _token: token,
                         id: eventId
@@ -230,6 +304,8 @@
             // Hide update and delete button and open modal
             $('#btnOpenCreateEventModal').click(function () {
 
+                $('#first_name').val('');
+                $('#last_name').val('');
                 $('#title').val('');
                 $('#content').val('');
                 $('#time').val('{{ old('time') }}');
@@ -254,6 +330,7 @@
                                 title: $('#title').val(),
                                 content: $('#content').val(),
                                 time: $('#time').val(),
+                                id_patient: $('#modal_id_patient').val(),
                                 _token: token
                             }
                         })
@@ -265,6 +342,53 @@
                 }
 
             });
+
+            // Create Patient open list of patient when button is clicked
+            $('#searchPatientsModal').click(function () {
+
+                // retrive all patients whith AJAX
+                $.ajax({
+                    url: urlAllPatients,
+                    type: 'GET',
+                    paging: false,
+                    searching: false,
+                    data: {
+                        _token: CSRF_TOKEN
+                    },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data);
+                        allPatientsDataGlob = data;
+                        cicleDataPatientsAjax(data);
+                    },
+                    error: function () {
+                        console.log('Error' + urlAllPatients);
+                        console.log('CSRF_TOKEN' + CSRF_TOKEN);
+                    },
+
+                });
+            });
+
+            $('#tableAllPatients tbody').on( 'dblclick', 'tr', function () {
+                var table = $('#tableAllPatients').DataTable();
+
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+
+                    $.each($("#tableAllPatients tr.selected"),function(){
+                        id = $(this).find('td').eq(0).text();
+                        $('#searchModal').modal('hide');
+
+                        formFillUpAllFields(id, allPatientsDataGlob);
+                    });
+                    //    console.log(id);
+                }
+            });
+
 
         });
 
@@ -287,6 +411,40 @@
                     title: "Please enter the title",
                     content: "Please enter the content",
                     time: "Please enter the time"
+                }
+            });
+        }
+
+        // load the data to table
+        function cicleDataPatientsAjax(data) {
+
+            tableAllPatientsGlob =
+                    $('#tableAllPatients').DataTable( {
+                        processing: true,
+                        serverSide: true,
+                        ajax: '{{ \App\Option::findOrFail(1)->value }}api/allPatientsAjax',
+                        columns: [
+                            { data: 'id_patient', name: 'id_patient' },
+                            { data: 'first_name', name: 'first_name' },
+                            { data: 'last_name', name: 'last_name' },
+                            { data: 'company_name', name: 'company_name' },
+                            { data: 'address', name: 'address' },
+                            { data: 'city', name: 'city' },
+                        ]
+                    } );
+        }
+
+        function formFillUpAllFields(id, allPatientData) {
+
+            var listPatientData = allPatientData.data;
+
+            $.each(listPatientData, function( key, value ) {
+                if (value.id_patient === id) {
+                    console.log(value);
+
+                    $('#first_name').val( value.first_name );
+                    $('#last_name').val( value.last_name );
+                    $('#modal_id_patient').val( value.id_patient );
                 }
             });
         }
