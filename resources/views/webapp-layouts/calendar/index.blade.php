@@ -255,6 +255,7 @@
             var urlDeleteEvent = '{{ route('api/deleteEventAjax') }}';
             var urlCreateEvent = '{{ route('api/createEventAjax') }}';
             var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
+            var allPatientsDataGlob = '';
 
 
             $('#btnUpdateEvent').click(function () {
@@ -419,19 +420,19 @@
         function cicleDataPatientsAjax(data) {
 
             tableAllPatientsGlob =
-                    $('#tableAllPatients').DataTable( {
-                        processing: true,
-                        serverSide: true,
-                        ajax: '{{ \App\Option::findOrFail(1)->value }}api/allPatientsAjax',
-                        columns: [
-                            { data: 'id_patient', name: 'id_patient' },
-                            { data: 'first_name', name: 'first_name' },
-                            { data: 'last_name', name: 'last_name' },
-                            { data: 'company_name', name: 'company_name' },
-                            { data: 'address', name: 'address' },
-                            { data: 'city', name: 'city' },
-                        ]
-                    } );
+                $('#tableAllPatients').DataTable( {
+                    processing: true,
+                    serverSide: true,
+                    ajax: '{{ \App\Option::findOrFail(1)->value }}api/allPatientsAjax',
+                    columns: [
+                        { data: 'id_patient', name: 'id_patient' },
+                        { data: 'first_name', name: 'first_name' },
+                        { data: 'last_name', name: 'last_name' },
+                        { data: 'company_name', name: 'company_name' },
+                        { data: 'address', name: 'address' },
+                        { data: 'city', name: 'city' },
+                    ]
+                });
         }
 
         function formFillUpAllFields(id, allPatientData) {
