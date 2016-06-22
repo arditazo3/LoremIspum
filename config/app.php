@@ -161,7 +161,10 @@ return [
         
         /** Laravel Datatables */
         Yajra\Datatables\DatatablesServiceProvider::class,
-
+		
+		/** PHP Autocomplete */
+		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+		
     ],
 
     /*
