@@ -71,6 +71,11 @@ Route::group(['middleware'=>'admin'], function () {
     Route::get('api/allPatientsAjax', ['uses' => 'PatientController@allPatientsAjax', 'as'   => 'api/allPatientsAjax' ]);
 
     /**
+    * User
+    */
+    Route::post('api/getPathProfilePicAjax', ['uses' => 'UserController@getPathProfilePicAjax', 'as'   => 'api/getPathProfilePicAjax' ]);
+
+    /**
      * CALENDAR
      */
     Route::get('api/allEventsAjax', ['uses' => 'CalendarController@allEventsAjax', 'as'   => 'api/allEventsAjax' ]);

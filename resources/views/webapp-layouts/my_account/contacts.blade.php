@@ -11,7 +11,8 @@
 
             <div class="col-lg-4">
                 <div class="contact-box">
-                    <a href="{{ $user->id }}">
+                    {{-- WE PUT THE OBJECT HERE AND RETRIEVE IT AFTER CLICK --}}
+                    <a href="{{ $user }}">
                         <div class="col-sm-4">
                             <div class="text-center">
                                 <img alt="image" class="img-circle m-t-xs img-responsive"
@@ -41,17 +42,17 @@
     </div>
 
 
-    <div class="modal inmodal fade" id="calendarModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal inmodal fade" id="modalUserProfile" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span
                                 aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title pull-left">Update event</h4>
+                    <h4 class="modal-title pull-left">Update profile</h4>
                 </div>
 
-            <!--PUT THE NICE FORM HERE-->
-            @include('webapp-layouts.my_account.form_user')
+                <!--PUT THE NICE FORM HERE-->
+                @include('webapp-layouts.my_account.form_user', ['user'=>$user])
 
             </div>
         </div>
@@ -62,16 +63,56 @@
 
 @section('myScript')
 
+    @include('includes.myScript.my_profileJS')
+
     <script>
+
+        var getPathProfilePicAjax = '{{ route('api/getPathProfilePicAjax') }}';
+        var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
 
         $(document).ready(function () {
 
             $('.row').on('click', 'a', function (e) {
                 e.preventDefault();
                 console.log($(this).attr('href'));
+
+                var user = JSON.parse($(this).attr('href'));
+                setProfilePicture(user["image_id"], user);
+
             });
 
         });
+
+        function setProfilePicture(idImange, user) {
+
+            var getProfilePicPath = '';
+
+            $.ajax({
+                method: 'POST',
+                url: getPathProfilePicAjax,
+                data: {
+                    image_id: idImange,
+                    _token: token
+                }
+            })
+            .done(function (msg) {
+                console.log("Test");
+                console.log(JSON.stringify(msg));
+                getProfilePicPath = msg;
+
+                var imagePath = "{{ $website }}" + getProfilePicPath['image_id'];
+
+                $('#first_name').val(user["first_name"]);
+                $('#last_name').val(user["last_name"]);
+                $('#email').val(user["email"]);
+                $('#phone').val(user["phone"]);
+                $('#address').val(user["address"]);
+                $('#defaultProfilePicture img').attr("src", imagePath);
+
+                $('#modalUserProfile').modal({backdrop: 'static', keyboard: false});
+            });
+
+        }
 
     </script>
 

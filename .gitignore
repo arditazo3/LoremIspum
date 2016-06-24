@@ -5,3 +5,7 @@
 Homestead.yaml
 Homestead.json
 .env
+.idea
+.idea/dataSources.local.xml
+.idea/workspace.xml
+resources/views/vendor/datatables/

@@ -26,7 +26,9 @@ class UserController extends Controller
     public function showContacts() {
 
         $website = Option::findOrFail(1)->value;
-        $users = User::all();
+
+        $users = User::orderBy('first_name', 'asc')->get();
+     // $users = User::all();
 
         return view('webapp-layouts.my_account.contacts', compact(['users', 'website']));
     }
@@ -83,6 +85,23 @@ class UserController extends Controller
 
 
         return redirect('admin');
+    }
+    
+    public function getPathProfilePicAjax(Request $request) {
+        
+        $inputs = $request->all();
+
+        $idImage = $inputs['image_id'];
+
+        try {
+            $imagePath = Image::findOrFail($idImage)->path;
+
+            return response()->json(['image_id'=> $imagePath, 200]);
+        } catch(\Exception $e)  {
+
+            return response()->json(['image_id'=> 'img/user-no_photo.png', 200]);
+        }
+
     }
 
 }
