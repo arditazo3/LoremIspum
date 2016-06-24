@@ -17,6 +17,7 @@ class CreateEventsTable extends Migration
             $table->string('id_patient');
             $table->string('title', 250);
             $table->text('content');
+            $table->string('backgroundColor.');
             $table->timestamp('start_time');
             $table->timestamp('end_time');
             $table->timestamps();

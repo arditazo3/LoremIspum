@@ -255,8 +255,6 @@
             var urlDeleteEvent = '{{ route('api/deleteEventAjax') }}';
             var urlCreateEvent = '{{ route('api/createEventAjax') }}';
             var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
-            var allPatientsDataGlob = '';
-
 
             $('#btnUpdateEvent').click(function () {
 
@@ -347,27 +345,29 @@
             // Create Patient open list of patient when button is clicked
             $('#searchPatientsModal').click(function () {
 
-                // retrive all patients whith AJAX
-                $.ajax({
-                    url: urlAllPatients,
-                    type: 'GET',
-                    paging: false,
-                    searching: false,
-                    data: {
-                        _token: CSRF_TOKEN
-                    },
-                    dataType: 'JSON',
-                    success: function (data) {
-                        console.log(data);
-                        allPatientsDataGlob = data;
-                        cicleDataPatientsAjax(data);
-                    },
-                    error: function () {
-                        console.log('Error' + urlAllPatients);
-                        console.log('CSRF_TOKEN' + CSRF_TOKEN);
-                    },
+                if (allPatientsDataGlob == '') {
+                    // retrive all patients whith AJAX
+                    $.ajax({
+                        url: urlAllPatients,
+                        type: 'GET',
+                        paging: false,
+                        searching: false,
+                        data: {
+                            _token: CSRF_TOKEN
+                        },
+                        dataType: 'JSON',
+                        success: function (data) {
+                            console.log(data);
+                            allPatientsDataGlob = data;
+                            cicleDataPatientsAjax(data);
+                        },
+                        error: function () {
+                            console.log('Error' + urlAllPatients);
+                            console.log('CSRF_TOKEN' + CSRF_TOKEN);
+                        },
 
-                });
+                    });
+                }
             });
 
             $('#tableAllPatients tbody').on( 'dblclick', 'tr', function () {

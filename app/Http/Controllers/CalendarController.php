@@ -131,15 +131,12 @@ class CalendarController extends Controller
 
     public function allEventsAjax(Request $request) {
 
-        $colors = ['#f16932', '#eb7f33', '#83adb5', '#006666', '#ff7d7d', '#ddb435'];
-
-        $events = DB::table('events')->select('id', 'id_patient', 'title', 'content', 'start_time as start', 'end_time as end')->get();
+        $events = DB::table('events')->select('id', 'id_patient', 'title', 'content', 'backgroundColor', 'start_time as start', 'end_time as end')->get();
         foreach($events as $event)
         {
 
             $event->titleModal = $event->title;
             $event->contentModal = $event->content;
-
 
             /**
              * IMPORTANT: THIS IS NOT A ELOQUENT OBJECT, DOESNT HAVE THE ABILITY
@@ -154,7 +151,6 @@ class CalendarController extends Controller
             $event->last_name = Patient::findOrFail($event->id_patient)->last_name;
 
             $event->title = $event->title . ' - ' .$event->content;
-            $event->backgroundColor = $colors[ random_int( 0, 5) ];
 
         }
 
@@ -219,12 +215,16 @@ class CalendarController extends Controller
 
     public function createEventAjax(Request $request) {
 
+        $colors = ['#f16932', '#eb7f33', '#83adb5', '#006666', '#ff7d7d', '#ddb435'];
+
         $inputs = $request->all();
 
         $time = explode(" - ", $request->input('time'));
 
         $inputs['start_time'] = $this->change_date_format($time[0]);
         $inputs['end_time'] = $this->change_date_format($time[1]);
+        $inputs['backgroundColor'] = $colors[ random_int( 0, 5) ];
+
 
         Event::create($inputs);
 

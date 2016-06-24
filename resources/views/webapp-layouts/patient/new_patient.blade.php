@@ -308,26 +308,28 @@
         $('#searchPatientsModal').click(function () {
 
             // retrive all patients whith AJAX
-            $.ajax({
-                url: urlAllPatients,
-                type: 'GET',
-                paging: false,
-                searching: false,
-                data: {
-                    _token: CSRF_TOKEN
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    console.log(data);
-                    allPatientsDataGlob = data;
-                    cicleDataPatientsAjax(data);
-                },
-                error: function () {
-                    console.log('Error' + url);
-                    console.log('CSRF_TOKEN' + CSRF_TOKEN);
-                },
+            if (allPatientsDataGlob == '') {
+                $.ajax({
+                    url: urlAllPatients,
+                    type: 'GET',
+                    paging: false,
+                    searching: false,
+                    data: {
+                        _token: CSRF_TOKEN
+                    },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data);
+                        allPatientsDataGlob = data;
+                        cicleDataPatientsAjax(data);
+                    },
+                    error: function () {
+                        console.log('Error' + url);
+                        console.log('CSRF_TOKEN' + CSRF_TOKEN);
+                    },
 
-            });
+                });
+            }
         });
         
         $('#btnSavePatientForm').on('click', function () {
