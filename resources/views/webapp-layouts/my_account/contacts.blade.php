@@ -76,6 +76,7 @@
 
             $('.row').on('click', 'a', function (e) {
                 e.preventDefault();
+
                 console.log($(this).attr('href'));
 
                 var user = JSON.parse($(this).attr('href'));

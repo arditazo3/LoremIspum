@@ -8,4 +8,6 @@ Homestead.json
 .idea
 .idea/dataSources.local.xml
 .idea/workspace.xml
+.idea/dataSources.ids
+.idea/dataSources.xml
 resources/views/vendor/datatables/

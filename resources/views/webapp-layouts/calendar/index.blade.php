@@ -5,6 +5,7 @@
 
 @section('myCSS')
     @include('includes.myCSS.fullcalendarCSS')
+    @include('includes.myCSS.sweetalertCSS')
 @endsection
 
 @section('content')
@@ -160,6 +161,8 @@
     </div>
     {{--END SEARCH MODAL--}}
 
+    @include('includes.myPieces.modal.modal_notification_msg', ['typeMsg'=>'danger'])
+
 @endsection
 
 @section('myScript')
@@ -168,6 +171,7 @@
     @include('includes.myScript.fullcalendarJS')
     @include('includes.myScript.toastr')
     @include('includes.myScript.jquery_validate')
+    @include('includes.myScript.sweetalertJS')
 
     <script>
 
@@ -202,6 +206,7 @@
                     $('#last_name').val(event.last_name);
                     $('#title').val(event.titleModal);
                     $('#content').val(event.contentModal);
+                    $('#modal_id_patient').val(event.id_patient);
 
                     showDateConverted(event.start, event.end);
 
@@ -256,7 +261,8 @@
             var urlCreateEvent = '{{ route('api/createEventAjax') }}';
             var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
 
-            $('#btnUpdateEvent').click(function () {
+            $('#btnUpdateEvent').click(function (event) {
+                event.preventDefault();
 
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
                 if (validateFieldsIfEmpty()) {
@@ -272,11 +278,19 @@
                             id: eventId
                         }
                     })
-                            .done(function (msg) {
-                                $('#calendarModal').modal('hide');
-                                $('#calendar').fullCalendar('refetchEvents');
-                                console.log(JSON.stringify(msg));
-                            });
+                    .error(function (msg) {
+                        $('#calendarModal').modal('hide');
+                        $('#calendar').fullCalendar('refetchEvents');
+
+                        $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
+                        // set and/or replace the html code inside it
+                        $("#notificationMsg").html( msg.responseText );
+                    })
+                    .done(function (msg) {
+                        $('#calendarModal').modal('hide');
+                        $('#calendar').fullCalendar('refetchEvents');
+                        console.log(JSON.stringify(msg));
+                    });
                 }
             });
 
@@ -317,7 +331,8 @@
                 $('#calendarModal').modal({backdrop: 'static', keyboard: false});
             });
 
-            $('#btnCreateEvent').click(function () {
+            $('#btnCreateEvent').click(function (event) {
+                event.preventDefault();
 
                 if ( validateFieldsIfEmpty() ) {
                     $.ajax({

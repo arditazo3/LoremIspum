@@ -10,8 +10,8 @@
                 <h5>My profile information</h5>
                 <div class="ibox-tools">
 
-                    <button type="button" class="btn btn-info btn-sm" id="btnEditUserProfileData"><i
-                                class="fa fa-edit"></i> Edit
+                    <button type="button" class="btn btn-info btn-sm" id="btnEditUserProfileData">
+                        <i class="fa fa-edit"></i> Edit
                     </button>
 
                     {!! Form::submit('Save edit', ['class'=>'btn btn-primary btn-sm', 'id'=>'btnSaveEditUser']) !!}
@@ -71,7 +71,7 @@
 
                     <div class="col-sm-8 b-r">
 
-                        <input type="hidden" name="id" id="id_user" >
+                        <input type="hidden" name="id" id="id_user" value="{{ $user->id }}" >
 
                         <div class="form-group ">
                             {!! Form::label('first_name', 'First name', ['class'=>'control-label']) !!}

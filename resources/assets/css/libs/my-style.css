@@ -15,3 +15,11 @@
 #calendar {
     margin: 0 auto;
 }
+
+/*Modal Large width 100%*/
+@media screen and (min-width: 768px) {
+    .my-very-large-modal {
+        width: 90%;
+        /* either % (e.g. 60%) or px (400px) */
+    }
+}

@@ -189,10 +189,10 @@ class CalendarController extends Controller
         $event->start_time = $inputs['start_time'];
         $event->end_time = $inputs['end_time'];
 
-        $event->save();
+            $event->save();
+
 
         Session::flash('updated_event', 'The event was successfully updated!');
-
         return response()->json(['message'=>'The event has been updated.', 'newName'=>$event->name], 200);
 
     }
