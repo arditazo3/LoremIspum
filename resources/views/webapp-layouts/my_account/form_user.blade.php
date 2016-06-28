@@ -70,6 +70,9 @@
                     </div>
 
                     <div class="col-sm-8 b-r">
+
+                        <input type="hidden" name="id" id="id_user" >
+
                         <div class="form-group ">
                             {!! Form::label('first_name', 'First name', ['class'=>'control-label']) !!}
                             {!! Form::text('first_name', $user->first_name, ['class'=>'form-control', 'placeholder'=>'First name']) !!}

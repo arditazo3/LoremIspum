@@ -161,8 +161,8 @@ class CalendarController extends Controller
 
         // Validation
         $this->validate($request, [
-            'title'	=> 'required|min:3|max:50',
-            'content' => 'required|min:5|max:100',
+            'title'	=> 'required',
+            'content' => 'required',
             'time'	=> 'required'
         ]);
 
@@ -183,6 +183,7 @@ class CalendarController extends Controller
         //$updated = $event->update($inputs);
 
      // $event->id = $inputs['id'];
+        $event->id_patient = $inputs['id_patient'];
         $event->title = $inputs['title'];
         $event->content = $inputs['content'];
         $event->start_time = $inputs['start_time'];
@@ -214,6 +215,14 @@ class CalendarController extends Controller
     }
 
     public function createEventAjax(Request $request) {
+
+        // Validation
+        $this->validate($request, [
+            'id_patient' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'time' => 'required'
+        ]);
 
         $colors = ['#f16932', '#eb7f33', '#83adb5', '#006666', '#ff7d7d', '#ddb435'];
 

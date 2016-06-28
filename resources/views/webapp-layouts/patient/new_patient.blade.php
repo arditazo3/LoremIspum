@@ -411,6 +411,9 @@
                 console.log(value);
 
                 $('#first_name').val( value.first_name );
+                $('#last_name').val( value.last_name );
+                $('#address').val( value.address );
+
             }
         });
     }

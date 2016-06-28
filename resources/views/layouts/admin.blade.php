@@ -85,9 +85,6 @@
                         <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'Calendar' ? 'active' : '' }}">
                             <a href="{{ route('admin.calendar.index') }}"><i class="fa fa-calendar"></i>Appointments</a></li>
 
-                        <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'NewCalendar' ? 'active' : '' }}">
-                            <a href="{{ route('admin.calendar.create') }}"><i class="fa fa-calendar-plus-o"></i>New Event</a></li>
-
                     </ul>
                 </li>
 

@@ -62,6 +62,8 @@
 @endsection
 
 @section('myScript')
+    @include('includes.myScript.toastr')
+    @include('includes.myScript.jquery_validate')
 
     @include('includes.myScript.my_profileJS')
 
@@ -102,6 +104,7 @@
 
                 var imagePath = "{{ $website }}" + getProfilePicPath['image_id'];
 
+                $('#id_user').val(user["id"]);
                 $('#first_name').val(user["first_name"]);
                 $('#last_name').val(user["last_name"]);
                 $('#email').val(user["email"]);

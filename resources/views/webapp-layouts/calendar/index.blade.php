@@ -258,26 +258,26 @@
 
             $('#btnUpdateEvent').click(function () {
 
-                var validate = formValidation();
-
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
-
-                $.ajax({
-                    method: 'POST',
-                    url: urlUpdateEvent,
-                    data: {
-                        title: $('#title').val(),
-                        content: $('#content').val(),
-                        time: $('#time').val(),
-                        _token: token,
-                        id: eventId
-                    }
-                })
-                    .done(function (msg) {
-                        $('#calendarModal').modal('hide');
-                        $('#calendar').fullCalendar('refetchEvents');
-                        console.log(JSON.stringify(msg));
-                    });
+                if (validateFieldsIfEmpty()) {
+                    $.ajax({
+                        method: 'POST',
+                        url: urlUpdateEvent,
+                        data: {
+                            title: $('#title').val(),
+                            content: $('#content').val(),
+                            time: $('#time').val(),
+                            _token: token,
+                            id_patient: $('#modal_id_patient').val(),
+                            id: eventId
+                        }
+                    })
+                            .done(function (msg) {
+                                $('#calendarModal').modal('hide');
+                                $('#calendar').fullCalendar('refetchEvents');
+                                console.log(JSON.stringify(msg));
+                            });
+                }
             });
 
             $('#btnDeleteEvent').click(function () {
@@ -319,9 +319,7 @@
 
             $('#btnCreateEvent').click(function () {
 
-                var validate = formValidation();
-
-                if (validate.errorList.length == 0) {
+                if ( validateFieldsIfEmpty() ) {
                     $.ajax({
                             method: 'POST',
                             url: urlCreateEvent,
@@ -393,28 +391,29 @@
 
         });
 
-        function formValidation() {
-
-          return $('#formCreateUpdateEvent').validate({
-                rules: {
-                    title: {
-                        required: true
-                    },
-                    content: {
-                        required: true
-                    },
-                    time: {
-                        required: true
-                    }
+        $('#formCreateUpdateEvent').validate({
+            rules: {
+                title: {
+                    required: true
                 },
-
-                messages: {
-                    title: "Please enter the title",
-                    content: "Please enter the content",
-                    time: "Please enter the time"
+                content: {
+                    required: true
+                },
+                time: {
+                    required: true
+                },
+                id_patient: {
+                    required: true
                 }
-            });
-        }
+            },
+
+            messages: {
+                title: "Please enter the title",
+                content: "Please enter the content",
+                time: "Please enter the time",
+                id_patient: "Please enter the patient"
+            }
+        });
 
         // load the data to table
         function cicleDataPatientsAjax(data) {
@@ -448,6 +447,19 @@
                     $('#modal_id_patient').val( value.id_patient );
                 }
             });
+        }
+
+        function validateFieldsIfEmpty() {
+
+            var validateBoolean = true;
+
+            if ( $('#first_name').val() == '' ) { validateBoolean = false; }
+            if ( $('#last_name').val() == '' ) { validateBoolean = false; }
+            if ( $('#title').val() == '' ) { validateBoolean = false; }
+            if ( $('#content').val() == '' ) { validateBoolean = false; }
+            if ( $('#time').val() == '' ) { validateBoolean = false; }
+
+            return validateBoolean;
         }
 
     </script>

@@ -93,6 +93,7 @@ function allComponentsIsDisable(isEnable) {
     $('#email').prop('disabled', isEnable);
     $('#phone').prop('disabled', isEnable);
     $('#password').prop('disabled', isEnable);
+    $('#address').prop('disabled', isEnable);
     $('#btnSaveEditUser').prop('disabled', isEnable);
 }
 

@@ -76,7 +76,7 @@ class UserController extends Controller
 
         $inputs['user_update'] = $userUpdate->id;
 
-        $user = User::findOrFail($userUpdate->id);
+        $user = User::findOrFail($inputs['id']);
 
         $checkUserUpdate = $user->update($inputs);
 
@@ -84,7 +84,7 @@ class UserController extends Controller
             Session::flash('updated_user', 'The user has been updated.');
 
 
-        return redirect('admin');
+        return redirect('admin/account/contacts');
     }
     
     public function getPathProfilePicAjax(Request $request) {
