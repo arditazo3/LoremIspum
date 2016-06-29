@@ -67,6 +67,9 @@ class CreatePatientsTable extends Migration
             $table->timestamps();
 
             $table->primary('id_patient');
+            // softDelete
+            $table->softDeletes();
+            
         });
     }
 

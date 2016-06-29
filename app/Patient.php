@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patient extends Model
 {
+
+    use SoftDeletes;
+
     // Variables used to save the Patient
     protected $fillable = [
         'id_patient', 'first_name', 'last_name', 'address', 'nation', 'city',
@@ -22,4 +26,7 @@ class Patient extends Model
     public $incrementing = false;
 
     public $primaryKey = 'id_patient';
+
+    // softDelete field
+    protected $dates = ['deleted_at'];
 }

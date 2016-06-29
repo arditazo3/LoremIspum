@@ -21,6 +21,10 @@
                     <h5>Fill the form to create a new patient</h5>
                     <div class="ibox-tools">
 
+                        <button type="button" class="btn btn-danger btn-sm" id="btnDeletePatient">
+                            <i class="fa fa-remove"></i> Delete patient
+                        </button>
+
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#searchModal"
                                 data-backdrop="static" data-keyboard="false" id="searchPatientsModal">
@@ -63,6 +67,8 @@
                         </div>
 
                         <div class="col-sm-5 b-r">
+                            <input type="hidden" id="id_patient_hidden" />
+
                             <div class="form-group ">
                                 {!! Form::label('first_name', 'First name', ['class'=>'control-label']) !!}
                                 {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'First name']) !!}
@@ -86,13 +92,17 @@
                         <div class="col-sm-3 b-r">
                             <div class="form-group ">
                                 {!! Form::label('nation', 'Country', ['class'=>'control-label']) !!}
-                                {!! Form::select('nation', [''=>'Select a nation...'] + $countries, null, ['class'=>'form-control']) !!}
+                                <div class="divNation">
+                                    {!! Form::select('nation', [''=>'Select a nation...'] + $countries, null, ['class'=>'form-control']) !!}
+                                </div>
                                 @include('includes.form-error-specify', ['field'=>'nation', 'typeAlert'=>'danger'])
                             </div>
 
                             <div class="form-group ">
                                 {!! Form::label('city', 'City', ['class'=>'control-label']) !!}
-                                {!! Form::select('city', [''=>'Select a city...'] + $cities, null, ['class'=>'form-control']) !!}
+                                <div class="divCity">
+                                    {!! Form::select('city', [''=>'Select a city...'] + $cities, null, ['class'=>'form-control']) !!}
+                                </div>
                                 @include('includes.form-error-specify', ['field'=>'city', 'typeAlert'=>'danger'])
                             </div>
 
@@ -125,12 +135,16 @@
 
                                             <div class="form-group ">
                                                 {!! Form::label('adult_child', 'Adult / Child', ['class'=>'control-label']) !!}
-                                                {!! Form::select('adult_child', ['0'=>'Select...'] + $adults, null, ['class'=>'form-control']) !!}
+                                                <div class="divAdult">
+                                                    {!! Form::select('adult_child', ['0'=>'Select...'] + $adults, null, ['class'=>'form-control']) !!}
+                                                </div>
                                             </div>
 
                                             <div class="form-group ">
                                                 {!! Form::label('sex', 'Sex', ['class'=>'control-label']) !!}
-                                                {!! Form::select('sex', ['0'=>'Select a gender...'] + $genders, null, ['class'=>'form-control']) !!}
+                                                <div class="divSex">
+                                                    {!! Form::select('sex', ['0'=>'Select a gender...'] + $genders, null, ['class'=>'form-control']) !!}
+                                                </div>
                                             </div>
 
                                             <div class="form-group ">
@@ -304,6 +318,8 @@
         var allPatientsDataGlob = '';
         var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
 
+        var $btnDeleteGlob = $('#btnDeletePatient').hide();
+
         // Create Patient open list of patient when button is clicked
         $('#searchPatientsModal').click(function () {
 
@@ -410,12 +426,24 @@
             if (value.id_patient === id) {
                 console.log(value);
 
+                $('#id_patient_hidden').val( value.id_patient );
                 $('#first_name').val( value.first_name );
                 $('#last_name').val( value.last_name );
                 $('#address').val( value.address );
+                $('#email').val( value.email );
+                $('div.divNation select').val( value.nation );
+                $('div.divCity select').val( value.city );
+                $('div.divAdult select').val( value.adult_child );
+                $('div.divSex select').val( value.sex );
+                $('#zip_code').val( value.zip_code );
+                $('#tax_code').val( value.tax_code );
+                $('#date_birth').val( value.date_birth );
 
             }
         });
+
+
+
     }
 
 </script>
