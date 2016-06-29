@@ -22,3 +22,9 @@
     @endif
 
 @endsection
+
+@section('myScript')
+
+    @include('includes.myScript.skin_configJS')
+
+@endsection

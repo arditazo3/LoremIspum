@@ -383,7 +383,7 @@
                 }
             });
 
-            $('#tableAllPatients tbody').on( 'dblclick', 'tr', function () {
+            $('#tableAllPatients tbody').on( 'click', 'tr', function () {
                 var table = $('#tableAllPatients').DataTable();
 
                 if ( $(this).hasClass('selected') ) {
