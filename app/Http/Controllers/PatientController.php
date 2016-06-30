@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewPatientRequest;
 use App\Image;
+use App\Option;
 use App\Patient;
 use Illuminate\Http\Request;
 
@@ -41,11 +42,13 @@ class PatientController extends Controller
         $languages = DB::table('domains')->where('des_dom', 'language')->lists('description', 'value');
         $adults = DB::table('domains')->where('des_dom', 'adult')->lists('description', 'value');
         $genders = DB::table('domains')->where('des_dom', 'gender')->lists('description', 'value');
+        $patient = new Patient();
+        $website = Option::findOrFail(1)->value;
 
         return view('webapp-layouts.patient.new_patient',
             compact([
                 'cities', 'countries', 'proffessions', 'marital_status', 'languages',
-                'adults', 'genders'
+                'adults', 'genders', 'patient', 'website'
             ]));
     }
 
@@ -137,6 +140,24 @@ class PatientController extends Controller
         $test = Datatables::eloquent(Patient::query())->make(true);
 
         return Datatables::eloquent(Patient::query())->make(true);
+    }
+    
+    public function deletePatientAjax(Request $request) {
+        
+        $inputs = $request->all();
+        
+        $patient = Patient::findOrFail($inputs['id_patient']);
+
+        $deleted = $patient->delete();
+
+        if ($deleted)
+            Session::flash('deleted_patient', 'The patient was successfully deleted!');
+
+        if ($deleted) {
+            return response()->json(['status'=>'DELETED', 'message' => 'The patient has been deleted.', 'newName' => $patient->first_name . ' ' . $patient->last_name], 200);
+        } else
+            return response()->json(['message' => 'The patient has not been deleted.'], 401);
+
     }
 
 }

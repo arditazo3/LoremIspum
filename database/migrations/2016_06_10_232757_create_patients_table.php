@@ -34,6 +34,7 @@ class CreatePatientsTable extends Migration
             $table->string('fax', 30);
             $table->string('tax_code', 255);
             $table->string('photo', 255);
+            $table->integer('image_id')->index()->unsigned()->nullable();
             $table->integer('type_photo')->unsigned()->default(0);
             $table->date('date_last_visit');
             $table->date('date_next_visit');

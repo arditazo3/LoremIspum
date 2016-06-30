@@ -6,12 +6,22 @@
 @section('myCSS')
     @include('includes.myCSS.toastr')
     @include('includes.myCSS.datatablesCSS')
+    @include('includes.myCSS.sweetalertCSS')
 @endsection
 
 @section('content')
 
     <div class="row">
         <div class="col-lg-12">
+
+            @if(\Illuminate\Support\Facades\Session::has('deleted_patient'))
+                @include('includes.notification-alert', ['alert_type'=> 'danger', 'msg'=> session('deleted_patient')])
+            @elseif(\Illuminate\Support\Facades\Session::has('updated_patient'))
+                @include('includes.notification-alert', ['alert_type'=> 'warning', 'msg'=> session('updated_patient')])
+            @elseif(\Illuminate\Support\Facades\Session::has('created_patient'))
+                @include('includes.notification-alert', ['alert_type'=> 'success', 'msg'=> session('created_patient')])
+            @endif
+
             {{--START FORM--}}
             {!! Form::open(['method'=>'POST', 'action'=>'PatientController@store', 'role'=>'form',
                 'id'=>'formSaveNewPatient', 'files'=>true]) !!}
@@ -48,7 +58,21 @@
                     <div class="row">
 
                         <div class="col-sm-4 b-r">
-                            <div class="fileinput fileinput-new pull-left" data-provides="fileinput">
+
+                            <div id="defaultProfilePicture">
+                                <img src="{{ $patient->image ? ($website . $patient->image->path) : ($website . 'img/user-no_photo.png')}}"
+                                     class="img-responsive" alt=""
+                                     style="max-width: 200px; max-height: 150px;">
+
+                                <br>
+                                <button type="button" class="btn btn-info btn-sm" id="btnChangeProfilePicture">
+                                    <i class="fa fa-picture-o"></i> Edit Picture
+                                </button>
+                            </div>
+
+                            {{--CHANGE IMAGE AND UPLOAD NEW PICTURE--}}
+                            <div class="fileinput fileinput-new pull-left" data-provides="fileinput"
+                                 id="changeProfilePicture" style="display: none">
                                 <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
                                     <img data-src="holder.js/100%x100%"
                                          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTkwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9Ijk1IiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE5MHgxNDA8L3RleHQ+PC9zdmc+"
@@ -57,17 +81,23 @@
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                      style="max-width: 200px; max-height: 150px;"></div>
                                 <div>
-                                    <span class="btn btn-w-m btn-info btn-file"><span
+                                    <span class="btn btn-w-m btn-info btn-sm btn-file"><span
                                                 class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input
-                                                type="file" name="..."></span>
-                                    <a href="#" class="btn btn-w-m btn-danger fileinput-exists"
+                                                type="file" name="file"></span>
+                                    <a href="#" class="btn btn-w-m btn-danger btn-sm fileinput-exists"
                                        data-dismiss="fileinput">Remove</a>
+
+                                    <button type="button" class="btn btn-w-m btn-white btn-sm" id="btnBackProfilePicture">
+                                        Don't change
+                                    </button>
                                 </div>
+
+
                             </div>
                         </div>
 
                         <div class="col-sm-5 b-r">
-                            <input type="hidden" id="id_patient_hidden" />
+                            <input type="hidden" id="id_patient_hidden" name="id_patient" />
 
                             <div class="form-group ">
                                 {!! Form::label('first_name', 'First name', ['class'=>'control-label']) !!}
@@ -154,24 +184,31 @@
                                                     <div class="input-group date">
                                                         <span class="input-group-addon"><i
                                                                     class="fa fa-calendar"></i></span>
-                                                        {!! Form::text('date_birth', \Carbon\Carbon::now()->format('d/m/Y'), ['class'=>'form-control']) !!}
+                                                        <input class="datepicker form-control" data-date-format="dd/mm/yyyy" value="{{ \Carbon\Carbon::now()->format('d/m/Y') }}"
+                                                                id="date_birth" name="date_birth" >
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group ">
                                                 {!! Form::label('birth_place', 'Birth place', ['class'=>'control-label']) !!}
-                                                {!! Form::select('birth_place', ['0'=>'Select...'] + $cities, null, ['class'=>'form-control']) !!}
+                                                <div class="divBirthPlace">
+                                                    {!! Form::select('birth_place', ['0'=>'Select...'] + $cities, null, ['class'=>'form-control']) !!}
+                                                </div>
                                             </div>
 
                                             <div class="form-group ">
                                                 {!! Form::label('marital_status', 'Marital status', ['class'=>'control-label']) !!}
-                                                {!! Form::select('marital_status', ['0'=>'Select...'] + $marital_status, null, ['class'=>'form-control']) !!}
+                                                <div class="divMaritalStatus">
+                                                    {!! Form::select('marital_status', ['0'=>'Select...'] + $marital_status, null, ['class'=>'form-control']) !!}
+                                                </div>
                                             </div>
 
                                             <div class="form-group ">
                                                 {!! Form::label('language', 'Language', ['class'=>'control-label']) !!}
-                                                {!! Form::select('language', ['0'=>'Select...'] + $languages, null, ['class'=>'form-control']) !!}
+                                                <div class="divLanguage">
+                                                    {!! Form::select('language', ['0'=>'Select...'] + $languages, null, ['class'=>'form-control']) !!}
+                                                </div>
                                             </div>
                                         </div>
 
@@ -189,7 +226,9 @@
 
                                             <div class="form-group ">
                                                 {!! Form::label('proffession', 'Proffession', ['class'=>'control-label']) !!}
-                                                {!! Form::select('proffession', ['0'=>'Select...'] + $proffessions, null, ['class'=>'form-control']) !!}
+                                                <div class="divProffession">
+                                                    {!! Form::select('proffession', ['0'=>'Select...'] + $proffessions, null, ['class'=>'form-control']) !!}
+                                                </div>
                                             </div>
 
                                             <div class="form-group ">
@@ -310,15 +349,22 @@
     @include('includes.myScript.toastr')
     @include('includes.myScript.jquery_validate')
     @include('includes.myScript.datatablesJS')
+    @include('includes.myScript.sweetalertJS')
 
 <script>
 
     $(document).ready(function () {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
         var allPatientsDataGlob = '';
         var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
+        var urlDeletePatient = '{{ route('api/deletePatientAjax') }}';
 
         var $btnDeleteGlob = $('#btnDeletePatient').hide();
+
+        var changeProfPicGlob = $('#changeProfilePicture').hide();
+        var defaultProfPicGlob = $('#defaultProfilePicture').show();
+        var confirmPasswordGlob = $('#divComfirmPassword').hide();
 
         // Create Patient open list of patient when button is clicked
         $('#searchPatientsModal').click(function () {
@@ -410,15 +456,59 @@
                     id = $(this).find('td').eq(0).text();
                     $('#searchModal').modal('hide');
 
-                    formFillUpAllFields(id, allPatientsDataGlob);
+                    formFillUpAllFields(id, allPatientsDataGlob, $btnDeleteGlob);
                 });
             //    console.log(id);
             }
         });
 
+        $('#btnChangeProfilePicture').click(function () {
+
+            changeProfPicGlob.show();
+            defaultProfPicGlob.hide();
+        });
+
+        $('#btnBackProfilePicture').click(function () {
+
+            changeProfPicGlob.hide();
+            defaultProfPicGlob.show();
+        });
+
+        // Delete the patient
+        $('#btnDeletePatient').click(function () {
+
+            var fullName = $('#first_name').val() + ' ' + $('#last_name').val();
+
+            swal({ title: "Delete patient: " + fullName,
+                        text: "Are you sure to delete this patient?",
+                        type: "error",   showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",   confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false },
+
+                    function(){
+                        $.ajax({
+                            method: 'POST',
+                            url: urlDeletePatient,
+                            data: {
+                                id_patient: $('#id_patient_hidden').val(),
+                                _token: token
+                            }
+                        })
+                        .error(function (msg) {
+                            console.log(JSON.stringify(msg));
+                        })
+                        .done(function (msg) {
+                            // refresh the page if the actions was successfully
+                            if(msg.status === 'DELETED')
+                                location.reload();
+
+                        });
+                    });
+        });
+
     });
 
-    function formFillUpAllFields(id, allPatientData) {
+    function formFillUpAllFields(id, allPatientData, $btnDeleteGlob) {
 
         var listPatientData = allPatientData.data;
 
@@ -437,13 +527,44 @@
                 $('div.divSex select').val( value.sex );
                 $('#zip_code').val( value.zip_code );
                 $('#tax_code').val( value.tax_code );
-                $('#date_birth').val( value.date_birth );
+
+
+                var datepicker = $('#date_birth');
+                datepicker.datepicker({ dateFormat: "dd-mm-YY" });
+                datepicker.datepicker('setDate', changeFormatDate( value.date_birth ) );
+
+            //    $('#date_birth').val( changeFormatDate( value.date_birth ) );
+
+                $('div.divProffession select').val( value.proffession );
+                $('div.divMaritalStatus select').val( value.marital_status );
+                $('div.divBirthPlace select').val( value.birth_place );
+                $('div.divLanguage select').val( value.language );
+                $('#personal_phone').val( value.personal_phone );
+                $('#office_phone').val( value.office_phone );
 
             }
         });
+        $btnDeleteGlob.show();
+    }
 
+    function changeFormatDate(inputDate) {
+        var date = new Date(inputDate);
+        if (!isNaN(date.getTime())) {
 
+            var day =  formatDigitsDate( date.getDate() );
+            // Months use 0 index.
+            var month =  formatDigitsDate( date.getMonth() + 1 );
 
+            return day + '/' + month + '/' + date.getFullYear();
+        }
+    }
+
+    function formatDigitsDate(inputDate) {
+
+        if (inputDate < 10)
+            return '0' + inputDate;
+        else
+            return inputDate;
     }
 
 </script>
