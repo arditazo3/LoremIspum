@@ -135,13 +135,83 @@ class PatientController extends Controller
         //
     }
 
+    /**
+     * Retrieve in format to fill up the datatables.js
+     */
     public function allPatientsAjax(Request $request) {
-
-        $test = Datatables::eloquent(Patient::query())->make(true);
 
         return Datatables::eloquent(Patient::query())->make(true);
     }
     
+	public function createUpdatePatientAjax(NewPatientRequest $request) {
+
+        $isNew = false;
+		$inputs = $request->all();
+		
+		$patient = new Patient();
+		
+		/**
+		* Check if has ID or not to update/create patient
+		* save() method will create or update base on ID
+		*/
+		if($inputs['id_patient'] == '') {
+            $isNew = true;
+			$patient->id_patient = 	'PA' . time();
+		} else {
+			$patient = Patient::findOrFail($inputs['id_patient']);
+		}
+
+        // Check if file exist
+        if($file = $request->file('file')) {
+
+            $pathFolderPhotosUpload = 'imagesUpload';
+
+            $pathComplete = $pathFolderPhotosUpload . '/' . time() . '_' . $file->getClientOriginalName();
+
+            $file->move($pathFolderPhotosUpload, $pathComplete);
+
+            $image = Image::create(['path'=>$pathComplete]);
+
+            // 2 variables to get information about image profile
+            $inputs['image_path'] = $pathComplete;
+            $inputs['image_id'] = $image->id;
+        }
+        
+		$patient->first_name = $inputs['first_name'];
+		$patient->last_name = $inputs['last_name'];
+		$patient->address = $inputs['address'];
+		$patient->email = $inputs['email'];
+		$patient->nation = $inputs['nation'];
+		$patient->city = $inputs['city'];
+		$patient->adult_child = $inputs['adult_child'];
+		$patient->sex = $inputs['sex'];
+		$patient->zip_code = $inputs['zip_code'];
+		$patient->tax_code = $inputs['first_name'];
+		$patient->date_birth = $inputs['date_birth'];
+		$patient->proffession = $inputs['proffession'];
+		$patient->marital_status = $inputs['marital_status'];
+		$patient->birth_place = $inputs['birth_place'];
+		$patient->language = $inputs['language'];
+		$patient->personal_phone = $inputs['personal_phone'];
+		$patient->office_phone = $inputs['office_phone'];
+
+        $patient->image_path = $inputs['image_path'];
+        $patient->image_id = $inputs['image_id'];
+
+        $user = Auth::user();
+        $inputs['user_update'] = $user->id;
+        
+		$patient->save();
+
+        if($isNew)
+            Session::flash('created_patient', 'The patient has been created.');
+		else
+            Session::flash('updated_patient', 'The patient has been updated.');
+
+
+        return redirect('admin/patient/create');
+	}
+	
     public function deletePatientAjax(Request $request) {
         
         $inputs = $request->all();

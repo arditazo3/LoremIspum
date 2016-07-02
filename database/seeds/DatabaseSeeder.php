@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $proffession = DB::table('domains')->where('des_dom', 'proffession')->lists('value');
 
         $faker = Faker::create();
-        for ($index = 0; $index < 50; $index++) {
+        for ($index = 0; $index < 25; $index++) {
 
             \Illuminate\Support\Facades\DB::table('patients')->insert([
                 'id_patient' => 'PA' . time() . $index,

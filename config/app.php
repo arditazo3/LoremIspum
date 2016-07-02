@@ -158,7 +158,7 @@ return [
 
         /** Laravel Collective */
         Collective\Html\HtmlServiceProvider::class,
-        
+
         /** Laravel Datatables */
         Yajra\Datatables\DatatablesServiceProvider::class,
 		

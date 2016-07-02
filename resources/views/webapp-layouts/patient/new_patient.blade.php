@@ -23,25 +23,29 @@
             @endif
 
             {{--START FORM--}}
-            {!! Form::open(['method'=>'POST', 'action'=>'PatientController@store', 'role'=>'form',
+            {!! Form::open(['method'=>'POST', 'action'=>'PatientController@createUpdatePatientAjax', 'role'=>'form',
                 'id'=>'formSaveNewPatient', 'files'=>true]) !!}
 
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Fill the form to create a new patient</h5>
+                    <h5>Fill up the patient form</h5>
                     <div class="ibox-tools">
 
+						<button type="button" class="btn btn-warning btn-sm" id="btnRestorePatient">
+                            Restore form
+                        </button>
+					
                         <button type="button" class="btn btn-danger btn-sm" id="btnDeletePatient">
                             <i class="fa fa-remove"></i> Delete patient
                         </button>
 
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                 data-target="#searchModal"
                                 data-backdrop="static" data-keyboard="false" id="searchPatientsModal">
                             <i class="fa fa-search"></i> Search
                         </button>
 
-                        {!! Form::submit('Save patient', ['class'=>'btn btn-primary btn-sm', 'id'=>'btnSavePatientForm']) !!}
+                        {!! Form::submit('Save patient', ['class'=>'btn btn-success btn-sm', 'id'=>'btnSavePatientForm']) !!}
 
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -60,7 +64,7 @@
                         <div class="col-sm-4 b-r">
 
                             <div id="defaultProfilePicture">
-                                <img src="{{ $patient->image ? ($website . $patient->image->path) : ($website . 'img/user-no_photo.png')}}"
+                                <img id="imageFile" src="{{ $patient->image ? ($website . $patient->image->path) : ($website . 'img/user-no_photo.png')}}"
                                      class="img-responsive" alt=""
                                      style="max-width: 200px; max-height: 150px;">
 
@@ -75,7 +79,7 @@
                                  id="changeProfilePicture" style="display: none">
                                 <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
                                     <img data-src="holder.js/100%x100%"
-                                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTkwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9Ijk1IiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE5MHgxNDA8L3RleHQ+PC9zdmc+"
+                                         src="{{ $website . 'img/user-no_photo.png' }}"
                                          alt="...">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
@@ -176,6 +180,7 @@
                                                     {!! Form::select('sex', ['0'=>'Select a gender...'] + $genders, null, ['class'=>'form-control']) !!}
                                                 </div>
                                             </div>
+                                            <div class="hr-line-dashed"></div>
 
                                             <div class="form-group ">
                                                 {!! Form::label('date_birth', 'Birth date', ['class'=>'control-label']) !!}
@@ -196,6 +201,7 @@
                                                     {!! Form::select('birth_place', ['0'=>'Select...'] + $cities, null, ['class'=>'form-control']) !!}
                                                 </div>
                                             </div>
+                                            <div class="hr-line-dashed"></div>
 
                                             <div class="form-group ">
                                                 {!! Form::label('marital_status', 'Marital status', ['class'=>'control-label']) !!}
@@ -230,6 +236,7 @@
                                                     {!! Form::select('proffession', ['0'=>'Select...'] + $proffessions, null, ['class'=>'form-control']) !!}
                                                 </div>
                                             </div>
+                                            <div class="hr-line-dashed"></div>
 
                                             <div class="form-group ">
                                                 {!! Form::label('personal_phone', 'Personal phone', ['class'=>'control-label']) !!}
@@ -263,18 +270,48 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default" id="panel2">
+                            <div class="panel panel-info" id="panel2">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-target="#collapseTwo"
                                            href="#collapseTwo" class="collapsed">
-                                            Collapsible Group Item #2
+                                            Controls
                                         </a>
                                     </h4>
 
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse">
-                                    <div class="panel-body">Anim pariatur
+                                    <div class="panel-body">
+
+                                        {{--Controls--}}
+                                        <div class="col-sm-6 b-r">
+
+                                            <div class="form-group" id="divFirstControl">
+                                                {!! Form::label('date_first_visit', 'First control', ['class'=>'control-label']) !!}
+                                                {!! Form::text('date_first_visit', null, ['class'=>'form-control', 'placeholder'=>'',
+                                                                'data-mask'=>'99/99/9999', 'disabled']) !!}
+                                            </div>
+
+                                            <div class="form-group" id="divLastControl">
+                                                {!! Form::label('date_last_visit', 'First control', ['class'=>'control-label']) !!}
+                                                {!! Form::text('date_last_visit', null, ['class'=>'form-control', 'placeholder'=>'',
+                                                                'data-mask'=>'99/99/9999', 'disabled']) !!}
+                                            </div>
+
+                                            <div class="form-group" id="divNextControl">
+                                                {!! Form::label('date_next_visit', 'First control', ['class'=>'control-label']) !!}
+                                                {!! Form::text('date_next_visit', null, ['class'=>'form-control', 'placeholder'=>'',
+                                                                'data-mask'=>'99/99/9999', 'disabled']) !!}
+                                            </div>
+
+                                            <div class="form-group" id="divNoControlUtilNow">
+                                                <div class="alert alert-warning">
+                                                    <b>No appointment registred util now for this patient.</b>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -353,6 +390,12 @@
 
 <script>
 
+    {{-- HERE ARE GLOBAL VARIABLES TO BE ACCESSED FROM ANOTHER JS SCRIPTS --}}
+
+
+    {{--
+    -- HERE IS THE LOGIC ONLY FOR MAIN MECHANISM AND 'PATIENT DATA'
+    --}}
     $(document).ready(function () {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
@@ -458,7 +501,6 @@
 
                     formFillUpAllFields(id, allPatientsDataGlob, $btnDeleteGlob);
                 });
-            //    console.log(id);
             }
         });
 
@@ -485,26 +527,33 @@
                         confirmButtonColor: "#DD6B55",   confirmButtonText: "Yes, delete it!",
                         closeOnConfirm: false },
 
-                    function(){
-                        $.ajax({
-                            method: 'POST',
-                            url: urlDeletePatient,
-                            data: {
-                                id_patient: $('#id_patient_hidden').val(),
-                                _token: token
-                            }
-                        })
-                        .error(function (msg) {
-                            console.log(JSON.stringify(msg));
-                        })
-                        .done(function (msg) {
-                            // refresh the page if the actions was successfully
-                            if(msg.status === 'DELETED')
-                                location.reload();
+				function(){
+					$.ajax({
+						method: 'POST',
+						url: urlDeletePatient,
+						data: {
+							id_patient: $('#id_patient_hidden').val(),
+							_token: token
+						}
+					})
+					.error(function (msg) {
+						console.log(JSON.stringify(msg));
+					})
+					.done(function (msg) {
+						// refresh the page if the actions was successfully
+						if(msg.status === 'DELETED')
+							location.reload();
 
-                        });
-                    });
+				});
+            });
         });
+		
+		// Restore the patient
+		$('#btnRestorePatient').click(function () {
+			restoreAllFields();
+            $btnDeleteGlob.hide();
+            console.log('Restored all fields!');
+		});
 
     });
 
@@ -528,12 +577,9 @@
                 $('#zip_code').val( value.zip_code );
                 $('#tax_code').val( value.tax_code );
 
-
                 var datepicker = $('#date_birth');
                 datepicker.datepicker({ dateFormat: "dd-mm-YY" });
                 datepicker.datepicker('setDate', changeFormatDate( value.date_birth ) );
-
-            //    $('#date_birth').val( changeFormatDate( value.date_birth ) );
 
                 $('div.divProffession select').val( value.proffession );
                 $('div.divMaritalStatus select').val( value.marital_status );
@@ -541,6 +587,9 @@
                 $('div.divLanguage select').val( value.language );
                 $('#personal_phone').val( value.personal_phone );
                 $('#office_phone').val( value.office_phone );
+
+                if(value.image_path != null && value.image_path.trim() != "")
+                    $('#imageFile').attr('src', '{{ $website }}' + value.image_path );
 
             }
         });
@@ -566,7 +615,42 @@
         else
             return inputDate;
     }
+	
+	function restoreAllFields() {
+		
+		$('#id_patient_hidden').val('');
+		$('#first_name').val('');
+		$('#last_name').val('');
+		$('#address').val('');
+		$('#email').val('');
+		$('div.divNation select').val('');
+		$('div.divCity select').val('');
+		$('div.divAdult select').val('');
+		$('div.divSex select').val('');
+		$('#zip_code').val('');
+		$('#tax_code').val('');
+
+		var datepicker = $('#date_birth');
+		datepicker.datepicker({ dateFormat: "dd-mm-YY" });
+		datepicker.datepicker('setDate', changeFormatDate( Date.now() ) );
+
+		$('div.divProffession select').val('0');
+		$('div.divMaritalStatus select').val('0');
+		$('div.divBirthPlace select').val('0');
+		$('div.divLanguage select').val('0');
+		$('div.divAdult select').val('0');
+		$('div.divSex select').val('0');
+		$('#personal_phone').val('');
+		$('#office_phone').val('');
+
+        $('#imageFile').attr('src', '{{ $website . 'img/user-no_photo.png' }}' );
+	}
 
 </script>
+
+{{--
+-- HERE IS THE LOGIC FOR 'CONTROLS'
+--}}
+@include('includes.myScript.patient.controlTabJS')
 
 @endsection

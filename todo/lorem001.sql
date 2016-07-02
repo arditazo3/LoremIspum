@@ -1,6 +1,6 @@
 # 12/06/2016
 
-insert into options (id, option, section, description, value, created_at, updated_at) VALUES (1, 'GLOBAL', 'PATH', 'Root URL to access the asset at public folder', 'http://loremispum.app/', NOW(), NOW());
+insert into options (id, option, section, description, value, created_at, updated_at) VALUES (1, 'GLOBAL', 'PATH', 'Root URL to access the asset at public folder', 'http://loremispum.app:88/', NOW(), NOW());
 
 insert into options (id, option, section, description, value, created_at, updated_at) VALUES (2, 'GLOBAL', 'PATH_AJAX', 'Root URL to access the asset at public folder', 'http://www.loremispum.app/', NOW(), NOW());
 

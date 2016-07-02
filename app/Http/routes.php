@@ -70,6 +70,7 @@ Route::group(['middleware'=>'admin'], function () {
      */
     Route::get('api/allPatientsAjax', ['uses' => 'PatientController@allPatientsAjax', 'as'   => 'api/allPatientsAjax' ]);
     Route::post('api/deletePatientAjax', ['uses' => 'PatientController@deletePatientAjax', 'as'   => 'api/deletePatientAjax' ]);
+	Route::post('api/createUpdatePatientAjax', ['uses' => 'PatientController@createUpdatePatientAjax', 'as'   => 'api/createUpdatePatientAjax' ]);
 
     /**
     * User

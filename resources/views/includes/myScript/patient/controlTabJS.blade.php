@@ -1,0 +1,1 @@
+<script src="{{ URL::asset('js/extra/patient/control_tab.js') }}" type="text/javascript"></script>
