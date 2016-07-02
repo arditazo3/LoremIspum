@@ -379,6 +379,8 @@
     </div>
     {{--END SEARCH MODAL--}}
 
+    @include('includes.myPieces.modal.modal_notification_msg', ['typeMsg'=>'danger'])
+
 @endsection
 
 @section('myScript')
@@ -391,14 +393,15 @@
 <script>
 
     {{-- HERE ARE GLOBAL VARIABLES TO BE ACCESSED FROM ANOTHER JS SCRIPTS --}}
-
+    var token;
+    var controlsInfo = '{{ route('api/getInfoControlPatient') }}';
 
     {{--
     -- HERE IS THE LOGIC ONLY FOR MAIN MECHANISM AND 'PATIENT DATA'
     --}}
     $(document).ready(function () {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
+        token = '{{ \Illuminate\Support\Facades\Session::token() }}';
         var allPatientsDataGlob = '';
         var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
         var urlDeletePatient = '{{ route('api/deletePatientAjax') }}';
@@ -409,7 +412,7 @@
         var defaultProfPicGlob = $('#defaultProfilePicture').show();
         var confirmPasswordGlob = $('#divComfirmPassword').hide();
 
-        // Create Patient open list of patient when button is clicked
+        // Open list of patient when button is clicked
         $('#searchPatientsModal').click(function () {
 
             // retrive all patients whith AJAX
@@ -506,7 +509,7 @@
 
         $('#btnChangeProfilePicture').click(function () {
 
-            changeProfPicGlob.show();
+            changeProfPicGlob.show();0
             defaultProfPicGlob.hide();
         });
 
@@ -566,6 +569,7 @@
                 console.log(value);
 
                 $('#id_patient_hidden').val( value.id_patient );
+                $('#id_patient_hidden').trigger('change');
                 $('#first_name').val( value.first_name );
                 $('#last_name').val( value.last_name );
                 $('#address').val( value.address );

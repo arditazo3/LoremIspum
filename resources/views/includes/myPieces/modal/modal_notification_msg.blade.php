@@ -5,7 +5,7 @@
 
                 <div class="panel panel-{{ $typeMsg }}">
                     <div class="panel-heading">
-                        <i class="fa fa-info"></i>Informaion
+                        <i class="fa fa-bug"></i> Error, please contact the Administrator
                     </div>
                     <div class="panel-body" id="notificationMsg" style="overflow-y: scroll; height:500px;" >
 

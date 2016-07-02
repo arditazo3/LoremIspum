@@ -230,4 +230,15 @@ class PatientController extends Controller
 
     }
 
+    public function getInfoControlPatient(Request $request) {
+
+        $inputs = $request->all();
+        $id_patient = $inputs['id_patient'];
+
+            $firstEvent = DB::table('events')->where('id_patient', $id_patient)->first();
+
+
+            return response()->json(['firstControl' => $firstEvent->start_time ], 200);
+    }
+
 }
