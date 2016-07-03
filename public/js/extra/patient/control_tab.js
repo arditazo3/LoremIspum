@@ -95,7 +95,6 @@ $(document).ready(function () {
         $('#date_next_visit').val( '' );
     }
 
-    // Hide update and delete button and open modal
     $('#btnAppointmentsForThisClient').click(function () {
 
         var firstName = $('#first_name').val();

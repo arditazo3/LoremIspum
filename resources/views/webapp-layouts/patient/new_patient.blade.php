@@ -305,7 +305,6 @@
                                             </div>
                                         </div>
 
-                                        {{--Controls--}}
                                         <div class="col-sm-6 b-r">
                                             <div class="form-group" id="divNextControl">
                                                 {!! Form::label('date_next_visit', 'Next control', ['class'=>'control-label']) !!}
@@ -320,6 +319,7 @@
 
                                             </div>
                                         </div>
+                                        {{--End Controls--}}
 
                                     </div>
                                 </div>
@@ -572,7 +572,7 @@
 		$('#btnRestorePatient').click(function () {
 			restoreAllFields();
             $btnDeleteGlob.hide();
-            console.log('Restored all fields!');
+            console.log('Restored Main and Personal data fields');
 		});
 
     });
@@ -665,7 +665,24 @@
 		$('#office_phone').val('');
 
         $('#imageFile').attr('src', '{{ $website . 'img/user-no_photo.png' }}' );
+
+        // Restore the Control Tab
+        restoreControls();
 	}
+
+    function restoreControls() {
+        $('#divFirstControl').hide();
+        $('#divLastControl').hide();
+        $('#divNextControl').hide();
+        $('#divNoControlUtilNow').show();
+        $('#divPatientAppoitments').hide();
+
+        $('#date_first_visit').val( '' );
+        $('#date_last_visit').val( '' );
+        $('#date_next_visit').val( '' );
+
+        console.log('Restore the Control tab');
+    }
 
 </script>
 
