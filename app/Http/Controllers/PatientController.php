@@ -6,6 +6,7 @@ use App\Http\Requests\NewPatientRequest;
 use App\Image;
 use App\Option;
 use App\Patient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -235,10 +236,43 @@ class PatientController extends Controller
         $inputs = $request->all();
         $id_patient = $inputs['id_patient'];
 
-            $firstEvent = DB::table('events')->where('id_patient', $id_patient)->first();
+        $firstControlVisit = '';
+        $lastControlVisit = '';
+        $nextControlVisit = '';
 
+        $firstEvent = DB::table('events')
+                        ->where('id_patient', $id_patient)
+                        ->where('start_time', '<=', Carbon::now() )
+                        ->orderBy('start_time', 'asc')
+                        ->first();
 
-            return response()->json(['firstControl' => $firstEvent->start_time ], 200);
+        $lastEvent = DB::table('events')
+                        ->where('id_patient', $id_patient)
+                        ->where('start_time', '<=', Carbon::now() )
+                        ->orderBy('start_time', 'desc')
+                        ->first();
+
+        $nextEvent = DB::table('events')
+                        ->where('id_patient', $id_patient)
+                        ->where('start_time', '>', Carbon::now() )
+                        ->orderBy('start_time', 'asc')
+                        ->first();
+
+        // check if object is not null
+        if($firstEvent)
+            $firstControlVisit = $firstEvent->start_time;
+
+        if($lastEvent)
+            $lastControlVisit = $lastEvent->start_time;
+
+        if($nextEvent)
+            $nextControlVisit = $nextEvent->start_time;
+
+        return response()->json([
+            'firstControl'  => $firstControlVisit,
+            'lastControl'   => $lastControlVisit,
+            'nextControl'  => $nextControlVisit,
+        ], 200);
     }
 
 }

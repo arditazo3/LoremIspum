@@ -7,6 +7,7 @@
     @include('includes.myCSS.toastr')
     @include('includes.myCSS.datatablesCSS')
     @include('includes.myCSS.sweetalertCSS')
+    @include('includes.myCSS.fullcalendarCSS')
 @endsection
 
 @section('content')
@@ -285,31 +286,39 @@
 
                                         {{--Controls--}}
                                         <div class="col-sm-6 b-r">
+                                            <div class="form-group" id="divNoControlUtilNow">
+                                                <div class="alert alert-warning">
+                                                    <b>No appointment registred util now.</b>
+                                                </div>
+                                            </div>
 
                                             <div class="form-group" id="divFirstControl">
                                                 {!! Form::label('date_first_visit', 'First control', ['class'=>'control-label']) !!}
                                                 {!! Form::text('date_first_visit', null, ['class'=>'form-control', 'placeholder'=>'',
-                                                                'data-mask'=>'99/99/9999', 'disabled']) !!}
+                                                                'disabled']) !!}
                                             </div>
 
                                             <div class="form-group" id="divLastControl">
-                                                {!! Form::label('date_last_visit', 'First control', ['class'=>'control-label']) !!}
+                                                {!! Form::label('date_last_visit', 'Last control', ['class'=>'control-label']) !!}
                                                 {!! Form::text('date_last_visit', null, ['class'=>'form-control', 'placeholder'=>'',
-                                                                'data-mask'=>'99/99/9999', 'disabled']) !!}
+                                                                'disabled']) !!}
                                             </div>
+                                        </div>
 
+                                        {{--Controls--}}
+                                        <div class="col-sm-6 b-r">
                                             <div class="form-group" id="divNextControl">
-                                                {!! Form::label('date_next_visit', 'First control', ['class'=>'control-label']) !!}
+                                                {!! Form::label('date_next_visit', 'Next control', ['class'=>'control-label']) !!}
                                                 {!! Form::text('date_next_visit', null, ['class'=>'form-control', 'placeholder'=>'',
-                                                                'data-mask'=>'99/99/9999', 'disabled']) !!}
+                                                                'disabled']) !!}
                                             </div>
 
-                                            <div class="form-group" id="divNoControlUtilNow">
-                                                <div class="alert alert-warning">
-                                                    <b>No appointment registred util now for this patient.</b>
-                                                </div>
-                                            </div>
+                                            <div class="form-group" id="divPatientAppoitments">
+                                                <button type="button" class="btn btn-w-m btn-info btn-block"
+                                                 id="btnAppointmentsForThisClient">
+                                                    <i class="fa fa-calendar"></i> Create an appointment of this client </button>
 
+                                            </div>
                                         </div>
 
                                     </div>
@@ -379,15 +388,21 @@
     </div>
     {{--END SEARCH MODAL--}}
 
+    {{-- AGENDA MODAL --}}
+    @include('includes.myPieces.calendar.main_calendar_modal')
+    {{--END AGENDA MODAL--}}
+
+    {{--MODAL NOTIFICATION ERROR--}}
     @include('includes.myPieces.modal.modal_notification_msg', ['typeMsg'=>'danger'])
 
 @endsection
 
 @section('myScript')
 
+    @include('includes.myScript.datatablesJS')
+    @include('includes.myScript.fullcalendarJS')
     @include('includes.myScript.toastr')
     @include('includes.myScript.jquery_validate')
-    @include('includes.myScript.datatablesJS')
     @include('includes.myScript.sweetalertJS')
 
 <script>
@@ -395,6 +410,8 @@
     {{-- HERE ARE GLOBAL VARIABLES TO BE ACCESSED FROM ANOTHER JS SCRIPTS --}}
     var token;
     var controlsInfo = '{{ route('api/getInfoControlPatient') }}';
+    var urlCreateEvent = '{{ route('api/createEventAjax') }}';
+    var oldTimeGlob = '{{ old('time') }}';
 
     {{--
     -- HERE IS THE LOGIC ONLY FOR MAIN MECHANISM AND 'PATIENT DATA'
