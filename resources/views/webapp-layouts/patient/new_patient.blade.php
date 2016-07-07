@@ -13,6 +13,7 @@
 @section('content')
 
     <div class="row">
+
         <div class="col-lg-12">
 
             @if(\Illuminate\Support\Facades\Session::has('deleted_patient'))
@@ -31,6 +32,12 @@
                 <div class="ibox-title">
                     <h5>Fill up the patient form</h5>
                     <div class="ibox-tools">
+
+                        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-folder-open"></i>
+                            Charts
+                        </button>
+
+                        <span class="vr-line-solid"></span>
 
 						<button type="button" class="btn btn-warning btn-sm" id="btnRestorePatient">
                             Restore form
@@ -313,7 +320,7 @@
                                             </div>
 
                                             <div class="form-group" id="divPatientAppoitments">
-                                                <button type="button" class="btn btn-w-m btn-info btn-block"
+                                                <button type="button" class="btn btn-w-m btn-success btn-block"
                                                  id="btnAppointmentsForThisClient">
                                                     <i class="fa fa-calendar"></i> Create an appointment of this client </button>
 

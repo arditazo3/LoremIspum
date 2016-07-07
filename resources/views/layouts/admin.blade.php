@@ -141,8 +141,7 @@
 
         {{--BODY HEADER--}}
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
-                <h2>{{ (isset($subTitle)== true) ? $subTitle : 'Dashboard' }}</h2>
+            <div class="col-lg-12" style="padding-top: 10px;">
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{ url('/admin') }}">{{ (isset($title)== true) ? $title : 'Dashboard' }}</a>
@@ -151,9 +150,6 @@
                         <strong>{{ (isset($subTitle)== true) ? $subTitle : 'Dashboard' }}</strong>
                     </li>
                 </ol>
-            </div>
-            <div class="col-lg-2">
-
             </div>
         </div>
         {{--BODY HEADER END--}}

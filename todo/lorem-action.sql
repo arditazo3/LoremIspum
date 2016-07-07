@@ -16,3 +16,7 @@ SELECT * from roles;
 select * from images;
 
 select * from domains;
+
+select * from categories;
+
+select * from jobs;
