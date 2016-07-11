@@ -36,6 +36,7 @@ Route::group(['middleware'=>'admin'], function () {
 
     /**
      * ClientController CRUD operations
+     * Patient Panel
      */
     Route::resource('admin/patient', 'PatientController');
 

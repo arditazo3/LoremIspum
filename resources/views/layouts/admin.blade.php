@@ -69,7 +69,7 @@
                     <ul class="nav nav-second-level collapse">
 
                         <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'NewPatient' ? 'active' : '' }}">
-                            <a href="{{ route('admin.patient.create') }}"><i class="fa fa-user"></i>New Patient</a></li>
+                            <a href="{{ route('admin.patient.index') }}"><i class="fa fa-user"></i>Patient Data</a></li>
 
                     </ul>
                 </li>

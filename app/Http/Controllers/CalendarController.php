@@ -22,7 +22,7 @@ class CalendarController extends Controller
     public function index()
     {
 
-        return view('webapp-layouts.calendar.index');
+        return view('webapp-layouts.calendar.agenda');
     }
 
     /**

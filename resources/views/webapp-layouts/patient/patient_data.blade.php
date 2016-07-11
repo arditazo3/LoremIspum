@@ -33,7 +33,7 @@
                     <h5>Fill up the patient form</h5>
                     <div class="ibox-tools">
 
-                        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-folder-open"></i>
+                        <button class="btn btn-primary btn-sm" type="button" id="btnCharts"><i class="fa fa-folder-open"></i>
                             Charts
                         </button>
 
@@ -431,6 +431,7 @@
         var urlDeletePatient = '{{ route('api/deletePatientAjax') }}';
 
         var $btnDeleteGlob = $('#btnDeletePatient').hide();
+        var $btnChartsGlob = $('#btnCharts').hide();
 
         var changeProfPicGlob = $('#changeProfilePicture').hide();
         var defaultProfPicGlob = $('#defaultProfilePicture').show();
@@ -526,7 +527,7 @@
                     id = $(this).find('td').eq(0).text();
                     $('#searchModal').modal('hide');
 
-                    formFillUpAllFields(id, allPatientsDataGlob, $btnDeleteGlob);
+                    formFillUpAllFields(id, allPatientsDataGlob, $btnDeleteGlob, $btnChartsGlob);
                 });
             }
         });
@@ -579,12 +580,21 @@
 		$('#btnRestorePatient').click(function () {
 			restoreAllFields();
             $btnDeleteGlob.hide();
+            $btnChartsGlob.hide();
             console.log('Restored Main and Personal data fields');
 		});
 
+        // Open list of patient when button is clicked
+        $('#btnCharts').click(function () {
+
+
+
+        });
+
+
     });
 
-    function formFillUpAllFields(id, allPatientData, $btnDeleteGlob) {
+    function formFillUpAllFields(id, allPatientData, $btnDeleteGlob, $btnChartsGlob) {
 
         var listPatientData = allPatientData.data;
 
@@ -622,6 +632,7 @@
             }
         });
         $btnDeleteGlob.show();
+        $btnChartsGlob.show();
     }
 
     function changeFormatDate(inputDate) {

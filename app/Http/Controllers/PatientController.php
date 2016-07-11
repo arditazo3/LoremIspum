@@ -24,17 +24,6 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
         // Get all the data thats need to fill up the lists or CB
         $cities = DB::table('domains')->where('des_dom', 'cities')->lists('description', 'value');
         $countries = DB::table('domains')->where('des_dom', 'countries')->lists('description', 'value');
@@ -46,11 +35,25 @@ class PatientController extends Controller
         $patient = new Patient();
         $website = Option::findOrFail(1)->value;
 
-        return view('webapp-layouts.patient.new_patient',
+        return view('webapp-layouts.patient.patient_data',
             compact([
                 'cities', 'countries', 'proffessions', 'marital_status', 'languages',
                 'adults', 'genders', 'patient', 'website'
             ]));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+
+    }
+
+    public function patientData() {
+        $this->create();
     }
 
     /**
