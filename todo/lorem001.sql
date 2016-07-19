@@ -50,3 +50,12 @@ select * from events;
 
 INSERT INTO roles(status, created_at, updated_at) VALUES ('Administrator', now(), now());
 INSERT INTO roles(status, created_at, updated_at) VALUES ('Dentist', now(), now());
+
+INSERT INTO categories(category, created_at, updated_at) VALUES ('Surgery', NOW(), NOW());
+INSERT INTO categories(category, created_at, updated_at) VALUES ('Conservative', NOW(), NOW());
+INSERT INTO categories(category, created_at, updated_at) VALUES ('Radiology', NOW(), NOW());
+INSERT INTO categories(category, created_at, updated_at) VALUES ('Endodontic', NOW(), NOW());
+INSERT INTO categories(category, created_at, updated_at) VALUES ('Implantology', NOW(), NOW());
+INSERT INTO categories(category, created_at, updated_at) VALUES ('Periodontal', NOW(), NOW());
+INSERT INTO categories(category, created_at, updated_at) VALUES ('Hygiene', NOW(), NOW());
+INSERT INTO categories(category, created_at, updated_at) VALUES ('Prosthesis', NOW(), NOW());

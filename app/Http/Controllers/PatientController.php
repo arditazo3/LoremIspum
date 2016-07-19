@@ -179,6 +179,9 @@ class PatientController extends Controller
             // 2 variables to get information about image profile
             $inputs['image_path'] = $pathComplete;
             $inputs['image_id'] = $image->id;
+
+            $patient->image_path = $inputs['image_path'];
+            $patient->image_id = $inputs['image_id'];
         }
         
 		$patient->first_name = $inputs['first_name'];
@@ -199,9 +202,6 @@ class PatientController extends Controller
 		$patient->personal_phone = $inputs['personal_phone'];
 		$patient->office_phone = $inputs['office_phone'];
 
-        $patient->image_path = $inputs['image_path'];
-        $patient->image_id = $inputs['image_id'];
-
         $user = Auth::user();
         $inputs['user_update'] = $user->id;
         
@@ -213,7 +213,7 @@ class PatientController extends Controller
             Session::flash('updated_patient', 'The patient has been updated.');
 
 
-        return redirect('admin/patient/create');
+        return redirect('admin/patient');
 	}
 	
     public function deletePatientAjax(Request $request) {

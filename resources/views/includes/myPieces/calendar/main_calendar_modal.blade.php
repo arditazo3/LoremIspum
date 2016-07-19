@@ -40,6 +40,18 @@
                         </div>
 
                         <div class="form-group ">
+                            {!! Form::label('', 'Scheduler time', ['class'=>'control-label']) !!}
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="time" id="time"
+                                       placeholder="Select your time">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            @include('includes.form-error-specify', ['field'=>'time', 'typeAlert'=>'danger'])
+                        </div>
+
+                        <div class="form-group ">
                             {!! Form::label('title', 'Title', ['class'=>'control-label']) !!}
                             {!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title']) !!}
                             @include('includes.form-error-specify', ['field'=>'title', 'typeAlert'=>'danger'])
@@ -52,16 +64,6 @@
                             @include('includes.form-error-specify', ['field'=>'content', 'typeAlert'=>'danger'])
                         </div>
 
-                        <div class="form-group ">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="time" id="time"
-                                       placeholder="Select your time">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                            @include('includes.form-error-specify', ['field'=>'time', 'typeAlert'=>'danger'])
-                        </div>
                     </div>
                 </div>
 

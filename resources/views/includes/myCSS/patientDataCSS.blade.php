@@ -1,0 +1,1 @@
+<link href="{{ URL::asset('css/extra/patientData.css') }}" rel="stylesheet" type="text/css"/>

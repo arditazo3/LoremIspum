@@ -8,6 +8,7 @@
     @include('includes.myCSS.datatablesCSS')
     @include('includes.myCSS.sweetalertCSS')
     @include('includes.myCSS.fullcalendarCSS')
+    @include('includes.myCSS.patientDataCSS')
 @endsection
 
 @section('content')
@@ -73,9 +74,7 @@
 
                             <div id="defaultProfilePicture">
                                 <img id="imageFile" src="{{ $patient->image ? ($website . $patient->image->path) : ($website . 'img/user-no_photo.png')}}"
-                                     class="img-responsive" alt=""
-                                     style="max-width: 200px; max-height: 150px;">
-
+                                     class="img-responsive" alt="" style="max-width: 200px; max-height: 150px;">
                                 <br>
                                 <button type="button" class="btn btn-info btn-sm" id="btnChangeProfilePicture">
                                     <i class="fa fa-picture-o"></i> Edit Picture
@@ -399,6 +398,10 @@
     @include('includes.myPieces.calendar.main_calendar_modal')
     {{--END AGENDA MODAL--}}
 
+    {{-- CHART MODAL --}}
+    @include('includes.myPieces.patient.charts_patient')
+    {{-- END CHART MODAL --}}
+
     {{--MODAL NOTIFICATION ERROR--}}
     @include('includes.myPieces.modal.modal_notification_msg', ['typeMsg'=>'danger'])
 
@@ -527,6 +530,8 @@
                     id = $(this).find('td').eq(0).text();
                     $('#searchModal').modal('hide');
 
+                    restoreAllFields();
+
                     formFillUpAllFields(id, allPatientsDataGlob, $btnDeleteGlob, $btnChartsGlob);
                 });
             }
@@ -584,11 +589,11 @@
             console.log('Restored Main and Personal data fields');
 		});
 
-        // Open list of patient when button is clicked
+        // open Modal of Charts patient when button is clicked
         $('#btnCharts').click(function () {
 
-
-
+            $('#chartsModal').modal({backdrop: 'static', keyboard: false});
+            console.log('open Modal Charts Panel ');
         });
 
 
@@ -698,6 +703,7 @@
         $('#date_first_visit').val( '' );
         $('#date_last_visit').val( '' );
         $('#date_next_visit').val( '' );
+
 
         console.log('Restore the Control tab');
     }
