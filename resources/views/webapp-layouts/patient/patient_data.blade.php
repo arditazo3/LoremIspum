@@ -597,6 +597,8 @@
         });
 
 
+
+
     });
 
     function formFillUpAllFields(id, allPatientData, $btnDeleteGlob, $btnChartsGlob) {
