@@ -208,11 +208,13 @@ class PatientController extends Controller
 		$patient->save();
 
         if($isNew)
-            Session::flash('created_patient', 'The patient has been created.');
+            Session::flash('created_patient', 'The patient has been created.', '');
 		else
             Session::flash('updated_patient', 'The patient has been updated.');
 
 
+        Session::flash('id_patient', $patient->id_patient);
+        
         return redirect('admin/patient');
 	}
 	
