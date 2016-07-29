@@ -589,16 +589,6 @@
             console.log('Restored Main and Personal data fields');
 		});
 
-        // open Modal of Charts patient when button is clicked
-        $('#btnCharts').click(function () {
-
-            $('#chartsModal').modal({backdrop: 'static', keyboard: false});
-            console.log('open Modal Charts Panel ');
-        });
-
-
-
-
     });
 
     function formFillUpAllFields(id, allPatientData, $btnDeleteGlob, $btnChartsGlob) {
@@ -716,5 +706,10 @@
 -- HERE IS THE LOGIC FOR 'CONTROLS'
 --}}
 @include('includes.myScript.patient.controlTabJS')
+
+{{--
+-- HERE IS THE LOGIC FOR 'TEETH CHART PATIENT'
+--}}
+@include('includes.myScript.patient.teethChartPatientJS')
 
 @endsection
