@@ -1,0 +1,1 @@
+<script src="{{ URL::asset('js/extra/patient/curePatient.js') }}" type="text/javascript"></script>

@@ -1,4 +1,3 @@
-// Control Tab
 $(document).ready(function () {
 
     var id_patient;
@@ -14,7 +13,7 @@ $(document).ready(function () {
     
     // Putting a trigger when change the value can call this method here
     $('#id_patient_hidden').change(function () {
-        var id_patient = $(this).val();
+        id_patient = $(this).val();
     });
 
 

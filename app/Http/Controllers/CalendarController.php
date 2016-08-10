@@ -139,13 +139,13 @@ class CalendarController extends Controller
             $event->contentModal = $event->content;
 
             /**
-             * IMPORTANT: THIS IS NOT A ELOQUENT OBJECT, DOESNT HAVE THE ABILITY
+             * IMPORTANT: THIS IS NOT A ELOQUENT OBJECT, DOES'NT HAVE THE ABILITY
              * TO GET THE FIELDS FROM RELATIONSHIP
              * FOR EXAMPLE
              *
              * $event->first_name = $event->patient->first_name;
              *
-             * DOESNT WORK
+             * DOES'NT WORK
              */
             $event->first_name = Patient::findOrFail($event->id_patient)->first_name;
             $event->last_name = Patient::findOrFail($event->id_patient)->last_name;

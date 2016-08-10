@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewPatientRequest;
 use App\Image;
+use App\JSTreeNode;
 use App\Option;
 use App\Patient;
 use Carbon\Carbon;
@@ -279,5 +280,6 @@ class PatientController extends Controller
             'nextControl'  => $nextControlVisit,
         ], 200);
     }
+
 
 }

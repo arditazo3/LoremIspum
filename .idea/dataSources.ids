@@ -12,600 +12,696 @@
       <table id="3" parent="1" name="domains"/>
       <table id="4" parent="1" name="events"/>
       <table id="5" parent="1" name="images"/>
-      <table id="6" parent="1" name="jobs"/>
-      <table id="7" parent="1" name="migrations"/>
-      <table id="8" parent="1" name="options"/>
-      <table id="9" parent="1" name="password_resets"/>
-      <table id="10" parent="1" name="patients"/>
-      <table id="11" parent="1" name="roles"/>
-      <table id="12" parent="1" name="users"/>
-      <column id="13" parent="2" name="id">
+      <table id="6" parent="1" name="j_s_tree_nodes"/>
+      <table id="7" parent="1" name="job_details"/>
+      <table id="8" parent="1" name="jobs"/>
+      <table id="9" parent="1" name="migrations"/>
+      <table id="10" parent="1" name="options"/>
+      <table id="11" parent="1" name="password_resets"/>
+      <table id="12" parent="1" name="patients"/>
+      <table id="13" parent="1" name="roles"/>
+      <table id="14" parent="1" name="users"/>
+      <column id="15" parent="2" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="14" parent="2" name="category">
+      <column id="16" parent="2" name="category">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="15" parent="2" name="created_at">
+      <column id="17" parent="2" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="16" parent="2" name="updated_at">
+      <column id="18" parent="2" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <key id="17" parent="2" name="PRIMARY">
+      <key id="19" parent="2" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="18" parent="3" name="id">
+      <column id="20" parent="3" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="19" parent="3" name="des_dom">
+      <column id="21" parent="3" name="des_dom">
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="20" parent="3" name="order">
+      <column id="22" parent="3" name="order">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="21" parent="3" name="description">
+      <column id="23" parent="3" name="description">
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="22" parent="3" name="value">
+      <column id="24" parent="3" name="value">
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="23" parent="3" name="created_at">
+      <column id="25" parent="3" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="24" parent="3" name="updated_at">
+      <column id="26" parent="3" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <key id="25" parent="3" name="PRIMARY">
+      <key id="27" parent="3" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="26" parent="4" name="id">
+      <column id="28" parent="4" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="27" parent="4" name="id_patient">
+      <column id="29" parent="4" name="id_patient">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="28" parent="4" name="title">
+      <column id="30" parent="4" name="title">
         <mandatory>1</mandatory>
         <data-type>varchar(250)</data-type>
       </column>
-      <column id="29" parent="4" name="content">
+      <column id="31" parent="4" name="content">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="30" parent="4" name="backgroundColor">
+      <column id="32" parent="4" name="backgroundColor">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="31" parent="4" name="start_time">
+      <column id="33" parent="4" name="start_time">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
       </column>
-      <column id="32" parent="4" name="end_time">
+      <column id="34" parent="4" name="end_time">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
       </column>
-      <column id="33" parent="4" name="created_at">
+      <column id="35" parent="4" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="34" parent="4" name="updated_at">
+      <column id="36" parent="4" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="35" parent="4" name="events_id_patient_foreign">
+      <index id="37" parent="4" name="events_id_patient_foreign">
         <columns>id_patient</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="36" parent="4" name="PRIMARY">
+      <key id="38" parent="4" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="37" parent="4" name="events_id_patient_foreign">
+      <foreign-key id="39" parent="4" name="events_id_patient_foreign">
         <columns>id_patient</columns>
         <ref-key>~.patients.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="38" parent="5" name="id">
+      <column id="40" parent="5" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="39" parent="5" name="path">
+      <column id="41" parent="5" name="path">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="40" parent="5" name="created_at">
+      <column id="42" parent="5" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="41" parent="5" name="updated_at">
+      <column id="43" parent="5" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <key id="42" parent="5" name="PRIMARY">
+      <key id="44" parent="5" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="43" parent="6" name="id">
+      <column id="45" parent="6" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="44" parent="6" name="id_invoice">
-        <mandatory>1</mandatory>
-        <data-type>varchar(50)</data-type>
-      </column>
-      <column id="45" parent="6" name="id_dentist">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-      </column>
-      <column id="46" parent="6" name="id_category">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="47" parent="6" name="detail">
-        <mandatory>1</mandatory>
-        <data-type>varchar(250)</data-type>
-      </column>
-      <column id="48" parent="6" name="short_detail">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="49" parent="6" name="currency1">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="50" parent="6" name="prize1">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="51" parent="6" name="currency2">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="52" parent="6" name="prize2">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="53" parent="6" name="currency3">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="54" parent="6" name="prize3">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="55" parent="6" name="currency4">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="56" parent="6" name="prize4">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="57" parent="6" name="vat">
-        <mandatory>1</mandatory>
-        <data-type>decimal(5,2)</data-type>
-      </column>
-      <column id="58" parent="6" name="position">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="59" parent="6" name="object">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="60" parent="6" name="type_operation">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="61" parent="6" name="note">
+      <column id="46" parent="6" name="text">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="62" parent="6" name="created_at">
-        <data-type>timestamp</data-type>
-      </column>
-      <column id="63" parent="6" name="updated_at">
-        <data-type>timestamp</data-type>
-      </column>
-      <key id="64" parent="6" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="65" parent="7" name="migration">
+      <column id="47" parent="6" name="description">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="66" parent="7" name="batch">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
+      <column id="48" parent="6" name="created_at">
+        <data-type>timestamp</data-type>
       </column>
-      <column id="67" parent="8" name="id">
+      <column id="49" parent="6" name="updated_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <key id="50" parent="6" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="51" parent="7" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="68" parent="8" name="option">
+      <column id="52" parent="7" name="id_category">
         <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="69" parent="8" name="section">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="70" parent="8" name="description">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="71" parent="8" name="value">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="72" parent="8" name="created_at">
-        <data-type>timestamp</data-type>
-      </column>
-      <column id="73" parent="8" name="updated_at">
-        <data-type>timestamp</data-type>
-      </column>
-      <key id="74" parent="8" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="75" parent="9" name="email">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="76" parent="9" name="token">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="77" parent="9" name="created_at">
+      <column id="53" parent="7" name="date">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
       </column>
-      <index id="78" parent="9" name="password_resets_email_index">
-        <columns>email</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="79" parent="9" name="password_resets_token_index">
-        <columns>token</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <column id="80" parent="10" name="id_patient">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="81" parent="10" name="proffession">
-        <mandatory>1</mandatory>
-        <data-type>varchar(50)</data-type>
-      </column>
-      <column id="82" parent="10" name="company_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="83" parent="10" name="last_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="84" parent="10" name="first_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="85" parent="10" name="address">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="86" parent="10" name="city">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="87" parent="10" name="date_birth">
-        <mandatory>1</mandatory>
-        <data-type>date</data-type>
-      </column>
-      <column id="88" parent="10" name="marital_status">
-        <mandatory>1</mandatory>
-        <data-type>varchar(20)</data-type>
-      </column>
-      <column id="89" parent="10" name="language">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="90" parent="10" name="sex">
-        <mandatory>1</mandatory>
-        <data-type>varchar(50)</data-type>
-      </column>
-      <column id="91" parent="10" name="email">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="92" parent="10" name="zip_code">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="93" parent="10" name="birth_place">
-        <mandatory>1</mandatory>
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="94" parent="10" name="personal_phone">
-        <mandatory>1</mandatory>
-        <data-type>varchar(30)</data-type>
-      </column>
-      <column id="95" parent="10" name="office_phone">
-        <mandatory>1</mandatory>
-        <data-type>varchar(30)</data-type>
-      </column>
-      <column id="96" parent="10" name="fax">
-        <mandatory>1</mandatory>
-        <data-type>varchar(30)</data-type>
-      </column>
-      <column id="97" parent="10" name="tax_code">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="98" parent="10" name="photo">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="99" parent="10" name="image_path">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="100" parent="10" name="image_id">
-        <data-type>int(10) unsigned</data-type>
-      </column>
-      <column id="101" parent="10" name="type_photo">
+      <column id="54" parent="7" name="teeth_no">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="102" parent="10" name="date_last_visit">
-        <mandatory>1</mandatory>
-        <data-type>date</data-type>
-      </column>
-      <column id="103" parent="10" name="date_next_visit">
-        <mandatory>1</mandatory>
-        <data-type>date</data-type>
-      </column>
-      <column id="104" parent="10" name="date_first_visit">
-        <mandatory>1</mandatory>
-        <data-type>date</data-type>
-      </column>
-      <column id="105" parent="10" name="date_last_pay">
-        <mandatory>1</mandatory>
-        <data-type>date</data-type>
-      </column>
-      <column id="106" parent="10" name="note">
+      <column id="55" parent="7" name="description">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="107" parent="10" name="discount">
+      <column id="56" parent="7" name="currency">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="108" parent="10" name="insurance">
+      <column id="57" parent="7" name="price">
         <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
+        <data-type>decimal(7,2)</data-type>
       </column>
-      <column id="109" parent="10" name="user_update">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="110" parent="10" name="doctor_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="111" parent="10" name="phone_doctor">
-        <mandatory>1</mandatory>
-        <data-type>varchar(50)</data-type>
-      </column>
-      <column id="112" parent="10" name="adult_child">
-        <mandatory>1</mandatory>
-        <data-type>varchar(10)</data-type>
-      </column>
-      <column id="113" parent="10" name="age">
+      <column id="58" parent="7" name="quantity">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="114" parent="10" name="barcode">
+      <column id="59" parent="7" name="discount">
         <mandatory>1</mandatory>
-        <data-type>varchar(20)</data-type>
+        <data-type>decimal(5,2)</data-type>
       </column>
-      <column id="115" parent="10" name="province">
+      <column id="60" parent="7" name="vat">
         <mandatory>1</mandatory>
-        <data-type>varchar(50)</data-type>
+        <data-type>decimal(5,2)</data-type>
       </column>
-      <column id="116" parent="10" name="id_family">
+      <column id="61" parent="7" name="clicnic_note">
         <mandatory>1</mandatory>
-        <data-type>varchar(50)</data-type>
+        <data-type>text</data-type>
       </column>
-      <column id="117" parent="10" name="family_type">
+      <column id="62" parent="7" name="id_job">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="118" parent="10" name="nation">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="119" parent="10" name="site">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="120" parent="10" name="note1">
-        <mandatory>1</mandatory>
-        <data-type>text</data-type>
-      </column>
-      <column id="121" parent="10" name="note2">
-        <mandatory>1</mandatory>
-        <data-type>text</data-type>
-      </column>
-      <column id="122" parent="10" name="note3">
-        <mandatory>1</mandatory>
-        <data-type>text</data-type>
-      </column>
-      <column id="123" parent="10" name="note4">
-        <mandatory>1</mandatory>
-        <data-type>text</data-type>
-      </column>
-      <column id="124" parent="10" name="note5">
-        <mandatory>1</mandatory>
-        <data-type>text</data-type>
-      </column>
-      <column id="125" parent="10" name="sms_notify_news">
-        <mandatory>1</mandatory>
-        <data-type>varchar(1)</data-type>
-      </column>
-      <column id="126" parent="10" name="patient_status">
-        <mandatory>1</mandatory>
-        <data-type>varchar(30)</data-type>
-      </column>
-      <column id="127" parent="10" name="head_household">
-        <mandatory>1</mandatory>
-        <data-type>varchar(1)</data-type>
-      </column>
-      <column id="128" parent="10" name="id_dentist">
+      <column id="63" parent="7" name="id_dentist">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="129" parent="10" name="created_at">
+      <column id="64" parent="7" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="130" parent="10" name="updated_at">
+      <column id="65" parent="7" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="131" parent="10" name="deleted_at">
+      <column id="66" parent="7" name="deleted_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="132" parent="10" name="patients_image_id_index">
-        <columns>image_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="133" parent="10" name="PRIMARY">
-        <columns>id_patient</columns>
-        <primary>1</primary>
-      </key>
-      <column id="134" parent="11" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="135" parent="11" name="status">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="136" parent="11" name="created_at">
-        <data-type>timestamp</data-type>
-      </column>
-      <column id="137" parent="11" name="updated_at">
-        <data-type>timestamp</data-type>
-      </column>
-      <key id="138" parent="11" name="PRIMARY">
+      <key id="67" parent="7" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="139" parent="12" name="id">
+      <column id="68" parent="8" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="140" parent="12" name="role_id">
+      <column id="69" parent="8" name="id_invoice">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="70" parent="8" name="id_category">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="71" parent="8" name="detail">
+        <mandatory>1</mandatory>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="72" parent="8" name="short_detail">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="73" parent="8" name="currency1">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="74" parent="8" name="price1">
+        <mandatory>1</mandatory>
+        <data-type>decimal(7,2)</data-type>
+      </column>
+      <column id="75" parent="8" name="currency2">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="76" parent="8" name="price2">
+        <mandatory>1</mandatory>
+        <data-type>decimal(7,2)</data-type>
+      </column>
+      <column id="77" parent="8" name="currency3">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="78" parent="8" name="price3">
+        <mandatory>1</mandatory>
+        <data-type>decimal(7,2)</data-type>
+      </column>
+      <column id="79" parent="8" name="currency4">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="80" parent="8" name="price4">
+        <mandatory>1</mandatory>
+        <data-type>decimal(7,2)</data-type>
+      </column>
+      <column id="81" parent="8" name="vat">
+        <mandatory>1</mandatory>
+        <data-type>decimal(5,2)</data-type>
+      </column>
+      <column id="82" parent="8" name="position">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="83" parent="8" name="object">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="84" parent="8" name="type_operation">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="85" parent="8" name="note">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="86" parent="8" name="id_dentist">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="87" parent="8" name="created_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="88" parent="8" name="updated_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="89" parent="8" name="deleted_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <key id="90" parent="8" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="91" parent="9" name="migration">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="92" parent="9" name="batch">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="93" parent="10" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="94" parent="10" name="option">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="95" parent="10" name="section">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="96" parent="10" name="description">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="97" parent="10" name="value">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="98" parent="10" name="created_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="99" parent="10" name="updated_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <key id="100" parent="10" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="101" parent="11" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="102" parent="11" name="token">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="103" parent="11" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
+      </column>
+      <index id="104" parent="11" name="password_resets_email_index">
+        <columns>email</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="105" parent="11" name="password_resets_token_index">
+        <columns>token</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <column id="106" parent="12" name="id_patient">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="107" parent="12" name="proffession">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="108" parent="12" name="company_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="109" parent="12" name="last_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="110" parent="12" name="first_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="111" parent="12" name="address">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="112" parent="12" name="city">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="113" parent="12" name="date_birth">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="114" parent="12" name="marital_status">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="115" parent="12" name="language">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="116" parent="12" name="sex">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="117" parent="12" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="118" parent="12" name="zip_code">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="119" parent="12" name="birth_place">
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="120" parent="12" name="personal_phone">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="121" parent="12" name="office_phone">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="122" parent="12" name="fax">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="123" parent="12" name="tax_code">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="124" parent="12" name="photo">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="125" parent="12" name="image_path">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="126" parent="12" name="image_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="141" parent="12" name="image_id">
+      <column id="127" parent="12" name="type_photo">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="128" parent="12" name="date_last_visit">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="129" parent="12" name="date_next_visit">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="130" parent="12" name="date_first_visit">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="131" parent="12" name="date_last_pay">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="132" parent="12" name="note">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="133" parent="12" name="discount">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="134" parent="12" name="insurance">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="135" parent="12" name="user_update">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="136" parent="12" name="doctor_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="137" parent="12" name="phone_doctor">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="138" parent="12" name="adult_child">
+        <mandatory>1</mandatory>
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="139" parent="12" name="age">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="140" parent="12" name="barcode">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="141" parent="12" name="province">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="142" parent="12" name="id_family">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="143" parent="12" name="family_type">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="144" parent="12" name="nation">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="145" parent="12" name="site">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="146" parent="12" name="note1">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="147" parent="12" name="note2">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="148" parent="12" name="note3">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="149" parent="12" name="note4">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="150" parent="12" name="note5">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="151" parent="12" name="sms_notify_news">
+        <mandatory>1</mandatory>
+        <data-type>varchar(1)</data-type>
+      </column>
+      <column id="152" parent="12" name="patient_status">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="153" parent="12" name="head_household">
+        <mandatory>1</mandatory>
+        <data-type>varchar(1)</data-type>
+      </column>
+      <column id="154" parent="12" name="id_dentist">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="155" parent="12" name="created_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="156" parent="12" name="updated_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="157" parent="12" name="deleted_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="158" parent="12" name="patients_image_id_index">
+        <columns>image_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="159" parent="12" name="PRIMARY">
+        <columns>id_patient</columns>
+        <primary>1</primary>
+      </key>
+      <column id="160" parent="13" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="161" parent="13" name="status">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="162" parent="13" name="created_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="163" parent="13" name="updated_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <key id="164" parent="13" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="165" parent="14" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="166" parent="14" name="role_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="142" parent="12" name="is_active">
+      <column id="167" parent="14" name="image_id">
+        <data-type>int(10) unsigned</data-type>
+      </column>
+      <column id="168" parent="14" name="is_active">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="143" parent="12" name="first_name">
+      <column id="169" parent="14" name="first_name">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="144" parent="12" name="last_name">
+      <column id="170" parent="14" name="last_name">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="145" parent="12" name="email">
+      <column id="171" parent="14" name="email">
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="146" parent="12" name="address">
+      <column id="172" parent="14" name="address">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="147" parent="12" name="phone">
+      <column id="173" parent="14" name="phone">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="148" parent="12" name="password">
+      <column id="174" parent="14" name="password">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="149" parent="12" name="user_update">
+      <column id="175" parent="14" name="user_update">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="150" parent="12" name="remember_token">
+      <column id="176" parent="14" name="remember_token">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="151" parent="12" name="created_at">
+      <column id="177" parent="14" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="152" parent="12" name="updated_at">
+      <column id="178" parent="14" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="153" parent="12" name="users_email_unique">
+      <index id="179" parent="14" name="users_email_unique">
         <columns>email</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="154" parent="12" name="users_image_id_index">
+      <index id="180" parent="14" name="users_image_id_index">
         <columns>image_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="155" parent="12" name="users_role_id_index">
+      <index id="181" parent="14" name="users_role_id_index">
         <columns>role_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="156" parent="12" name="PRIMARY">
+      <key id="182" parent="14" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="157" parent="12" name="users_email_unique">
+      <key id="183" parent="14" name="users_email_unique">
         <columns>email</columns>
         <underlying-index>users_email_unique</underlying-index>
       </key>

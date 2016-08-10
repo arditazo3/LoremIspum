@@ -1,0 +1,1 @@
+<link href="{{ URL::asset('css/extra/jsTree.css') }}" rel="stylesheet" type="text/css"/>

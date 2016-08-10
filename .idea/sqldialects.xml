@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/todo/lorem-action.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/todo/lorem001.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/todo/db_script/lorem-action.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/todo/db_script/to_run/lorem001.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/todo/db_script/truncate.sql" dialect="MySQL" />
   </component>
 </project>

@@ -9,6 +9,7 @@
     @include('includes.myCSS.sweetalertCSS')
     @include('includes.myCSS.fullcalendarCSS')
     @include('includes.myCSS.patientDataCSS')
+    @include('includes.myCSS.jsTreeCSS')
 @endsection
 
 @section('content')
@@ -33,6 +34,10 @@
                 <div class="ibox-title">
                     <h5>Fill up the patient form</h5>
                     <div class="ibox-tools">
+
+                        <button class="btn btn-info btn-sm" type="button" id="btnNewCare"><i class="fa fa-plus"></i>
+                            New Care
+                        </button>
 
                         <button class="btn btn-primary btn-sm" type="button" id="btnCharts"><i class="fa fa-folder-open"></i>
                             Charts
@@ -402,6 +407,10 @@
     @include('includes.myPieces.patient.charts_patient')
     {{-- END CHART MODAL --}}
 
+    {{-- CURE MODAL --}}
+    @include('includes.myPieces.patient.cure_patient')
+    {{-- END CURE MODAL --}}
+
     {{--MODAL NOTIFICATION ERROR--}}
     @include('includes.myPieces.modal.modal_notification_msg', ['typeMsg'=>'danger'])
 
@@ -414,6 +423,7 @@
     @include('includes.myScript.toastr')
     @include('includes.myScript.jquery_validate')
     @include('includes.myScript.sweetalertJS')
+    @include('includes.myScript.jsTreeJS')
 
 <script>
 
@@ -435,6 +445,7 @@
 
         var $btnDeleteGlob = $('#btnDeletePatient').hide();
         var $btnChartsGlob = $('#btnCharts').hide();
+        var $btnNewCareGlob = $('#btnNewCare').hide();
 
         var changeProfPicGlob = $('#changeProfilePicture').hide();
         var defaultProfPicGlob = $('#defaultProfilePicture').show();
@@ -532,7 +543,7 @@
 
                     restoreAllFields();
 
-                    formFillUpAllFields(id, allPatientsDataGlob, $btnDeleteGlob, $btnChartsGlob);
+                    formFillUpAllFields(id, allPatientsDataGlob, $btnDeleteGlob, $btnChartsGlob, $btnNewCareGlob);
                 });
             }
         });
@@ -586,12 +597,13 @@
 			restoreAllFields();
             $btnDeleteGlob.hide();
             $btnChartsGlob.hide();
+            $btnNewCareGlob.hide();
             console.log('Restored Main and Personal data fields');
 		});
 
     });
 
-    function formFillUpAllFields(id, allPatientData, $btnDeleteGlob, $btnChartsGlob) {
+    function formFillUpAllFields(id, allPatientData, $btnDeleteGlob, $btnChartsGlob, $btnNewCareGlob) {
 
         var listPatientData = allPatientData.data;
 
@@ -630,6 +642,7 @@
         });
         $btnDeleteGlob.show();
         $btnChartsGlob.show();
+        $btnNewCareGlob.show();
     }
 
     function changeFormatDate(inputDate) {
@@ -711,5 +724,10 @@
 -- HERE IS THE LOGIC FOR 'TEETH CHART PATIENT'
 --}}
 @include('includes.myScript.patient.teethChartPatientJS')
+
+{{--
+-- HERE IS THE LOGIC FOR 'NEW/EDIT CURE'
+--}}
+@include('includes.myScript.patient.curePatientJS')
 
 @endsection
