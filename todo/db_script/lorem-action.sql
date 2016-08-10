@@ -20,3 +20,5 @@ select * from domains;
 select * from categories;
 
 select * from jobs;
+
+select * from teeths_prizes;

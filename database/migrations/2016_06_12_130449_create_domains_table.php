@@ -14,10 +14,10 @@ class CreateDomainsTable extends Migration
     {
         Schema::create('domains', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('des_dom', 100);
+            $table->string('des_dom', 100)->nullable();
             $table->integer('order')->unsigned()->default(0);
-            $table->string('description', 100);
-            $table->string('value', 100);
+            $table->string('description', 100)->nullable();
+            $table->string('value', 100)->nullable();
             $table->timestamps();
         });
     }

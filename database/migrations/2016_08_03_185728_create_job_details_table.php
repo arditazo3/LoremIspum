@@ -15,19 +15,24 @@ class CreateJobDetailsTable extends Migration
         Schema::create('job_details', function (Blueprint $table) {
             
             $table->increments('id');
-            $table->integer('id_category')->unsigned()->default(0);
-            $table->timestamp('date');
-            $table->integer('teeth_no')->unsigned()->default(0);
-            $table->text('description');
-            $table->integer('currency')->unsigned()->default(0);
-            $table->decimal('price', 7, 2);
-            $table->integer('quantity')->unsigned()->default(0);
-            $table->decimal('discount', 5, 2);
-            $table->decimal('vat', 5, 2);
-            $table->text('clicnic_note');
 
-            $table->integer('id_job')->unsigned()->default(0);    // foreign key
-            $table->string('id_dentist', 50);                     // foreign key
+            $table->integer('category_id')->index()->unsigned();
+            $table->string('detail', 250)->nullable();
+            $table->integer('currency1')->unsigned()->default(0);
+            $table->decimal('price1', 7, 2)->nullable();
+            $table->integer('currency2')->unsigned()->default(0);
+            $table->decimal('price2', 7, 2)->nullable();
+            $table->integer('currency3')->unsigned()->default(0);
+            $table->decimal('price3', 7, 2)->nullable();
+            $table->integer('currency4')->unsigned()->default(0);
+            $table->decimal('price4', 7, 2)->nullable();
+            $table->decimal('vat', 5, 2)->nullable();
+            $table->string('position', 255)->nullable();
+            $table->integer('object')->unsigned()->default(0);
+            $table->integer('type_operation')->unsigned()->default(0);
+            $table->text('note')->nullable();
+
+            $table->string('id_dentist', 50);                // foreign key
 
             $table->timestamps();
 

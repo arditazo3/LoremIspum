@@ -14,10 +14,10 @@ class CreateOptionsTable extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('option', 100);
-            $table->string('section', 100);
-            $table->string('description', 100);
-            $table->string('value', 100);
+            $table->string('option', 100)->nullable();
+            $table->string('section', 100)->nullable();
+            $table->string('description', 100)->nullable();
+            $table->string('value', 100)->nullable();
             $table->timestamps();
         });
     }

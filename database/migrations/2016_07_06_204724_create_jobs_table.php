@@ -15,26 +15,21 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('id_invoice', 50);
+            $table->string('id_invoice', 50)->nullable();
 
             $table->integer('id_category')->unsigned()->default(0);
-            $table->string('detail', 250);
-            $table->string('short_detail', 100);
-            $table->integer('currency1')->unsigned()->default(0);
-            $table->decimal('price1', 7, 2);
-            $table->integer('currency2')->unsigned()->default(0);
-            $table->decimal('price2', 7, 2);
-            $table->integer('currency3')->unsigned()->default(0);
-            $table->decimal('price3', 7, 2);
-            $table->integer('currency4')->unsigned()->default(0);
-            $table->decimal('price4', 7, 2);
-            $table->decimal('vat', 5, 2);
-            $table->string('position', 255);
-            $table->integer('object')->unsigned()->default(0);
-            $table->integer('type_operation')->unsigned()->default(0);
-            $table->text('note');
+            $table->timestamp('date');
+            $table->integer('teeth_no')->unsigned()->default(0);
+            $table->text('description')->nullable();
+            $table->integer('currency')->unsigned()->default(0);
+            $table->decimal('price', 10, 2);
+            $table->integer('quantity')->unsigned()->default(0);
+            $table->decimal('discount', 5, 2);
+            $table->decimal('vat', 5, 2)->nullable();
+            $table->text('clicnic_note')->nullable();
 
-            $table->string('id_dentist', 50);                // foreign key
+            $table->integer('id_job')->unsigned()->default(0);    // foreign key
+            $table->string('id_dentist', 50);                     // foreign key
 
             $table->timestamps();
 

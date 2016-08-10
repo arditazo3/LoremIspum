@@ -437,6 +437,7 @@
     -- HERE IS THE LOGIC ONLY FOR MAIN MECHANISM AND 'PATIENT DATA'
     --}}
     $(document).ready(function () {
+
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         token = '{{ \Illuminate\Support\Facades\Session::token() }}';
         var allPatientsDataGlob = '';

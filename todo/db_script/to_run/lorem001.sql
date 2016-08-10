@@ -45,101 +45,30 @@ insert into domains(des_dom, description, value) VALUES ('adult', 'Child', 'CH')
 insert into domains(des_dom, description, value) VALUES ('gender', 'Male', 'MA');
 insert into domains(des_dom, description, value) VALUES ('gender', 'Female', 'FE');
 
-
-select * from events;
-
 INSERT INTO roles(status, created_at, updated_at) VALUES ('Administrator', now(), now());
 INSERT INTO roles(status, created_at, updated_at) VALUES ('Dentist', now(), now());
 
-INSERT INTO categories(category, created_at, updated_at) VALUES ('Surgery', NOW(), NOW());
-INSERT INTO categories(category, created_at, updated_at) VALUES ('Conservative', NOW(), NOW());
-INSERT INTO categories(category, created_at, updated_at) VALUES ('Radiology', NOW(), NOW());
-INSERT INTO categories(category, created_at, updated_at) VALUES ('Endodontic', NOW(), NOW());
-INSERT INTO categories(category, created_at, updated_at) VALUES ('Implantology', NOW(), NOW());
-INSERT INTO categories(category, created_at, updated_at) VALUES ('Periodontal', NOW(), NOW());
-INSERT INTO categories(category, created_at, updated_at) VALUES ('Hygiene', NOW(), NOW());
-INSERT INTO categories(category, created_at, updated_at) VALUES ('Prosthesis', NOW(), NOW());
+INSERT INTO categories(id, category, created_at, updated_at) VALUES (1, 'Surgery', NOW(), NOW());
+INSERT INTO categories(id, category, created_at, updated_at) VALUES (2, 'Conservative', NOW(), NOW());
+INSERT INTO categories(id, category, created_at, updated_at) VALUES (3, 'Radiology', NOW(), NOW());
+INSERT INTO categories(id, category, created_at, updated_at) VALUES (4, 'Endodontic', NOW(), NOW());
+INSERT INTO categories(id, category, created_at, updated_at) VALUES (5, 'Implantology', NOW(), NOW());
+INSERT INTO categories(id, category, created_at, updated_at) VALUES (6, 'Periodontal', NOW(), NOW());
+INSERT INTO categories(id, category, created_at, updated_at) VALUES (7, 'Hygiene', NOW(), NOW());
+INSERT INTO categories(id, category, created_at, updated_at) VALUES (8, 'Prosthesis', NOW(), NOW());
 
-INSERT INTO j_s_tree_nodes(text, description, created_at, updated_at) VALUES ('
-[
-                ''Empty Folder'',
-                {
-                    ''text'': ''Resources'',
-                    ''state'': {
-                        ''opened'': true
-                    },
-                    ''children'': [
-                        {
-                            ''text'': ''css'',
-                            ''children'': [
-                                {
-                                    ''text'': ''animate.css'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''bootstrap.css'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''main.css'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''style.css'', ''icon'': ''none''
-                                }
-                            ],
-                            ''state'': {
-                                ''opened'': true
-                            }
-                        },
-                        {
-                            ''text'': ''js'',
-                            ''children'': [
-                                {
-                                    ''text'': ''bootstrap.js'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''inspinia.min.js'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''jquery.min.js'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''jsTree.min.js'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''custom.min.js'', ''icon'': ''none''
-                                }
-                            ],
-                            ''state'': {
-                                ''opened'': true
-                            }
-                        },
-                        {
-                            ''text'': ''html'',
-                            ''children'': [
-                                {
-                                    ''text'': ''layout.html'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''navigation.html'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''navbar.html'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''footer.html'', ''icon'': ''none''
-                                },
-                                {
-                                    ''text'': ''sidebar.html'', ''icon'': ''none''
-                                }
-                            ],
-                            ''state'': {
-                                ''opened'': true
-                            }
-                        }
-                    ]
-                },
-                ''Fonts'',
-                ''Images'',
-                ''Scripts'',
-                ''Templates'',
-            ]'
-  , 'JSTreeNodeCategoriesPatient', now(), now());
+
+# 10/08/2016
+
+truncate table teeths_prizes;
+
+INSERT INTO teeths_prizes(category_id, category, detail, date, currency1, price1, vat, position, note, created_at, updated_at) VALUES
+  (1, 'Chirurgia', 'EST - estrazione chirurgica', now(), 1, 200, 0, '', '', now(), now() );
+INSERT INTO teeths_prizes(category_id, category, detail, date, currency1, price1, vat, position, note, created_at, updated_at) VALUES
+  (2, 'Conservativa', 'OTS - otturazione amalgama occlusale', now(), 1, 230, 0, '', '', now(), now() );
+INSERT INTO teeths_prizes(category_id, category, detail, date, currency1, price1, vat, position, note, created_at, updated_at) VALUES
+  (4, 'Endodonzia', 'DEV - devitalizzazione monocanalare', now(), 1, 150, 0, '', '', now(), now() );
+INSERT INTO teeths_prizes(category_id, category, detail, date, currency1, price1, vat, position, note, created_at, updated_at) VALUES
+  (4, 'Endodonzia', 'DEVP - devitalizzazione pluricanalare', now(), 1, 100, 0, '', '', now(), now() );
+INSERT INTO teeths_prizes(category_id, category, detail, date, currency1, price1, vat, position, note, created_at, updated_at) VALUES
+  (7, 'Igiene', 'ABL - ablazione del tartaro', now(), 1, 50, 0, '', '', now(), now() );
