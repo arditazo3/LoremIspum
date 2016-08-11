@@ -408,7 +408,8 @@
     {{-- END CHART MODAL --}}
 
     {{-- CURE MODAL --}}
-    @include('includes.myPieces.patient.cure_patient')
+    @include('includes.myPieces.patient.cure_patient',
+    ['listCures'=> $listCures, 'typeCure'=> $typeCure, 'statusCure'=> $statusCure, 'listUsers'=> $listUsers])
     {{-- END CURE MODAL --}}
 
     {{--MODAL NOTIFICATION ERROR--}}

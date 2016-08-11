@@ -56,7 +56,7 @@
         <data-type>varchar(100)</data-type>
       </column>
       <column id="24" parent="3" name="value">
-        <data-type>varchar(100)</data-type>
+        <data-type>text</data-type>
       </column>
       <column id="25" parent="3" name="created_at">
         <data-type>timestamp</data-type>
@@ -254,7 +254,7 @@
       </column>
       <column id="74" parent="7" name="price">
         <mandatory>1</mandatory>
-        <data-type>decimal(7,2)</data-type>
+        <data-type>decimal(10,2)</data-type>
       </column>
       <column id="75" parent="7" name="quantity">
         <mandatory>1</mandatory>
@@ -572,31 +572,25 @@
       </column>
       <column id="165" parent="13" name="price1">
         <mandatory>1</mandatory>
-        <data-type>decimal(7,2)</data-type>
+        <data-type>decimal(10,2)</data-type>
       </column>
       <column id="166" parent="13" name="currency2">
-        <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
       </column>
       <column id="167" parent="13" name="price2">
-        <data-type>decimal(7,2)</data-type>
+        <data-type>decimal(10,2)</data-type>
       </column>
       <column id="168" parent="13" name="currency3">
-        <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
       </column>
       <column id="169" parent="13" name="price3">
-        <data-type>decimal(7,2)</data-type>
+        <data-type>decimal(10,2)</data-type>
       </column>
       <column id="170" parent="13" name="currency4">
-        <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
       </column>
       <column id="171" parent="13" name="price4">
-        <data-type>decimal(7,2)</data-type>
+        <data-type>decimal(10,2)</data-type>
       </column>
       <column id="172" parent="13" name="vat">
         <data-type>decimal(5,2)</data-type>

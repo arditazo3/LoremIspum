@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain;
 use App\Http\Requests\NewPatientRequest;
 use App\Image;
 use App\JSTreeNode;
@@ -36,10 +37,24 @@ class PatientController extends Controller
         $patient = new Patient();
         $website = Option::findOrFail(1)->value;
 
+        /**
+         * The list of variables used at Cure Modal
+         */
+        $listCures = DB::table('domains')
+                        ->where('des_dom', 'curesAndCategories')
+                        ->lists('value');
+
+        $typeCure = Domain::where('des_dom', 'typeCure')->get();
+
+        $statusCure = Domain::where('des_dom', 'statusCure')->get();
+
+        $listUsers = DB::table('users')->where('is_active', 1)->lists('last_name', 'id');
+
         return view('webapp-layouts.patient.patient_data',
             compact([
                 'cities', 'countries', 'proffessions', 'marital_status', 'languages',
-                'adults', 'genders', 'patient', 'website'
+                'adults', 'genders', 'patient', 'website', 'listCures', 'typeCure', 'statusCure',
+                'listUsers'
             ]));
     }
 

@@ -57,6 +57,16 @@ $(document).ready(function () {
     
     function setTheCureSelected( theCure ) {
         console.log( theCure );
+
+        var shortCode = (theCure.detail).substring(0, 4).trim();
+        var description = ((theCure.detail).split('-')[1]).trim();
+        var price = theCure.price1;
+
+        $('#shortCode').val( shortCode );
+        // first letter uppercase
+        $('#description').val( description[0].toUpperCase() + description.slice(1) );
+        $('#price').val( price );
+
     }
 
     $('#jstree1').jstree({

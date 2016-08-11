@@ -72,3 +72,51 @@ INSERT INTO teeths_prizes(category_id, category, detail, date, currency1, price1
   (4, 'Endodonzia', 'DEVP - devitalizzazione pluricanalare', now(), 1, 100, 0, '', '', now(), now() );
 INSERT INTO teeths_prizes(category_id, category, detail, date, currency1, price1, vat, position, note, created_at, updated_at) VALUES
   (7, 'Igiene', 'ABL - ablazione del tartaro', now(), 1, 50, 0, '', '', now(), now() );
+
+INSERT INTO domains(des_dom, `order`, description, value, created_at, updated_at) VALUES ('curesAndCategories', 1, 'Chirurgia',
+'
+<li class="jstree-open">Chirurgia |
+    <ul>
+        <li data-jstree=''{"type":"js"}''>EST - estrazione chirurgica</li>
+    </ul>
+</li>
+',
+now(), now() );
+
+INSERT INTO domains(des_dom, `order`, description, value, created_at, updated_at) VALUES ('curesAndCategories', 2, 'Conservativa',
+'
+<li>Conservativa |
+    <ul>
+        <li data-jstree=''{"type":"js"}''>OTS - otturazione amalgama occlusale</li>
+    </ul>
+</li>
+',
+now(), now() );
+
+INSERT INTO domains(des_dom, `order`, description, value, created_at, updated_at) VALUES ('curesAndCategories', 3, 'Endodonzia',
+'
+<li>Endodonzia |
+  <ul>
+      <li data-jstree=''{"type":"js"}''>DEV - devitalizzazione monocanalare</li>
+      <li data-jstree=''{"type":"js"}''>DEVP - devitalizzazione pluricanalare</li>
+  </ul>
+</li>
+',
+now(), now() );
+
+INSERT INTO domains(des_dom, `order`, description, value, created_at, updated_at) VALUES ('curesAndCategories', 4, 'Endodonzia',
+'
+<li>Igiene |
+    <ul>
+        <li data-jstree=''{"type":"js"}''>ABL - ablazione del tartaro</li>
+    </ul>
+</li>
+',
+now(), now() );
+
+INSERT INTO domains(des_dom, `order`, description, value, created_at, updated_at) VALUES ('typeCure', 1, 'Prestazione', 'type', now(), now());
+
+INSERT INTO domains(des_dom, description, value, created_at, updated_at) VALUES ('statusCure', 'Eseguito', 'type', now(), now());
+INSERT INTO domains(des_dom, `order`, description, value, created_at, updated_at) VALUES ('statusCure', 1, 'Da eseguire', 'type', now(), now());
+INSERT INTO domains(des_dom, description, value, created_at, updated_at) VALUES ('statusCure', 'In cura', 'type', now(), now());
+INSERT INTO domains(des_dom, description, value, created_at, updated_at) VALUES ('statusCure', 'Non conteggiare', 'type', now(), now());
