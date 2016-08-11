@@ -428,9 +428,10 @@
 <script>
 
     {{-- HERE ARE GLOBAL VARIABLES TO BE ACCESSED FROM ANOTHER JS SCRIPTS --}}
-    var token;
+    var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
     var controlsInfo = '{{ route('api/getInfoControlPatient') }}';
     var urlCreateEvent = '{{ route('api/createEventAjax') }}';
+    var selectedCure = '{{ route('api/getSelectedCure') }}';
     var oldTimeGlob = '{{ old('time') }}';
 
     {{--

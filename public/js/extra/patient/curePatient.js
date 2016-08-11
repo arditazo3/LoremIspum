@@ -23,11 +23,41 @@ $(document).ready(function () {
                 for(i = 0, j = data.selected.length; i < j; i++) {
                     r.push(data.instance.get_node(data.selected[i]).text);
                 }
-                console.log( r.join(', ') );
-                
+                selectedCureCategory( r.join(', ') );
             })
             .jstree();
     });
+
+    function selectedCureCategory(cureName) {
+
+        var cureNameTrim = cureName.trim();
+
+        if (cureNameTrim.substr(cureNameTrim.length - 1) === '|') {
+            console.log('Category selected! Choose the cure item.')
+        } else {
+
+            $.ajax({
+                type: 'POST',
+                url: selectedCure,
+                data: {
+                    cureName: cureName,
+                    _token: token
+                }
+            })
+                .error(function (msg) {
+                    $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
+                    // set and/or replace the html code inside it
+                    $("#notificationMsg").html(msg.responseText);
+                })
+                .done(function (msg) {
+                    setTheCureSelected( msg.theCure );
+                });
+        }
+    }
+    
+    function setTheCureSelected( theCure ) {
+        console.log( theCure );
+    }
 
     $('#jstree1').jstree({
         'core' : {

@@ -90,5 +90,10 @@ Route::group(['middleware'=>'admin'], function () {
 
     Route::post('api/createEventAjax', ['uses' => 'CalendarController@createEventAjax', 'as'   => 'api/createEventAjax' ]);
 
+    /**
+     * Cure Modal (Patient)
+     */
+    Route::post('api/getSelectedCure', ['uses' => 'CureController@getSelectedCure', 'as'   => 'api/getSelectedCure' ]);
+    
 });
 
