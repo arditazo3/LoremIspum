@@ -112,8 +112,8 @@
 
                     <div class="col-sm-8 b-r">
 
-                        <div style="position: relative; width: 100%; height: 431px;">
-
+                        <div style="position: relative; width: 90%; height: 280px;">
+                            <img src="{{ $website . 'images/teeths/teeth-chart-line.jpg' }}" alt="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
                         </div>
 
                     </div>
