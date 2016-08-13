@@ -13,8 +13,10 @@
                         <b>Type:</b>
 
                         @foreach($typeCure as $typeTheCure)
-                            <div class="radio i-checks"><label> <input type="radio"  {{ $typeTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $typeTheCure->value }}"
-                                                                       name="{{ $typeTheCure->des_dom }}"> <i></i> {{ $typeTheCure->description }} </label></div>
+                            <div class="radio i-checks"><label> <input type="radio"
+                                                                       {{ $typeTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $typeTheCure->value }}"
+                                                                       name="{{ $typeTheCure->des_dom }}">
+                                    <i></i> {{ $typeTheCure->description }} </label></div>
                         @endforeach
 
 
@@ -24,8 +26,10 @@
                         <b>Status:</b>
 
                         @foreach($statusCure as $statusTheCure)
-                            <div class="radio i-checks"><label> <input type="radio"  {{ $statusTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $statusTheCure->value }}"
-                                                                       name="{{ $statusTheCure->des_dom }}"> <i></i> {{ $statusTheCure->description }} </label></div>
+                            <div class="radio i-checks"><label> <input type="radio"
+                                                                       {{ $statusTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $statusTheCure->value }}"
+                                                                       name="{{ $statusTheCure->des_dom }}">
+                                    <i></i> {{ $statusTheCure->description }} </label></div>
                         @endforeach
 
                     </div>
@@ -45,8 +49,9 @@
                                 <div class="input-group date">
                                                         <span class="input-group-addon"><i
                                                                     class="fa fa-calendar"></i></span>
-                                    <input class="datepicker form-control" data-date-format="dd/mm/yyyy" value="{{ \Carbon\Carbon::now()->format('d/m/Y') }}"
-                                           id="date_cure" name="dateCure" >
+                                    <input class="datepicker form-control" data-date-format="dd/mm/yyyy"
+                                           value="{{ \Carbon\Carbon::now()->format('d/m/Y') }}"
+                                           id="date_cure" name="dateCure">
                                 </div>
                             </div>
                         </div>
@@ -112,8 +117,109 @@
 
                     <div class="col-sm-8 b-r">
 
-                        <div style="position: relative; width: 90%; height: 280px;">
-                            <img src="{{ $website . 'images/teeths/teeth-chart-line.jpg' }}" alt="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                        <div style="position: relative; width: 100%; height: 350px;">
+                            <img id="teeth" src="{{ $website . 'images/teeths_chart/teeth-chart-line-3.png' }}" alt=""
+                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+
+                            {{-- Group of teeths overlayout --}}
+                            <img id="teeth_1" src="{{ $website . 'images/teeths_chart/teeth_chart_group/1.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 3%; width: 6%; height: 35%;">
+
+                            <img id="teeth_2" src="{{ $website . 'images/teeths_chart/teeth_chart_group/2.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 9.5%; width: 7%; height: 35%;">
+
+                            <img id="teeth_3" src="{{ $website . 'images/teeths_chart/teeth_chart_group/3.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 17%; width: 7%; height: 35%;">
+
+                            <img id="teeth_4" src="{{ $website . 'images/teeths_chart/teeth_chart_group/4.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 24.5%; width: 4.5%; height: 35%;">
+
+                            <img id="teeth_5" src="{{ $website . 'images/teeths_chart/teeth_chart_group/5.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 30%; width: 4.5%; height: 35%;">
+
+                            <img id="teeth_6" src="{{ $website . 'images/teeths_chart/teeth_chart_group/6.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 34.5%; width: 5%; height: 35%;">
+
+                            <img id="teeth_7" src="{{ $website . 'images/teeths_chart/teeth_chart_group/7.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 40%; width: 4%; height: 35%;">
+
+                            <img id="teeth_8" src="{{ $website . 'images/teeths_chart/teeth_chart_group/8.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 44.5%; width: 5%; height: 35%;">
+
+                            <img id="teeth_9" src="{{ $website . 'images/teeths_chart/teeth_chart_group/9.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 49.8%; width: 5.5%; height: 35%;">
+
+                            <img id="teeth_10" src="{{ $website . 'images/teeths_chart/teeth_chart_group/10.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 55%; width: 4%; height: 35%;">
+
+                            <img id="teeth_11" src="{{ $website . 'images/teeths_chart/teeth_chart_group/11.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 60%; width: 5%; height: 35%;">
+
+                            <img id="teeth_12" src="{{ $website . 'images/teeths_chart/teeth_chart_group/12.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 65%; width: 4.7%; height: 35%;">
+
+                            <img id="teeth_13" src="{{ $website . 'images/teeths_chart/teeth_chart_group/13.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 70%; width: 4.7%; height: 35%;">
+
+                            <img id="teeth_14" src="{{ $website . 'images/teeths_chart/teeth_chart_group/14.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 75%; width: 7%; height: 35%;">
+
+                            <img id="teeth_15" src="{{ $website . 'images/teeths_chart/teeth_chart_group/15.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 83%; width: 6.5%; height: 35%;">
+
+                            <img id="teeth_16" src="{{ $website . 'images/teeths_chart/teeth_chart_group/16.png' }}"
+                                 style="position: absolute; top: 6.3%; left: 90%; width: 6%; height: 35%;">
+
+                            {{------ DOWN ------}}
+                            <img id="teeth_17" src="{{ $website . 'images/teeths_chart/teeth_chart_group/17.png' }}"
+                                 style="position: absolute; top: 57%; left: 90%; width: 6.2%; height: 35%;">
+
+                            <img id="teeth_18" src="{{ $website . 'images/teeths_chart/teeth_chart_group/18.png' }}"
+                                 style="position: absolute; top: 57%; left: 82.8%; width: 7.5%; height: 35%;">
+
+                            <img id="teeth_19" src="{{ $website . 'images/teeths_chart/teeth_chart_group/19.png' }}"
+                                 style="position: absolute; top: 57%; left: 74.3%; width: 8%; height: 35%;">
+
+                            <img id="teeth_20" src="{{ $website . 'images/teeths_chart/teeth_chart_group/20.png' }}"
+                                 style="position: absolute; top: 57%; left: 69.6%; width: 4.5%; height: 35%;">
+
+                            <img id="teeth_21" src="{{ $website . 'images/teeths_chart/teeth_chart_group/21.png' }}"
+                                 style="position: absolute; top: 57%; left: 64.6%; width: 4.7%; height: 35%;">
+
+                            <img id="teeth_22" src="{{ $website . 'images/teeths_chart/teeth_chart_group/22.png' }}"
+                                 style="position: absolute; top: 57%; left: 59%; width: 5.3%; height: 35%;">
+
+                            <img id="teeth_23" src="{{ $website . 'images/teeths_chart/teeth_chart_group/23.png' }}"
+                                 style="position: absolute; top: 57%; left: 54%; width: 4.8%; height: 35%;">
+
+                            <img id="teeth_24" src="{{ $website . 'images/teeths_chart/teeth_chart_group/24.png' }}"
+                                 style="position: absolute; top: 57%; left: 49.8%; width: 4.1%; height: 35%;">
+
+                            <img id="teeth_25" src="{{ $website . 'images/teeths_chart/teeth_chart_group/25.png' }}"
+                                 style="position: absolute; top: 57%; left: 45.2%; width: 4.1%; height: 35%;">
+
+                            <img id="teeth_26" src="{{ $website . 'images/teeths_chart/teeth_chart_group/26.png' }}"
+                                 style="position: absolute; top: 57%; left: 40.5%; width: 4.5%; height: 35%;">
+
+                            <img id="teeth_27" src="{{ $website . 'images/teeths_chart/teeth_chart_group/27.png' }}"
+                                 style="position: absolute; top: 57%; left: 34.5%; width: 5.6%; height: 35%;">
+
+                            <img id="teeth_28" src="{{ $website . 'images/teeths_chart/teeth_chart_group/28.png' }}"
+                                 style="position: absolute; top: 57%; left: 30%; width: 4.7%; height: 35%;">
+
+                            <img id="teeth_29" src="{{ $website . 'images/teeths_chart/teeth_chart_group/29.png' }}"
+                                 style="position: absolute; top: 57%; left: 25.2%; width: 4.5%; height: 35%;">
+
+                            <img id="teeth_30" src="{{ $website . 'images/teeths_chart/teeth_chart_group/30.png' }}"
+                                 style="position: absolute; top: 57%; left: 17%; width: 8%; height: 35%;">
+
+                            <img id="teeth_32" src="{{ $website . 'images/teeths_chart/teeth_chart_group/32.png' }}"
+                                 style="position: absolute; top: 57%; left: 3%; width: 6.3%; height: 35%;">
+
+                            <img id="teeth_31" src="{{ $website . 'images/teeths_chart/teeth_chart_group/31.png' }}"
+                                 style="position: absolute; top: 57%; left: 9.3%; width: 7.4%; height: 35%;">
+
+
                         </div>
 
                     </div>

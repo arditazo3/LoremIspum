@@ -16,7 +16,6 @@ $(document).ready(function () {
         id_patient = $(this).val();
     });
 
-
 });
 
 

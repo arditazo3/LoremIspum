@@ -54,18 +54,43 @@ $(document).ready(function () {
                 });
         }
     }
-    
+
+    var teeth1 = $('#teeth_32').show();
+    var teeth = $('#teeth').show();
+    var index = 1;
+
+    $('#teeth_32').click(function () {
+
+        if (index % 2 == 1) {
+            teeth1.hide();
+            index++;
+            console.log('hide, index: ' + index);
+        }
+    });
+
+    $('#teeth').click(function() {
+
+        if(index % 2 == 0) {
+            teeth1.show();
+            index++;
+            console.log('show, index: ' + index);
+        }
+
+    });
+
     function setTheCureSelected( theCure ) {
         console.log( theCure );
 
         var shortCode = (theCure.detail).substring(0, 4).trim();
         var description = ((theCure.detail).split('-')[1]).trim();
         var price = theCure.price1;
+        var amount = parseFloat( 0 ).toFixed(2);
 
         $('#shortCode').val( shortCode );
         // first letter uppercase
         $('#description').val( description[0].toUpperCase() + description.slice(1) );
         $('#price').val( price );
+        $('#amount').val( amount );
 
     }
 
