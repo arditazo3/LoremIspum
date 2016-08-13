@@ -94,6 +94,30 @@ $(document).ready(function () {
 
     }
 
+    $("#teeth-group img").on("click", function() {
+        console.log("clicked: " + $(this).prop('id') );
+        
+        var idImage = "#" + $(this).prop('id');
+
+        if (idImage != ("#" + "teeth")) {
+            setSelectedOrUnSelectTeethImage(idImage);
+        }
+
+    });
+
+    function setSelectedOrUnSelectTeethImage(idImage) {
+
+        var hasClass = $(idImage).attr('class');
+
+        if (typeof hasClass !== typeof undefined && hasClass !== false) {
+            // $(idImage).removeClass("teeth-border-cure");
+            $(idImage).removeAttr("class");
+        } else {
+            $(idImage).addClass("teeth-border-cure");
+        }
+
+    }
+
     $('#jstree1').jstree({
         'core' : {
             'check_callback' : true

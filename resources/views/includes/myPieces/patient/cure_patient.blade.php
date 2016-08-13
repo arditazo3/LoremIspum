@@ -117,7 +117,7 @@
 
                     <div class="col-sm-8 b-r">
 
-                        <div style="position: relative; width: 100%; height: 350px;">
+                        <div id="teeth-group" style="position: relative; width: 100%; height: 350px;">
                             <img id="teeth" src="{{ $website . 'images/teeths_chart/teeth-chart-line-3.png' }}" alt=""
                                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
 
@@ -147,7 +147,7 @@
                                  style="position: absolute; top: 6.3%; left: 44.5%; width: 5%; height: 35%;">
 
                             <img id="teeth_9" src="{{ $website . 'images/teeths_chart/teeth_chart_group/9.png' }}"
-                                 style="position: absolute; top: 6.3%; left: 49.8%; width: 5.5%; height: 35%;">
+                                 style="position: absolute; top: 6.3%; left: 49.8%; width: 5.3%; height: 35%;">
 
                             <img id="teeth_10" src="{{ $website . 'images/teeths_chart/teeth_chart_group/10.png' }}"
                                  style="position: absolute; top: 6.3%; left: 55%; width: 4%; height: 35%;">
@@ -172,7 +172,7 @@
 
                             {{------ DOWN ------}}
                             <img id="teeth_17" src="{{ $website . 'images/teeths_chart/teeth_chart_group/17.png' }}"
-                                 style="position: absolute; top: 57%; left: 90%; width: 6.2%; height: 35%;">
+                                 style="position: absolute; top: 57%; left: 90.2%; width: 6.2%; height: 35%;">
 
                             <img id="teeth_18" src="{{ $website . 'images/teeths_chart/teeth_chart_group/18.png' }}"
                                  style="position: absolute; top: 57%; left: 82.8%; width: 7.5%; height: 35%;">
