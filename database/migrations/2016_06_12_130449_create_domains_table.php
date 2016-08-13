@@ -17,6 +17,7 @@ class CreateDomainsTable extends Migration
             $table->string('des_dom', 100)->nullable();
             $table->integer('order')->unsigned()->default(0);
             $table->string('description', 100)->nullable();
+            $table->string('shortDesc', 100)->nullable();
             $table->text('value')->nullable();
             $table->timestamps();
         });

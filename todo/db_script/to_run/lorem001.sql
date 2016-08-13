@@ -116,7 +116,9 @@ now(), now() );
 
 INSERT INTO domains(des_dom, `order`, description, value, created_at, updated_at) VALUES ('typeCure', 1, 'Prestazione', 'type', now(), now());
 
-INSERT INTO domains(des_dom, description, value, created_at, updated_at) VALUES ('statusCure', 'Eseguito', 'type', now(), now());
-INSERT INTO domains(des_dom, `order`, description, value, created_at, updated_at) VALUES ('statusCure', 1, 'Da eseguire', 'type', now(), now());
-INSERT INTO domains(des_dom, description, value, created_at, updated_at) VALUES ('statusCure', 'In cura', 'type', now(), now());
-INSERT INTO domains(des_dom, description, value, created_at, updated_at) VALUES ('statusCure', 'Non conteggiare', 'type', now(), now());
+
+
+INSERT INTO domains(des_dom, description, shortDesc, value, created_at, updated_at) VALUES ('statusCure', 'Eseguito', 'ES', 'type', now(), now());
+INSERT INTO domains(des_dom, `order`, description, shortDesc, value, created_at, updated_at) VALUES ('statusCure', 1, 'Da eseguire', 'DE', 'type', now(), now());
+INSERT INTO domains(des_dom, description, shortDesc, value, created_at, updated_at) VALUES ('statusCure', 'In cura', 'IC', 'type', now(), now());
+INSERT INTO domains(des_dom, description, shortDesc, value, created_at, updated_at) VALUES ('statusCure', 'Non conteggiare', 'NC', 'type', now(), now());

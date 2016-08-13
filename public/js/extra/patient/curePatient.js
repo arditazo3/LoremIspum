@@ -1,9 +1,12 @@
 $(document).ready(function () {
 
     var id_patient;
+    var isSelectedCure = false;
 
     // open Modal of Charts patient when button is clicked
     $('#btnNewCare').click(function () {
+
+        resetCureModal();
 
         $('#cureModal').modal({backdrop: 'static', keyboard: false});
         console.log('Open Modal Cures Panel');
@@ -30,10 +33,13 @@ $(document).ready(function () {
 
     function selectedCureCategory(cureName) {
 
+        resetCureModal();
+
         var cureNameTrim = cureName.trim();
 
         if (cureNameTrim.substr(cureNameTrim.length - 1) === '|') {
-            console.log('Category selected! Choose the cure item.')
+            console.log('Category selected! Choose the cure item.');
+            isSelectedCure = false;
         } else {
 
             $.ajax({
@@ -55,31 +61,9 @@ $(document).ready(function () {
         }
     }
 
-    var teeth1 = $('#teeth_32').show();
-    var teeth = $('#teeth').show();
-    var index = 1;
-
-    $('#teeth_32').click(function () {
-
-        if (index % 2 == 1) {
-            teeth1.hide();
-            index++;
-            console.log('hide, index: ' + index);
-        }
-    });
-
-    $('#teeth').click(function() {
-
-        if(index % 2 == 0) {
-            teeth1.show();
-            index++;
-            console.log('show, index: ' + index);
-        }
-
-    });
-
     function setTheCureSelected( theCure ) {
         console.log( theCure );
+        isSelectedCure = true;
 
         var shortCode = (theCure.detail).substring(0, 4).trim();
         var description = ((theCure.detail).split('-')[1]).trim();
@@ -96,10 +80,10 @@ $(document).ready(function () {
 
     $("#teeth-group img").on("click", function() {
         console.log("clicked: " + $(this).prop('id') );
-        
+
         var idImage = "#" + $(this).prop('id');
 
-        if (idImage != ("#" + "teeth")) {
+        if (idImage != ("#" + "teeth") && isSelectedCure) {
             setSelectedOrUnSelectTeethImage(idImage);
         }
 
@@ -110,12 +94,47 @@ $(document).ready(function () {
         var hasClass = $(idImage).attr('class');
 
         if (typeof hasClass !== typeof undefined && hasClass !== false) {
-            // $(idImage).removeClass("teeth-border-cure");
             $(idImage).removeAttr("class");
+
         } else {
             $(idImage).addClass("teeth-border-cure");
         }
 
+    }
+
+    function resetCureModal() {
+
+        isSelectedCure = false;
+
+        /**
+         * Remove the check attribute added at the div and set it at the default
+         * radio button
+         * */
+        var allChildrenStatusTheCure = $("#allChildrenStatusTheCure div.iradio_square-green");
+
+        for(var i = 0; i < allChildrenStatusTheCure.length; i++) {
+            allChildrenStatusTheCure[i].className = "iradio_square-green";
+        }
+
+        $("#DE label div").addClass("iradio_square-green checked");
+        $("#shortCode").val('');
+        $("#description").val('');
+        $("#descOfClient").val('');
+
+        var theUser = 'Azo';
+        $("#user option").filter(function() {
+            //may want to use $.trim in here
+            return $(this).text() == theUser;
+        }).prop('selected', true);
+
+        $("#price").val('0.00');
+        $("#amount").val('0.00');
+        
+        for(var i = 1; i < 33; i++) {
+            $( ("#teeth_" + i) ).removeAttr("class");
+        }
+
+        console.log('Reset Modal Cures Panel');
     }
 
     $('#jstree1').jstree({

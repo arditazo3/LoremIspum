@@ -25,12 +25,14 @@
                     <div class="col-sm-2 b-r">
                         <b>Status:</b>
 
+                        <div id="allChildrenStatusTheCure">
                         @foreach($statusCure as $statusTheCure)
-                            <div class="radio i-checks"><label> <input type="radio"
+                            <div class="radio i-checks" id="{{ $statusTheCure->shortDesc }}" ><label> <input type="radio"
                                                                        {{ $statusTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $statusTheCure->value }}"
                                                                        name="{{ $statusTheCure->des_dom }}">
                                     <i></i> {{ $statusTheCure->description }} </label></div>
                         @endforeach
+                        </div>
 
                     </div>
 
@@ -73,7 +75,7 @@
                         </div>
 
                         <div class="form-group ">
-                            {!! Form::label('user', 'Proffession', ['class'=>'control-label']) !!}
+                            {!! Form::label('user', 'User selected', ['class'=>'control-label']) !!}
                             <div class="divProffession">
                                 {!! Form::select('user', ['0'=>'Select...'] + $listUsers, null, ['class'=>'form-control']) !!}
                             </div>
@@ -100,7 +102,7 @@
                     <div class="col-sm-2 b-r">
                         <div class="form-group ">
                             {!! Form::label('amount', 'Amount', ['class'=>'control-label']) !!}
-                            {!! Form::text('amount', null, ['class'=>'form-control', 'style'=>'text-align: right;']) !!}
+                            {!! Form::text('amount', null, ['class'=>'form-control', 'style'=>'text-align: right;', 'disabled']) !!}
                             @include('includes.form-error-specify', ['field'=>'amount', 'typeAlert'=>'danger'])
                         </div>
                     </div>
