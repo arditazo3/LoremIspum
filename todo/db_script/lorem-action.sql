@@ -22,3 +22,4 @@ select * from jobs;
 select * from job_details;
 
 select * from teeths_prizes;
+

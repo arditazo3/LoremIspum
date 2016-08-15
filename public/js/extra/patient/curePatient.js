@@ -157,7 +157,7 @@ $(document).ready(function () {
                 method: 'POST',
                 url: urlSaveUpdateCure,
                 data: {
-                    teeth_no: teethsArray.toString(),
+                    teeth_no:  sortAndConvertToString(teethsArray),
                     type_cure: $('input[name=typeCure]:checked').val(),
                     status_cure: $('input[name=statusCure]:checked').val(),
                     shortCode: $('#shortCode').val(),
@@ -279,6 +279,11 @@ $(document).ready(function () {
 
             return day + '/' + month + '/' + date.getFullYear();
         }
+    }
+
+    function sortAndConvertToString(teethArrayList) {
+
+        return (teethArrayList.sort(function (a, b) { return a - b; })).toString();
     }
 
 });
