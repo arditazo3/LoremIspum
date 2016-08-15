@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Job;
 use App\TeethsPrize;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,16 @@ class CureController extends Controller
         $cureDetail = TeethsPrize::where('detail', $detailCure)->firstOrFail();
 
         return response()->json(['theCure' => $cureDetail], 200);
+    }
+
+    public function saveUpdateCureAjax(Request $request) {
+
+
+        $inputs = $request->all();
+
+        Job::create($inputs);
+
+        return response()->json(['message' => 'The cure has been saved.'], 200);
     }
     
 }

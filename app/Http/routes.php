@@ -62,9 +62,6 @@ Route::group(['middleware'=>'admin'], function () {
      * -------------------------------------------
      */
 
-    /*
-     * GET ALL PATIENTS, AJAX REQUEST
-     */
 
     /**
      * PATIENT
@@ -73,9 +70,15 @@ Route::group(['middleware'=>'admin'], function () {
     Route::post('api/deletePatientAjax', ['uses' => 'PatientController@deletePatientAjax', 'as'   => 'api/deletePatientAjax' ]);
 	Route::post('api/createUpdatePatientAjax', ['uses' => 'PatientController@createUpdatePatientAjax', 'as'   => 'api/createUpdatePatientAjax' ]);
 	Route::post('api/getInfoControlPatient', ['uses' => 'PatientController@getInfoControlPatient', 'as'   => 'api/getInfoControlPatient' ]);
-
     /**
-    * User
+     * Cure Modal (PATIENT)
+     */
+    Route::post('api/getSelectedCure', ['uses' => 'CureController@getSelectedCure', 'as'   => 'api/getSelectedCure' ]);
+    Route::post('api/saveUpdateCureAjax', ['uses' => 'CureController@saveUpdateCureAjax', 'as'   => 'api/saveUpdateCureAjax' ]);
+    
+    
+    /**
+    * USER
     */
     Route::post('api/getPathProfilePicAjax', ['uses' => 'UserController@getPathProfilePicAjax', 'as'   => 'api/getPathProfilePicAjax' ]);
 
@@ -89,11 +92,6 @@ Route::group(['middleware'=>'admin'], function () {
     Route::post('api/deleteEventAjax', ['uses' => 'CalendarController@deleteEventAjax', 'as'   => 'api/deleteEventAjax' ]);
 
     Route::post('api/createEventAjax', ['uses' => 'CalendarController@createEventAjax', 'as'   => 'api/createEventAjax' ]);
-
-    /**
-     * Cure Modal (Patient)
-     */
-    Route::post('api/getSelectedCure', ['uses' => 'CureController@getSelectedCure', 'as'   => 'api/getSelectedCure' ]);
     
 });
 

@@ -6,15 +6,19 @@
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title pull-left">Cure panel</h4>
             </div>
+            <form id="createUpdateCure">
             <div class="modal-body">
 
                 <div class="row">
                     <div class="col-sm-2 b-r">
+
+                        <input type="hidden" id="id_teeth_prizesHide" value="0" />
+
                         <b>Type:</b>
 
                         @foreach($typeCure as $typeTheCure)
-                            <div class="radio i-checks"><label> <input type="radio"
-                                                                       {{ $typeTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $typeTheCure->value }}"
+                            <div class="radio i-checks" id="{{ $typeTheCure->shortDesc }}"><label> <input type="radio"
+                                                                       {{ $typeTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $typeTheCure->shortDesc }}"
                                                                        name="{{ $typeTheCure->des_dom }}">
                                     <i></i> {{ $typeTheCure->description }} </label></div>
                         @endforeach
@@ -28,7 +32,7 @@
                         <div id="allChildrenStatusTheCure">
                         @foreach($statusCure as $statusTheCure)
                             <div class="radio i-checks" id="{{ $statusTheCure->shortDesc }}" ><label> <input type="radio"
-                                                                       {{ $statusTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $statusTheCure->value }}"
+                                                                       {{ $statusTheCure->order == 1 ? 'checked=""' : '' }} value="{{ $statusTheCure->shortDesc }}"
                                                                        name="{{ $statusTheCure->des_dom }}">
                                     <i></i> {{ $statusTheCure->description }} </label></div>
                         @endforeach
@@ -75,9 +79,9 @@
                         </div>
 
                         <div class="form-group ">
-                            {!! Form::label('user', 'User selected', ['class'=>'control-label']) !!}
-                            <div class="divProffession">
-                                {!! Form::select('user', ['0'=>'Select...'] + $listUsers, null, ['class'=>'form-control']) !!}
+                            {!! Form::label('userSelected', 'User selected', ['class'=>'control-label']) !!}
+                            <div class="divUser">
+                                {!! Form::select('userSelected', ['0'=>'Select...'] + $listUsers, null, ['class'=>'form-control']) !!}
                             </div>
                         </div>
 
@@ -89,20 +93,32 @@
                     <div class="col-sm-1 b-r" style="text-align: center">
                         <b>Currency</b>
                         <h1>&euro;</h1>
+                        <input type="hidden" id="currencyHide" value="1" />
                     </div>
 
                     <div class="col-sm-2 b-r">
                         <div class="form-group ">
                             {!! Form::label('price', 'Prize', ['class'=>'control-label']) !!}
-                            {!! Form::text('price', null, ['class'=>'form-control', 'style'=>'text-align: right;']) !!}
+                            {!! Form::number('price', null, ['class'=>'form-control',
+                            'style'=>'text-align: right;font-weight: bold;', 'type'=>'number', 'min'=>'0', 'oninput'=>'validity.valid||(value="");']) !!}
                             @include('includes.form-error-specify', ['field'=>'price', 'typeAlert'=>'danger'])
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1 b-r">
+                        <div class="form-group ">
+                            {!! Form::label('discount', 'Discount', ['class'=>'control-label']) !!}
+                            {!! Form::number('discount', null, ['class'=>'form-control',
+                            'style'=>'text-align: right;font-weight: bold;color: red;', 'min'=>'0', 'oninput'=>'validity.valid||(value="");']) !!}
+                            @include('includes.form-error-specify', ['field'=>'discount', 'typeAlert'=>'danger'])
                         </div>
                     </div>
 
                     <div class="col-sm-2 b-r">
                         <div class="form-group ">
                             {!! Form::label('amount', 'Amount', ['class'=>'control-label']) !!}
-                            {!! Form::text('amount', null, ['class'=>'form-control', 'style'=>'text-align: right;', 'disabled']) !!}
+                            {!! Form::number('amount', null, ['class'=>'form-control',
+                            'style'=>'text-align: right;font-weight: bold;color: green;', 'disabled', 'type'=>'number', 'min'=>'0', 'oninput'=>'validity.valid||(value="");']) !!}
                             @include('includes.form-error-specify', ['field'=>'amount', 'typeAlert'=>'danger'])
                         </div>
                     </div>
@@ -226,12 +242,14 @@
 
                     </div>
                 </div>
-
             </div>
 
             <div class="modal-footer">
+                <button type="submit" class="btn btn-info btn-sm" id="btnCreateUpdateCure">Create cure</button>
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
             </div>
+            </form>
+
         </div>
     </div>
 </div>

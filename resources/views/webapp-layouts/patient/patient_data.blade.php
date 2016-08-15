@@ -434,6 +434,7 @@
     var urlCreateEvent = '{{ route('api/createEventAjax') }}';
     var selectedCure = '{{ route('api/getSelectedCure') }}';
     var oldTimeGlob = '{{ old('time') }}';
+    var urlSaveUpdateCure = '{{ route('api/saveUpdateCureAjax') }}';
 
     {{--
     -- HERE IS THE LOGIC ONLY FOR MAIN MECHANISM AND 'PATIENT DATA'

@@ -28,6 +28,7 @@ class CreateTeethsPrizesTable extends Migration
             $table->integer('currency4')->unsigned()->nullable();
             $table->decimal('price4', 10, 2)->nullable();
             $table->decimal('vat', 5, 2)->nullable();
+            $table->integer('discount')->unsigned()->default(0);
             $table->string('position', 255)->nullable();
             $table->text('note')->nullable();
 

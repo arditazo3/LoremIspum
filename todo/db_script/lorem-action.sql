@@ -13,10 +13,12 @@ select * from roles;
 
 select * from images;
 
-select * from domains;
+select * from domains where des_dom = 'typeStatus';
 
 select * from categories;
 
 select * from jobs;
+
+select * from job_details;
 
 select * from teeths_prizes;
