@@ -454,12 +454,15 @@
         var changeProfPicGlob = $('#changeProfilePicture').hide();
         var defaultProfPicGlob = $('#defaultProfilePicture').show();
         var confirmPasswordGlob = $('#divComfirmPassword').hide();
+        var noClickOnSingleOperation = 0;
 
         // Open list of patient when button is clicked
         $('#searchPatientsModal').click(function () {
 
+            noClickOnSingleOperation++;
+
             // retrive all patients whith AJAX
-            if (allPatientsDataGlob == '') {
+            if (allPatientsDataGlob == '' && noClickOnSingleOperation == 1) {
                 $.ajax({
                     url: urlAllPatients,
                     type: 'GET',
@@ -473,10 +476,12 @@
                         // console.log(data);
                         allPatientsDataGlob = data;
                         cicleDataPatientsAjax(data);
+                        noClickOnSingleOperation = 0;
                     },
                     error: function () {
                         console.log('Error' + url);
                         console.log('CSRF_TOKEN' + CSRF_TOKEN);
+                        noClickOnSingleOperation = 0;
                     },
 
                 });

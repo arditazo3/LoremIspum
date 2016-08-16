@@ -3,6 +3,7 @@ $(document).ready(function () {
     var id_patient;
     var isSelectedCure = false;
     var teethsArray = [];
+	var noClickOnSingleOperation = 0;
 
     // open Modal of Charts patient when button is clicked
     $('#btnNewCare').click(function () {
@@ -151,8 +152,9 @@ $(document).ready(function () {
     // Create new Cure for this patient
     $('#btnCreateUpdateCure').click(function (event) {
         event.preventDefault();
-
-        if ( validateFieldsIfEmpty() ) {
+		noClickOnSingleOperation++;
+		
+        if ( validateFieldsIfEmpty() && noClickOnSingleOperation == 1 ) {
             $.ajax({
                 method: 'POST',
                 url: urlSaveUpdateCure,
@@ -178,18 +180,21 @@ $(document).ready(function () {
                     $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
                     // set and/or replace the html code inside it
                     $("#notificationMsg").html(msg.responseText);
+					noClickOnSingleOperation = 0;
                 })
                 .done(function (msg) {
                     $('#cureModal').modal('hide');
                     console.log(JSON.stringify(msg));
                 });
         }
-        
+		
+		
     });
     
     function resetCureModal() {
 
         isSelectedCure = false;
+		noClickOnSingleOperation = 0;
 
         // empty the array
         teethsArray.length = 0;
@@ -237,6 +242,7 @@ $(document).ready(function () {
             validateFields = true;
         } else {
             swal("Please, select a teeth to process.");
+			noClickOnSingleOperation = 0;
         }
         
         return validateFields;

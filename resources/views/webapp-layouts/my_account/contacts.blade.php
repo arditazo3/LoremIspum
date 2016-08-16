@@ -71,6 +71,7 @@
 
         var getPathProfilePicAjax = '{{ route('api/getPathProfilePicAjax') }}';
         var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
+        var noClickOnSingleOperation = 0;
 
         $(document).ready(function () {
 
@@ -89,32 +90,37 @@
         function setProfilePicture(idImange, user) {
 
             var getProfilePicPath = '';
+            noClickOnSingleOperation++;
 
-            $.ajax({
-                method: 'POST',
-                url: getPathProfilePicAjax,
-                data: {
-                    image_id: idImange,
-                    _token: token
-                }
-            })
-            .done(function (msg) {
-                console.log("Test");
-                console.log(JSON.stringify(msg));
-                getProfilePicPath = msg;
+            if (noClickOnSingleOperation == 1 ) {
+                $.ajax({
+                    method: 'POST',
+                    url: getPathProfilePicAjax,
+                    data: {
+                        image_id: idImange,
+                        _token: token
+                    }
+                })
+                        .done(function (msg) {
+                            console.log("Test");
+                            console.log(JSON.stringify(msg));
+                            getProfilePicPath = msg;
 
-                var imagePath = "{{ $website }}" + getProfilePicPath['image_id'];
+                            var imagePath = "{{ $website }}" + getProfilePicPath['image_id'];
 
-                $('#id_user').val(user["id"]);
-                $('#first_name').val(user["first_name"]);
-                $('#last_name').val(user["last_name"]);
-                $('#email').val(user["email"]);
-                $('#phone').val(user["phone"]);
-                $('#address').val(user["address"]);
-                $('#defaultProfilePicture img').attr("src", imagePath);
+                            $('#id_user').val(user["id"]);
+                            $('#first_name').val(user["first_name"]);
+                            $('#last_name').val(user["last_name"]);
+                            $('#email').val(user["email"]);
+                            $('#phone').val(user["phone"]);
+                            $('#address').val(user["address"]);
+                            $('#defaultProfilePicture img').attr("src", imagePath);
 
-                $('#modalUserProfile').modal({backdrop: 'static', keyboard: false});
-            });
+                            $('#modalUserProfile').modal({backdrop: 'static', keyboard: false});
+
+                            noClickOnSingleOperation = 0;
+                        });
+            }
 
         }
 

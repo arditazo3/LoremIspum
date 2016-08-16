@@ -109,6 +109,7 @@
 
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             var allPatientsDataGlob = '';
+            var noClickOnSingleOperation = 0;
 
             $('#calendar').fullCalendar({
                 weekends: true,
@@ -126,6 +127,7 @@
                     }
                 },
                 eventClick: function (event, jsEvent, view) {
+                    noClickOnSingleOperation = 0;
                     $('#first_name').val(event.first_name);
                     $('#last_name').val(event.last_name);
                     $('#title').val(event.titleModal);
@@ -187,9 +189,10 @@
 
             $('#btnUpdateEvent').click(function (event) {
                 event.preventDefault();
+                noClickOnSingleOperation++;
 
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
-                if (validateFieldsIfEmpty()) {
+                if (validateFieldsIfEmpty() && noClickOnSingleOperation == 1) {
                     $.ajax({
                         method: 'POST',
                         url: urlUpdateEvent,
@@ -209,34 +212,41 @@
                         $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
                         // set and/or replace the html code inside it
                         $("#notificationMsg").html( msg.responseText );
+                        noClickOnSingleOperation = 0;
                     })
                     .done(function (msg) {
                         $('#calendarModal').modal('hide');
                         $('#calendar').fullCalendar('refetchEvents');
                         console.log(JSON.stringify(msg));
+                        noClickOnSingleOperation = 0;
                     });
                 }
             });
 
             $('#btnDeleteEvent').click(function () {
 
+                noClickOnSingleOperation++;
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
 
-                $.ajax({
-                    method: 'POST',
-                    url: urlDeleteEvent,
-                    data: {
-                        id: eventId,
-                        _token: token
-                    }
-                })
-                    .done(function (msg) {
-                        $('#calendarModal').modal('hide');
-                        $('#calendar').fullCalendar('refetchEvents');
-                        console.log(JSON.stringify(msg));
-                    });
+                if (noClickOnSingleOperation == 1 ) {
+                    $.ajax({
+                        method: 'POST',
+                        url: urlDeleteEvent,
+                        data: {
+                            id: eventId,
+                            _token: token
+                        }
+                    })
+                            .done(function (msg) {
+                                $('#calendarModal').modal('hide');
+                                $('#calendar').fullCalendar('refetchEvents');
+                                console.log(JSON.stringify(msg));
+                                noClickOnSingleOperation = 0;
+                            });
+                }
 
             });
+
 
             // Hide update and delete button and open modal
             $('#btnOpenCreateEventModal').click(function () {
@@ -253,12 +263,14 @@
                 $btnCreateGlob.show();
 
                 $('#calendarModal').modal({backdrop: 'static', keyboard: false});
+                noClickOnSingleOperation = 0;
             });
 
             $('#btnCreateEvent').click(function (event) {
                 event.preventDefault();
+                noClickOnSingleOperation++;
 
-                if ( validateFieldsIfEmpty() ) {
+                if ( validateFieldsIfEmpty() && noClickOnSingleOperation == 1 ) {
                     $.ajax({
                             method: 'POST',
                             url: urlCreateEvent,
@@ -282,7 +294,9 @@
             // Create Patient open list of patient when button is clicked
             $('#searchPatientsModal').click(function () {
 
-                if (allPatientsDataGlob == '') {
+                noClickOnSingleOperation++;
+
+                if (allPatientsDataGlob == '' && noClickOnSingleOperation == 1) {
                     // retrive all patients whith AJAX
                     $.ajax({
                         url: urlAllPatients,
@@ -297,10 +311,14 @@
                             console.log(data);
                             allPatientsDataGlob = data;
                             cicleDataPatientsAjax(data);
+
+                            noClickOnSingleOperation = 0;
                         },
                         error: function () {
                             console.log('Error' + urlAllPatients);
                             console.log('CSRF_TOKEN' + CSRF_TOKEN);
+
+                            noClickOnSingleOperation = 0;
                         },
 
                     });

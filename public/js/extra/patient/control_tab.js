@@ -11,6 +11,8 @@ $(document).ready(function () {
     var $btnUpdateEventGlob = $('#btnUpdateEvent').hide();
     var $searchPatientsModalGlob = $('.col-sm-2 #searchPatientsModal').hide();
 
+    var noClickOnSingleOperation = 0;
+
     // setting the datarangepicker field
     $(function () {
         $('input[name="time"]').daterangepicker({
@@ -113,8 +115,9 @@ $(document).ready(function () {
     // Create new Event for this patient
     $('#btnCreateEvent').click(function (event) {
         event.preventDefault();
+        noClickOnSingleOperation++;
 
-        if ( validateFieldsIfEmpty() ) {
+        if ( validateFieldsIfEmpty() && noClickOnSingleOperation == 1 ) {
             $.ajax({
                 method: 'POST',
                 url: urlCreateEvent,
@@ -135,6 +138,8 @@ $(document).ready(function () {
                     theTriggerCheckControls( id_patient );
 
                     sweetAlert("Appointment successfully created!", "The appointment has been created", "success");
+
+                    noClickOnSingleOperation = 0;
                 });
         }
     });
