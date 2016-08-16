@@ -139,6 +139,8 @@ $(document).ready(function () {
         }
 
         $('#amount').val(amount);
+
+        $('h2.font-bold-teeth').html(countTeeths)
     }
 
     $('#price').bind('keyup mouseup', function() {
@@ -198,6 +200,8 @@ $(document).ready(function () {
 
         // empty the array
         teethsArray.length = 0;
+
+        $('h2.font-bold-teeth').html(teethsArray.length)
 
         /**
          * Remove the check attribute added at the div and set it at the default

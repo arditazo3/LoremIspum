@@ -7,3 +7,10 @@
 .teeth-border-cure {
     border: 2px solid orange;
 }
+
+.teeth-widget {
+    border-radius: 4px;
+    padding: 1px 10px;
+    margin-bottom: 5px;
+    margin-top: 18px;
+}

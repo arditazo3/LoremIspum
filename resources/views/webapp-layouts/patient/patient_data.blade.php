@@ -409,7 +409,7 @@
 
     {{-- CURE MODAL --}}
     @include('includes.myPieces.patient.cure_patient',
-    ['listCures'=> $listCures, 'typeCure'=> $typeCure, 'statusCure'=> $statusCure, 'listUsers'=> $listUsers])
+    ['listCures'=> $listCures, 'typeCure'=> $typeCure, 'statusCure'=> $statusCure, 'listUsers'=> $listUsers, 'website'=>$website ])
     {{-- END CURE MODAL --}}
 
     {{--MODAL NOTIFICATION ERROR--}}

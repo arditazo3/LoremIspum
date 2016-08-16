@@ -105,6 +105,20 @@
                         </div>
                     </div>
 
+                    <div class="col-sm-1  b-r" style="width: 11%">
+                        <div class="teeth-widget style1 lazur-bg">
+                            <div class="row vertical-align">
+                                <div class="col-xs-4" text-center>
+                                    <img src="{{ $website . 'images/patient_img/tooth-btn.png' }}" width="45"
+                                         height="45">
+                                </div>
+                                <div class="col-xs-8 text-right " style="padding-top: 10%;">
+                                    <h2 class="font-bold-teeth">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-sm-1 b-r">
                         <div class="form-group ">
                             {!! Form::label('discount', 'Discount', ['class'=>'control-label']) !!}

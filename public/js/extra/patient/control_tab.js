@@ -36,7 +36,7 @@ $(document).ready(function () {
 
     function theTriggerCheckControls(id_patient) {
         restoreControls();
-
+        noClickOnSingleOperation++;
 
         console.log(id_patient);
 
@@ -44,7 +44,7 @@ $(document).ready(function () {
             $divPatientAppoitmentsGlob.show();
         }
 
-        if (id_patient != '' && id_patient != null) {
+        if (id_patient != '' && id_patient != null && noClickOnSingleOperation == 1) {
             $.ajax({
                 url: controlsInfo,
                 type: 'POST',
@@ -95,6 +95,7 @@ $(document).ready(function () {
         $('#date_first_visit').val( '' );
         $('#date_last_visit').val( '' );
         $('#date_next_visit').val( '' );
+        noClickOnSingleOperation = 0;
     }
 
     $('#btnAppointmentsForThisClient').click(function () {
@@ -110,6 +111,8 @@ $(document).ready(function () {
         $('.modal-title').text('Create Event');
 
         $('#calendarModal').modal({backdrop: 'static', keyboard: false});
+
+        noClickOnSingleOperation = 0;
     });
 
     // Create new Event for this patient
