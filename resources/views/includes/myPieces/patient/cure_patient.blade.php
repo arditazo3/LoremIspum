@@ -137,6 +137,20 @@
                         </div>
                     </div>
 
+                    <div class="col-sm-2 b-r">
+                        <b style="padding-top: 10%">Select/Unselect all teeth</b>
+                        <div class="form-group " style="padding-top: 4%">
+                            <span style="display: inline;">
+                                <button data-toggle="button" class="btn btn-primary btn-outline" type="button" aria-pressed="false" id="selectAllUp">
+                                    <i class="fa fa-arrow-up"> <b>Up</b> </i>
+                                </button>
+                                <button data-toggle="button" class="btn btn-primary btn-outline" type="button" aria-pressed="false" id="selectAllDown">
+                                    <i class="fa fa-arrow-down"> <b>Down</b> </i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="row">

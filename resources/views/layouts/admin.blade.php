@@ -166,10 +166,10 @@
         {{--FOOTER--}}
         <div class="footer">
             <div class="pull-right">
-                Copyright <strong>WebApp.al</strong>
+                Version: <b>Beta</b> | Copyright <strong>WebApp.al</strong>
             </div>
             <div>
-
+                <strong>{{ \Carbon\Carbon::now('Europe/Rome')->toDayDateTimeString() }}</strong>
             </div>
         </div>
         {{--FOOTER END--}}

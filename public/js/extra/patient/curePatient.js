@@ -15,12 +15,14 @@ $(document).ready(function () {
 
         $('#cureModal').modal({backdrop: 'static', keyboard: false});
         console.log('Open Modal Cures Panel');
+
+        $('#selectAllUp').prop('disabled', true);
+        $('#selectAllDown').prop('disabled', true);
     });
 
     // Putting a trigger when change the value can call this method here
     $('#id_patient_hidden').change(function () {
         id_patient = $(this).val();
-
     });
 
     // Child node stelected
@@ -45,6 +47,9 @@ $(document).ready(function () {
         if (cureNameTrim.substr(cureNameTrim.length - 1) === '|') {
             console.log('Category selected! Choose the cure item.');
             isSelectedCure = false;
+
+            $('#selectAllUp').prop('disabled', true);
+            $('#selectAllDown').prop('disabled', true);
         } else {
 
             $.ajax({
@@ -84,6 +89,8 @@ $(document).ready(function () {
         $('#amount').val( amount );
         $('#id_teeth_prizesHide').val( id_teeth_prizes );
 
+        $('#selectAllUp').prop('disabled', false);
+        $('#selectAllDown').prop('disabled', false);
     }
 
     $("#teeth-group img").on("click", function() {
@@ -192,6 +199,61 @@ $(document).ready(function () {
 		
 		
     });
+
+    // select all teeth toggle buttons
+    $('#selectAllUp').click(function () {
+        var idButton = '#selectAllUp';
+        theFunctionSelectAllTeeths(1, 17, idButton);
+        }
+    );
+
+    $('#selectAllDown').click(function () {
+            var idButton = '#selectAllDown';
+            theFunctionSelectAllTeeths(17, 33, idButton);
+        }
+    );
+
+    function theFunctionSelectAllTeeths(i, length, idButton) {
+
+        if ($(idButton).hasClass('active')) {
+
+            for (var index = i; index < length; index++) {
+                var idImageTeeth = '#teeth_' + index;
+                var hasClass = $(idImageTeeth).attr('class');
+
+                if (typeof hasClass !== typeof undefined && hasClass !== false) {
+
+                    $(idImageTeeth).removeAttr("class");
+
+                    if (idImageTeeth.substring(0, 7) == '#teeth_') {
+                        idImageTeeth = idImageTeeth.substring(7);
+                    }
+                    var pos = teethsArray.indexOf(idImageTeeth);
+                    teethsArray.splice(pos, 1);
+                }
+            }
+        } else {
+
+            for (var index = i; index < length; index++) {
+                var idImageTeeth = '#teeth_' + index;
+                var hasClass = $(idImageTeeth).attr('class');
+
+                if (!(typeof hasClass !== typeof undefined && hasClass !== false)) {
+
+                    $(idImageTeeth).addClass("teeth-border-cure");
+
+                    if (idImageTeeth.substring(0, 7) == '#teeth_') {
+                        idImageTeeth = idImageTeeth.substring(7);
+                    }
+
+                    teethsArray.push(idImageTeeth);
+                }
+            }
+        }
+        calculateTheAmount(teethsArray.length);
+        $('h2.font-bold-teeth').html(teethsArray.length)
+
+    }
     
     function resetCureModal() {
 
@@ -231,6 +293,9 @@ $(document).ready(function () {
         for(var i = 1; i < 33; i++) {
             $( ("#teeth_" + i) ).removeAttr("class");
         }
+
+        $('#selectAllUp').removeClass('active');
+        $('#selectAllDown').removeClass('active');
 
         // $('#jstree1').jstree(true).destroy(true);
         // $('#jstree1').jstree(true).create(true);
