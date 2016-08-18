@@ -18,7 +18,7 @@ class CreateTeethsPrizesTable extends Migration
             $table->integer('category_id')->index()->unsigned();
             $table->string('category', 255)->nullable();
             $table->string('detail', 250)->nullable();
-            $table->timestamp('date');
+            $table->date('date');
             $table->integer('currency1')->unsigned()->default(0);
             $table->decimal('price1', 10, 2);
             $table->integer('currency2')->unsigned()->nullable();

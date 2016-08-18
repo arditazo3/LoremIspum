@@ -17,8 +17,7 @@ class CreateJobsTable extends Migration
 
             $table->string('id_invoice', 50)->nullable();
 
-
-            $table->timestamp('date');
+            $table->date('date');
             $table->string('teeth_no', 255)->nullable();
             $table->text('description')->nullable();
             $table->string('shortCode', 255)->nullable();
@@ -36,8 +35,9 @@ class CreateJobsTable extends Migration
             $table->string('id_patient');                               // foreign key
             $table->integer('id_job_detail')->unsigned()->default(0);   // foreign key
             $table->string('id_dentist', 50);                           // foreign key
-            $table->integer('id_teeth_prizes')->unsigned()->default(0); // foreign key
+			$table->integer('id_teeth_prizes')->unsigned()->default(0); // foreign key
 
+            
             $table->timestamps();
 
             $table->softDeletes();                           // softDelete

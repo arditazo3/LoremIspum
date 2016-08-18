@@ -166,7 +166,7 @@
         {{--FOOTER--}}
         <div class="footer">
             <div class="pull-right">
-                Version: <b>Beta</b> | Copyright <strong>WebApp.al</strong>
+                <strong>info@webapp.al</strong> | Version: <b>Beta</b> | Copyright <strong>WebApp.al</strong>
             </div>
             <div>
                 <strong>{{ \Carbon\Carbon::now('Europe/Rome')->toDayDateTimeString() }}</strong>

@@ -435,6 +435,7 @@
     var selectedCure = '{{ route('api/getSelectedCure') }}';
     var oldTimeGlob = '{{ old('time') }}';
     var urlSaveUpdateCure = '{{ route('api/saveUpdateCureAjax') }}';
+    var getListCuresByPatient = '{{ route('api/getListCuresByPatient') }}';
 
     {{--
     -- HERE IS THE LOGIC ONLY FOR MAIN MECHANISM AND 'PATIENT DATA'
@@ -462,7 +463,7 @@
             noClickOnSingleOperation++;
 
             // retrive all patients whith AJAX
-            if (allPatientsDataGlob == '' && noClickOnSingleOperation == 1) {
+            if (allPatientsDataGlob == '') {
                 $.ajax({
                     url: urlAllPatients,
                     type: 'GET',

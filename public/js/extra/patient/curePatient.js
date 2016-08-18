@@ -352,7 +352,7 @@ $(document).ready(function () {
             // Months use 0 index.
             var month =  formatDigitsDate( date.getMonth() + 1 );
 
-            return day + '/' + month + '/' + date.getFullYear();
+            return date.getFullYear() + '/' + month + '/' + day;
         }
     }
 
