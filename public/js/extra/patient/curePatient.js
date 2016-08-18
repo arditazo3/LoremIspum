@@ -171,7 +171,7 @@ $(document).ready(function () {
                     teeth_no:  sortAndConvertToString(teethsArray),
                     type_cure: $('input[name=typeCure]:checked').val(),
                     status_cure: $('input[name=statusCure]:checked').val(),
-                    shortCode: $('#shortCode').val(),
+                    short_code: $('#shortCode').val(),
                     date: changeFormatDate ( $('#date_cure').datepicker("getDate") ),
                     description: $('#description').val(),
                     desc_client: $('#descOfClient').val(),

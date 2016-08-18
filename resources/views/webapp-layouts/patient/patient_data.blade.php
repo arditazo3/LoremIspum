@@ -733,7 +733,7 @@
 {{--
 -- HERE IS THE LOGIC FOR 'TEETH CHART PATIENT'
 --}}
-@include('includes.myScript.patient.teethChartPatientJS')
+@include('includes.myScript.patient.teethChartPatientListCureJS')
 
 {{--
 -- HERE IS THE LOGIC FOR 'NEW/EDIT CURE'

@@ -12,68 +12,37 @@
 
                     <div class="col-sm-9 b-r">
 
+                        <div class="panel blank-panel">
 
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-sm-5 m-b-xs"><select class="input-sm form-control input-s-sm inline">
-                                        <option value="0">Option 1</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-4 m-b-xs">
-                                    <div data-toggle="buttons" class="btn-group">
-                                        <label class="btn btn-sm btn-white"> <input type="radio" id="option1"
-                                                                                    name="options"> Day </label>
-                                        <label class="btn btn-sm btn-white active"> <input type="radio" id="option2"
-                                                                                           name="options"> Week </label>
-                                        <label class="btn btn-sm btn-white"> <input type="radio" id="option3"
-                                                                                    name="options"> Month </label>
+                            <div class="panel-options">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#tab-1">First Tab</a></li>
+                                    <li class=""><a data-toggle="tab" href="#tab-2">Second Tab</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="tab-content">
+                                    <div id="tab-1" class="tab-pane active">
+                                        @include('webapp-layouts.patient.chart_modal.list_cures')
+                                    </div>
+
+                                    <div id="tab-2" class="tab-pane">
+                                        <strong>Donec quam felis</strong>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <div class="input-group"><input type="text" placeholder="Search"
-                                                                    class="input-sm form-control"> <span
-                                                class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
-                                </div>
+
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>S</th>
-                                        <th>Date</th>
-                                        <th>Code</th>
-                                        <th>Description</th>
-                                        <th>Teeth</th>
-                                        <th>Amount</th>
-                                        <th>Operator</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="populateListCures">
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-
                         </div>
 
                     </div>
+
 
                     <div class="col-sm-3 b-r">
-
-                        <div style="position: relative; width: 100%; height: 431px;">
-                            <img src="{{ $website . 'images/teeths_chart/the_source1.jpg' }}" alt=""
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-
-                            <img id="dent_teeth_32" src="{{ $website . 'images/teeths/321.png' }}" alt=""
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                            <img id="dent_teeth_31" src="{{ $website . 'images/teeths/311.png' }}" alt=""
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-
-                        </div>
-
+                        @include('webapp-layouts.patient.chart_modal.teeth_chart_image')
                     </div>
+
                 </div>
 
             </div>

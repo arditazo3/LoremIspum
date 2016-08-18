@@ -10,7 +10,7 @@ class Job extends Model
     //
     use SoftDeletes;
 
-    protected $fillable = ['teeth_no', 'typeCure', 'statusCure', 'shortCode', 'date', 'description',
+    protected $fillable = ['teeth_no', 'type_cure', 'status_cure', 'short_code', 'date', 'description',
                            'descOfClient', 'currency', 'price', 'quantity', 'discount', 'amount', 'id_teeth_prizes',
                            'id_patient'];
 

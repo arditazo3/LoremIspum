@@ -20,7 +20,7 @@ class CreateJobsTable extends Migration
             $table->date('date');
             $table->string('teeth_no', 255)->nullable();
             $table->text('description')->nullable();
-            $table->string('shortCode', 255)->nullable();
+            $table->string('short_code', 255)->nullable();
             $table->text('desc_client')->nullable();
             $table->integer('currency')->unsigned()->default(0);
             $table->decimal('price', 10, 2);

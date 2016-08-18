@@ -45,16 +45,22 @@ $(document).ready(function () {
 
     function ciclePopulateTableCures(listCures) {
 
+        // Clear the table to not dublicate rows
+        $('#populateListCures').children("tr").remove();
+        console.log('Clear the table');
+
         var createTR = '';
         
         $.each(listCures, function (i, item) {
 
-            createTR += '<tr>' +
+            var colorOfRow = setColorRowBaseStatusCure(item.status_cure);
+
+            createTR += '<tr class="' + colorOfRow + '">' +
                             '<td><i class="fa fa-circle"></i></td>' +
                             '<td>' + item.date + '</td>' +
-                            '<td>' + item.shortCode + '</td>' +
+                            '<td>' + item.short_code + '</td>' +
                             '<td>' + item.description + '</td>' +
-                            '<td>' + item.teeth_no + '</td>' +
+                            '<td>' + splitString(item.teeth_no) + '</td>' +
                             '<td>' + item.amount + '</td>' +
                             '<td>' + item.id_dentist + '</td>' +
                         '</tr>';
@@ -65,6 +71,41 @@ $(document).ready(function () {
         $('#populateListCures').append(createTR);
     }
 
+    function splitString(listTeeths) {
+
+        var count = 0;
+        var newString = '';
+
+        for (var i = 0, len = listTeeths.length; i < len; i++) {
+
+            newString += listTeeths[i];
+
+            if(listTeeths[i] === ',') {
+                count++;
+                if(count % 10 == 0) {
+                    newString += "\n";
+                }
+            }
+
+        }
+        return newString;
+    }
+
+    function setColorRowBaseStatusCure(statusCure) {
+
+        var color = '';
+
+        if (statusCure == 'ES') {
+            color = 'green-status';
+        } else if (statusCure == 'DE') {
+            color = 'red-row';
+        } else if (statusCure == 'IC') {
+            color = 'blue-row';
+        } else if (statusCure == 'NC') {
+            color = 'black-row';
+        }
+        return color;
+    }
     
 });
 

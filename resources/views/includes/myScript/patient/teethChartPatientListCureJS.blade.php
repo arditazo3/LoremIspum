@@ -1,0 +1,1 @@
+<script src="{{ URL::asset('js/extra/patient/teethChartPatientListCure.js') }}" type="text/javascript"></script>
