@@ -2,8 +2,6 @@ $(document).ready(function () {
 
     var id_patient;
     var listCuresScope;
-    // var $divFirstControlGlob = $('#divFirstControl').hide();
-    // var $divLastControlGlob = $('#divLastControl').hide();
 
     // open Modal of Charts patient when button is clicked
     $('#btnCharts').click(function () {
@@ -122,6 +120,23 @@ $(document).ready(function () {
 
         // refresh the list of cures
         getAllCureOfPerson();
+    });
+
+    $('#editSelectedCure').click(function() {
+        var idItemSelected = $('tr.selectedRow td')[0].innerText;
+        selectedCureId(idItemSelected);
+    });
+
+    $('#deleteSelectedCure').click(function() {
+        
+        var idItemSelected = $('tr.selectedRow td')[0].innerText;
+        $('#id_cure_hidden').val(idItemSelected);
+
+        $('#call_delete_cure_from_teethChart_to_cure').val('Start')
+        $('#call_delete_cure_from_teethChart_to_cure').trigger('change');
+        
+        
+        selectedCureId(idItemSelected);
     });
 
     function setCSStoRowSelected(itemSelected) {

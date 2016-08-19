@@ -38,4 +38,20 @@ class CureController extends Controller
         return response()->json(['message' => 'The cure has been saved.'], 200);
     }
     
+    public function deleteCureAjax(Request $request) {
+        
+        $inputs = $request->all();
+        $id = $inputs['id'];
+
+        $jobToDelete = Job::find($id);
+
+        $deleted = $jobToDelete->delete();
+
+        if ($deleted) {
+            return response()->json(['status'=>'DELETED', 'message' => 'The cure has been deleted.'], 200);
+        } else
+            return response()->json(['message' => 'The cure has not been deleted.'], 401);
+        
+    }
+    
 }

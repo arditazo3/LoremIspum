@@ -75,6 +75,7 @@ Route::group(['middleware'=>'admin'], function () {
      */
     Route::post('api/getSelectedCure', ['uses' => 'CureController@getSelectedCure', 'as'   => 'api/getSelectedCure' ]);
     Route::post('api/saveUpdateCureAjax', ['uses' => 'CureController@saveUpdateCureAjax', 'as'   => 'api/saveUpdateCureAjax' ]);
+    Route::post('api/deleteCureAjax', ['uses' => 'CureController@deleteCureAjax', 'as'   => 'api/deleteCureAjax' ]);
     /**
      * Teeth Chart Modal (PATIENT)
      */

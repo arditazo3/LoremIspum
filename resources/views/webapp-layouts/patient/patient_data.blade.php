@@ -116,6 +116,7 @@
                             <input type="hidden" id="id_patient_hidden" name="id_patient" />
                             <input type="hidden" id="call_cure_modal_from_chart" />
                             <input type="hidden" id="call_refresh_list_cures_from_cureDetail_to_chart" />
+                            <input type="hidden" id="call_delete_cure_from_teethChart_to_cure" />
 
                             <div class="form-group ">
                                 {!! Form::label('first_name', 'First name', ['class'=>'control-label']) !!}
@@ -437,6 +438,7 @@
     var selectedCure = '{{ route('api/getSelectedCure') }}';
     var oldTimeGlob = '{{ old('time') }}';
     var urlSaveUpdateCure = '{{ route('api/saveUpdateCureAjax') }}';
+    var urlDeleteCure = '{{ route('api/deleteCureAjax') }}';
     var getListCuresByPatient = '{{ route('api/getListCuresByPatient') }}';
 
     {{--
@@ -583,7 +585,7 @@
                         text: "Are you sure to delete this patient?",
                         type: "error",   showCancelButton: true,
                         confirmButtonColor: "#DD6B55",   confirmButtonText: "Yes, delete it!",
-                        closeOnConfirm: false },
+                        closeOnConfirm: true },
 
 				function(){
 					$.ajax({

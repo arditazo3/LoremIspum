@@ -3,11 +3,12 @@ $(document).ready(function () {
     var id_patient;
     var isSelectedCure = false;
     var teethsArray = [];
-	var noClickOnSingleOperation = 0;
+	var noMoreClickOnSingleOperation = 0;
     var isEditableModal = false;
 
     var $btnUpdateCureGlob = $('#btnUpdateCure').hide();
     var $btnCreateCureeGlob = $('#btnCreateCure').show();
+    var $btnDeleteCureeGlob = $('#btnDeleteCure').hide();
 
     // open Modal of Charts patient when button is clicked
     $('#btnNewCare, #btnCreateCureFromChart').click(function () {
@@ -47,6 +48,7 @@ $(document).ready(function () {
             isSelectedCure = true;
 
             $btnUpdateCureGlob.show();
+            $btnDeleteCureeGlob.show();
             $btnCreateCureeGlob.hide();
 
             var id_cure = itemCure.id;
@@ -83,6 +85,13 @@ $(document).ready(function () {
                 setSelectedOrUnSelectTeethImage(itemId);
             });
         }
+    });
+
+    $('#call_delete_cure_from_teethChart_to_cure').change(function () {
+
+        noMoreClickOnSingleOperation++;
+
+        ajaxFormDeleteCure(noMoreClickOnSingleOperation);
     });
 
     function setItemSelectedAtTree(description) {
@@ -201,8 +210,6 @@ $(document).ready(function () {
         }
 
         calculateTheAmount(teethsArray.length);
-
-        console.log( teethsArray );
     }
 
     function calculateTheAmount(countTeeths) {
@@ -233,15 +240,24 @@ $(document).ready(function () {
     // Create new Cure for this patient
     $('#btnCreateCure, #btnUpdateCure').click(function (event) {
         event.preventDefault();
-		noClickOnSingleOperation++;
+		noMoreClickOnSingleOperation++;
 
-        ajaxFormSaveUpdateCure(noClickOnSingleOperation);
+        ajaxFormSaveUpdateCure(noMoreClickOnSingleOperation);
 
     });
 
-    function ajaxFormSaveUpdateCure(noClickOnSingleOperation) {
+    // Delete the Cure for this patient
+    $('#btnDeleteCure').click(function (event) {
+        event.preventDefault();
+        noMoreClickOnSingleOperation++;
 
-        if (validateFieldsIfEmpty() && noClickOnSingleOperation == 1) {
+        ajaxFormDeleteCure(noMoreClickOnSingleOperation);
+
+    });
+
+    function ajaxFormSaveUpdateCure(noMoreClickOnSingleOperation) {
+
+        if (validateFieldsIfEmpty() && noMoreClickOnSingleOperation == 1) {
             $.ajax({
                 method: 'POST',
                 url: urlSaveUpdateCure,
@@ -269,17 +285,57 @@ $(document).ready(function () {
                     $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
                     // set and/or replace the html code inside it
                     $("#notificationMsg").html(msg.responseText);
-                    noClickOnSingleOperation = 0;
+                    noMoreClickOnSingleOperation = 0;
                 })
                 .done(function (msg) {
+
                     $('#cureModal').modal('hide');
 
                     $('#call_refresh_list_cures_from_cureDetail_to_chart').val('Start')
                     $('#call_refresh_list_cures_from_cureDetail_to_chart').trigger('change');
 
                     console.log(JSON.stringify(msg));
+
+                    sweetAlert("The cure has been created!", "", "success");
                 });
         }
+    }
+
+    function ajaxFormDeleteCure(noMoreClickOnSingleOperation) {
+
+        swal({
+                title: "Delete Cure with ID: " + $('#id_cure_hidden').val(),
+                text: "Are you sure to delete this cure?",
+                type: "error", showCancelButton: true,
+                confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            },
+
+            function () {
+                if (validateFieldsIfEmpty() && noMoreClickOnSingleOperation == 1) {
+                    $.ajax({
+                        method: 'POST',
+                        url: urlDeleteCure,
+                        data: {
+                            id: $('#id_cure_hidden').val(),
+                            _token: token
+                        }
+                    })
+                        .error(function (msg) {
+                            $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
+                            // set and/or replace the html code inside it
+                            $("#notificationMsg").html(msg.responseText);
+                            noMoreClickOnSingleOperation = 0;
+                        })
+                        .done(function (msg) {
+                            $('#cureModal').modal('hide');
+                            $('#call_refresh_list_cures_from_cureDetail_to_chart').val('Start')
+                            $('#call_refresh_list_cures_from_cureDetail_to_chart').trigger('change');
+
+                            console.log(JSON.stringify(msg));
+                        });
+                }
+            });
     }
 
     // select all teeth toggle buttons
@@ -341,9 +397,10 @@ $(document).ready(function () {
 
         isSelectedCure = false;
         isEditableModal = false;
-		noClickOnSingleOperation = 0;
+		noMoreClickOnSingleOperation = 0;
 
         $btnUpdateCureGlob.hide();
+        $btnDeleteCureeGlob.hide();
         $btnCreateCureeGlob.show();
 
         // empty the array
@@ -398,7 +455,7 @@ $(document).ready(function () {
             validateFields = true;
         } else {
             swal("Please, select a teeth to process.");
-			noClickOnSingleOperation = 0;
+			noMoreClickOnSingleOperation = 0;
         }
         
         return validateFields;

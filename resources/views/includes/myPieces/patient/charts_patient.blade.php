@@ -26,6 +26,14 @@
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane active">
                                         @include('webapp-layouts.patient.chart_modal.list_cures')
+
+                                        <div class="inline pull-left">
+                                            <div class="btn btn-small btn-info" id="editSelectedCure"><i class="fa fa-edit"></i> Edit
+                                            </div>
+                                            <div class="btn btn-small btn-danger" id="deleteSelectedCure"><i class="fa fa-remove"></i> Delete
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                     <div id="tab-2" class="tab-pane">

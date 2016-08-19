@@ -274,6 +274,9 @@
             </div>
 
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" id="btnDeleteCure">
+                    <i class="fa fa-remove"></i> Delete cure
+                </button>
                 <button type="submit" class="btn btn-success btn-sm" id="btnUpdateCure">Update cure</button>
                 <button type="submit" class="btn btn-info btn-sm" id="btnCreateCure">Create cure</button>
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
