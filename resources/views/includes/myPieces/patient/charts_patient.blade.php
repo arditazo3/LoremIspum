@@ -48,6 +48,7 @@
             </div>
 
             <div class="modal-footer">
+                <button type="submit" class="btn btn-info btn-sm" id="btnCreateCureFromChart">Create cure</button>
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
             </div>
         </div>

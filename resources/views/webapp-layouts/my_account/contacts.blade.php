@@ -98,7 +98,7 @@
                     url: getPathProfilePicAjax,
                     data: {
                         image_id: idImange,
-                        _token: token
+                        _token:   token
                     }
                 })
                         .done(function (msg) {

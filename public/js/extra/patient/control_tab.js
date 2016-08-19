@@ -50,7 +50,7 @@ $(document).ready(function () {
                 type: 'POST',
                 data: {
                     id_patient: $('#id_patient_hidden').val(),
-                    _token: token
+                    _token:     token
                 }
             })
                 .error(function (msg) {
@@ -125,11 +125,11 @@ $(document).ready(function () {
                 method: 'POST',
                 url: urlCreateEvent,
                 data: {
-                    title: $('#title').val(),
-                    content: $('#content').val(),
-                    time: $('#time').val(),
+                    title:      $('#title').val(),
+                    content:    $('#content').val(),
+                    time:       $('#time').val(),
                     id_patient: $('#id_patient_hidden').val(),
-                    _token: token
+                    _token:     token
                 }
             })
                 .done(function (msg) {

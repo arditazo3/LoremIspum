@@ -194,29 +194,29 @@ class PatientController extends Controller
 
             // 2 variables to get information about image profile
             $inputs['image_path'] = $pathComplete;
-            $inputs['image_id'] = $image->id;
+            $inputs['image_id'] =   $image->id;
 
             $patient->image_path = $inputs['image_path'];
-            $patient->image_id = $inputs['image_id'];
+            $patient->image_id =   $inputs['image_id'];
         }
         
-		$patient->first_name = $inputs['first_name'];
-		$patient->last_name = $inputs['last_name'];
-		$patient->address = $inputs['address'];
-		$patient->email = $inputs['email'];
-		$patient->nation = $inputs['nation'];
-		$patient->city = $inputs['city'];
-		$patient->adult_child = $inputs['adult_child'];
-		$patient->sex = $inputs['sex'];
-		$patient->zip_code = $inputs['zip_code'];
-		$patient->tax_code = $inputs['first_name'];
-		$patient->date_birth = $inputs['date_birth'];
-		$patient->proffession = $inputs['proffession'];
-		$patient->marital_status = $inputs['marital_status'];
-		$patient->birth_place = $inputs['birth_place'];
-		$patient->language = $inputs['language'];
-		$patient->personal_phone = $inputs['personal_phone'];
-		$patient->office_phone = $inputs['office_phone'];
+		$patient->first_name =      $inputs['first_name'];
+		$patient->last_name =       $inputs['last_name'];
+		$patient->address =         $inputs['address'];
+		$patient->email =           $inputs['email'];
+		$patient->nation =          $inputs['nation'];
+		$patient->city =            $inputs['city'];
+		$patient->adult_child =     $inputs['adult_child'];
+		$patient->sex =             $inputs['sex'];
+		$patient->zip_code =        $inputs['zip_code'];
+		$patient->tax_code =        $inputs['first_name'];
+		$patient->date_birth =      $inputs['date_birth'];
+		$patient->proffession =     $inputs['proffession'];
+		$patient->marital_status =  $inputs['marital_status'];
+		$patient->birth_place =     $inputs['birth_place'];
+		$patient->language =        $inputs['language'];
+		$patient->personal_phone =  $inputs['personal_phone'];
+		$patient->office_phone =    $inputs['office_phone'];
 
         $user = Auth::user();
         $inputs['user_update'] = $user->id;

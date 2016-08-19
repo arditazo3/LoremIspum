@@ -26,8 +26,14 @@ class CureController extends Controller
 
 
         $inputs = $request->all();
+        $id = $inputs['id'];
+        $isEditableModal = filter_var($inputs['isEditableModal'], FILTER_VALIDATE_BOOLEAN);
 
-        Job::create($inputs);
+        if ($isEditableModal) {
+            Job::find($id)->update($inputs);
+        } else {
+            Job::create($inputs);
+        }
 
         return response()->json(['message' => 'The cure has been saved.'], 200);
     }

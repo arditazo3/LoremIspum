@@ -1,22 +1,24 @@
-
 $(document).ready(function () {
 
     var id_patient;
     var isSelectedCure = false;
     var teethsArray = [];
 	var noClickOnSingleOperation = 0;
+    var isEditableModal = false;
+
+    var $btnUpdateCureGlob = $('#btnUpdateCure').hide();
+    var $btnCreateCureeGlob = $('#btnCreateCure').show();
 
     // open Modal of Charts patient when button is clicked
-    $('#btnNewCare').click(function () {
+    $('#btnNewCare, #btnCreateCureFromChart').click(function () {
 
-        resetTreeCategories();
+        resetTreeCategoriesAndCureModal();
     });
 
-    function resetTreeCategories() {
+    function resetTreeCategoriesAndCureModal() {
         resetCureModal();
 
         $('.jstree-clicked').removeClass('jstree-clicked').addClass('');
-        // $('#jstree1').jstree('close_all');
 
         $('#cureModal').modal({backdrop: 'static', keyboard: false});
         console.log('Open Modal Cures Panel');
@@ -38,11 +40,17 @@ $(document).ready(function () {
         if(selectedCureOpenModal != '' && selectedCureOpenModal != null) {
             var itemCure = selectedCureOpenModal;
 
-            resetTreeCategories();
+            resetTreeCategoriesAndCureModal();
 
             console.log( itemCure );
+            isEditableModal = true;
             isSelectedCure = true;
 
+            $btnUpdateCureGlob.show();
+            $btnCreateCureeGlob.hide();
+
+            var id_cure = itemCure.id;
+            var shortCode = itemCure.short_code;
             var shortCode = itemCure.short_code;
             var description = itemCure.description;
             var price = itemCure.price;
@@ -50,7 +58,7 @@ $(document).ready(function () {
             var id_teeth_prizes = itemCure.id_teeth_prizes;
             var listTeeths = itemCure.teeth_no;
 
-
+            $('#id_cure_hidden').val( id_cure );
             $('#shortCode').val( shortCode );
             $('#description').val( description );
             $('#price').val( price );
@@ -60,6 +68,10 @@ $(document).ready(function () {
             $('#selectAllUp').prop('disabled', false);
             $('#selectAllDown').prop('disabled', false);
 
+            // expand all the tree
+            $('#jstree1').jstree('open_all');
+
+            setItemSelectedAtTree(description.substring(1));
 
             // setTheCureSelected(itemCure);
             var listTeethsArray = listTeeths.split(',');
@@ -73,13 +85,20 @@ $(document).ready(function () {
         }
     });
 
-    // Child node stelected
+    function setItemSelectedAtTree(description) {
+
+        $('a:contains(' + description + ')').addClass('jstree-clicked');
+    }
+
+    // Child node selected
     $(function () {
         $('#jstree1')
             .on('changed.jstree', function (e, data) {
                 var i, j, r = [];
                 for(i = 0, j = data.selected.length; i < j; i++) {
                     r.push(data.instance.get_node(data.selected[i]).text);
+
+                    console.log ('Node: ' + data.instance.get_node(data.selected[i]).text);
                 }
                 selectedCureCategory( r.join(', ') );
             })
@@ -87,6 +106,8 @@ $(document).ready(function () {
     });
 
     function selectedCureCategory(cureName) {
+
+        console.log('Category-Cure selected: ' + cureName);
 
         resetCureModal();
 
@@ -105,7 +126,7 @@ $(document).ready(function () {
                 url: selectedCure,
                 data: {
                     cureName: cureName,
-                    _token: token
+                    _token:   token
                 }
             })
                 .error(function (msg) {
@@ -137,8 +158,11 @@ $(document).ready(function () {
         $('#amount').val( amount );
         $('#id_teeth_prizesHide').val( id_teeth_prizes );
 
+        jQuery("#jstree1").jstree("select_node", "#test2");
+
         $('#selectAllUp').prop('disabled', false);
         $('#selectAllDown').prop('disabled', false);
+
     }
 
     $("#teeth-group img").on("click", function() {
@@ -207,46 +231,56 @@ $(document).ready(function () {
     });
 
     // Create new Cure for this patient
-    $('#btnCreateUpdateCure').click(function (event) {
+    $('#btnCreateCure, #btnUpdateCure').click(function (event) {
         event.preventDefault();
 		noClickOnSingleOperation++;
-		
-        if ( validateFieldsIfEmpty() && noClickOnSingleOperation == 1 ) {
+
+        ajaxFormSaveUpdateCure(noClickOnSingleOperation);
+
+    });
+
+    function ajaxFormSaveUpdateCure(noClickOnSingleOperation) {
+
+        if (validateFieldsIfEmpty() && noClickOnSingleOperation == 1) {
             $.ajax({
                 method: 'POST',
                 url: urlSaveUpdateCure,
                 data: {
-                    teeth_no:  sortAndConvertToString(teethsArray),
-                    type_cure: $('input[name=typeCure]:checked').val(),
-                    status_cure: $('input[name=statusCure]:checked').val(),
-                    short_code: $('#shortCode').val(),
-                    date: changeFormatDate ( $('#date_cure').datepicker("getDate") ),
-                    description: $('#description').val(),
-                    desc_client: $('#descOfClient').val(),
-                    currency: $('#currencyHide').val(),
-                    price: $('#price').val(),
-                    quantity: teethsArray.length,
-                    discount: $('#discount').val(),
-                    amount: $('#amount').val(),
+                    id:              $('#id_cure_hidden').val(),
+                    teeth_no:        sortAndConvertToString(teethsArray),
+                    type_cure:       $('input[name=typeCure]:checked').val(),
+                    status_cure:     $('input[name=statusCure]:checked').val(),
+                    short_code:      $('#shortCode').val(),
+                    date:            changeFormatDate($('#date_cure').datepicker("getDate")),
+                    description:     $('#description').val(),
+                    desc_client:     $('#descOfClient').val(),
+                    currency:        $('#currencyHide').val(),
+                    price:           $('#price').val(),
+                    quantity:        teethsArray.length,
+                    discount:        $('#discount').val(),
+                    amount:          $('#amount').val(),
                     id_teeth_prizes: $('#id_teeth_prizesHide').val(),
-                    id_patient: id_patient,
-                    _token: token
+                    id_patient:      id_patient,
+                    isEditableModal: isEditableModal,
+                    _token:          token
                 }
             })
                 .error(function (msg) {
                     $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
                     // set and/or replace the html code inside it
                     $("#notificationMsg").html(msg.responseText);
-					noClickOnSingleOperation = 0;
+                    noClickOnSingleOperation = 0;
                 })
                 .done(function (msg) {
                     $('#cureModal').modal('hide');
+
+                    $('#call_refresh_list_cures_from_cureDetail_to_chart').val('Start')
+                    $('#call_refresh_list_cures_from_cureDetail_to_chart').trigger('change');
+
                     console.log(JSON.stringify(msg));
                 });
         }
-		
-		
-    });
+    }
 
     // select all teeth toggle buttons
     $('#selectAllUp').click(function () {
@@ -306,7 +340,11 @@ $(document).ready(function () {
     function resetCureModal() {
 
         isSelectedCure = false;
+        isEditableModal = false;
 		noClickOnSingleOperation = 0;
+
+        $btnUpdateCureGlob.hide();
+        $btnCreateCureeGlob.show();
 
         // empty the array
         teethsArray.length = 0;
@@ -324,6 +362,7 @@ $(document).ready(function () {
         }
 
         $("#DE label div").addClass("iradio_square-green checked");
+        $('#id_cure_hidden').val('');
         $("#shortCode").val('');
         $("#description").val('');
         $("#descOfClient").val('');

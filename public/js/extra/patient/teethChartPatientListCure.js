@@ -86,22 +86,15 @@ $(document).ready(function () {
         // select automaticlly the first row
         $('#populateListCures tr:first').addClass('selectedRow');
 
+        // set css if is selected once
         $('#populateListCures tr').click(function(){
 
-            var theListCures = $('#populateListCures tr');
-            $.each(theListCures, function (i, item) {
+            setCSStoRowSelected($(this));
+        });
 
-                var className = item.className ;
-                var hasSelectedRow = className.slice(-11);
+        $('#populateListCures tr').dblclick(function(){
 
-                if(hasSelectedRow == 'selectedRow') {
-                    item.className = className.substring(0, className.length - 11);
-                }
-
-            });
-
-            $(this).addClass('selectedRow');
-
+            setCSStoRowSelected($(this));
             console.log('ID Cure: ' + $(this).context.children[0].innerText);
 
             selectedCureId($(this).context.children[0].innerText);
@@ -123,6 +116,27 @@ $(document).ready(function () {
         // Starting a trigger and catched by curePatient.js to open the modal
         $('#call_cure_modal_from_chart').val('Start')
         $('#call_cure_modal_from_chart').trigger('change');
+    }
+
+    $('#call_refresh_list_cures_from_cureDetail_to_chart').change(function () {
+
+        // refresh the list of cures
+        getAllCureOfPerson();
+    });
+
+    function setCSStoRowSelected(itemSelected) {
+
+        var theListCures = $('#populateListCures tr');
+        $.each(theListCures, function (i, item) {
+
+            var className = item.className ;
+            var hasSelectedRow = className.slice(-11);
+
+            if(hasSelectedRow == 'selectedRow') {
+                item.className = className.substring(0, className.length - 11);
+            }
+        });
+        $(itemSelected).addClass('selectedRow');
     }
 
     function splitString(listTeeths) {

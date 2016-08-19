@@ -197,12 +197,12 @@
                         method: 'POST',
                         url: urlUpdateEvent,
                         data: {
-                            title: $('#title').val(),
-                            content: $('#content').val(),
-                            time: $('#time').val(),
-                            _token: token,
+                            title:      $('#title').val(),
+                            content:    $('#content').val(),
+                            time:       $('#time').val(),
+                            _token:     token,
                             id_patient: $('#modal_id_patient').val(),
-                            id: eventId
+                            id:         eventId
                         }
                     })
                     .error(function (msg) {
@@ -233,7 +233,7 @@
                         method: 'POST',
                         url: urlDeleteEvent,
                         data: {
-                            id: eventId,
+                            id:     eventId,
                             _token: token
                         }
                     })
@@ -275,11 +275,11 @@
                             method: 'POST',
                             url: urlCreateEvent,
                             data: {
-                                title: $('#title').val(),
-                                content: $('#content').val(),
-                                time: $('#time').val(),
+                                title:      $('#title').val(),
+                                content:    $('#content').val(),
+                                time:       $('#time').val(),
                                 id_patient: $('#modal_id_patient').val(),
-                                _token: token
+                                _token:     token
                             }
                         })
                         .done(function (msg) {

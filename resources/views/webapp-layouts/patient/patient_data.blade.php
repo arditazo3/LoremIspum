@@ -115,6 +115,7 @@
                         <div class="col-sm-5 b-r">
                             <input type="hidden" id="id_patient_hidden" name="id_patient" />
                             <input type="hidden" id="call_cure_modal_from_chart" />
+                            <input type="hidden" id="call_refresh_list_cures_from_cureDetail_to_chart" />
 
                             <div class="form-group ">
                                 {!! Form::label('first_name', 'First name', ['class'=>'control-label']) !!}
@@ -590,7 +591,7 @@
 						url: urlDeletePatient,
 						data: {
 							id_patient: $('#id_patient_hidden').val(),
-							_token: token
+							_token:     token
 						}
 					})
 					.error(function (msg) {

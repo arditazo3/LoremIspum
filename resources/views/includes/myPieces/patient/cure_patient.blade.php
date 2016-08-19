@@ -13,6 +13,7 @@
                     <div class="col-sm-2 b-r">
 
                         <input type="hidden" id="id_teeth_prizesHide" value="0" />
+                        <input type="hidden" id="id_cure_hidden" />
 
                         <b>Type:</b>
 
@@ -273,7 +274,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-info btn-sm" id="btnCreateUpdateCure">Create cure</button>
+                <button type="submit" class="btn btn-success btn-sm" id="btnUpdateCure">Update cure</button>
+                <button type="submit" class="btn btn-info btn-sm" id="btnCreateCure">Create cure</button>
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
             </div>
             </form>
