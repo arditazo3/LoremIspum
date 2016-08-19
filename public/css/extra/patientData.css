@@ -34,3 +34,7 @@
 .selectedRow {
     background-color: #83f5ff;
 }
+
+.header-fixed tr {
+    cursor: pointer;
+}
