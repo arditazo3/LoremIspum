@@ -114,6 +114,7 @@
 
                         <div class="col-sm-5 b-r">
                             <input type="hidden" id="id_patient_hidden" name="id_patient" />
+                            <input type="hidden" id="call_cure_modal_from_chart" />
 
                             <div class="form-group ">
                                 {!! Form::label('first_name', 'First name', ['class'=>'control-label']) !!}
@@ -457,6 +458,8 @@
         var confirmPasswordGlob = $('#divComfirmPassword').hide();
         var noClickOnSingleOperation = 0;
 
+        var selectedCureOpenModal = '';
+
         // Open list of patient when button is clicked
         $('#searchPatientsModal').click(function () {
 
@@ -731,13 +734,13 @@
 @include('includes.myScript.patient.controlTabJS')
 
 {{--
--- HERE IS THE LOGIC FOR 'TEETH CHART PATIENT'
---}}
-@include('includes.myScript.patient.teethChartPatientListCureJS')
-
-{{--
 -- HERE IS THE LOGIC FOR 'NEW/EDIT CURE'
 --}}
 @include('includes.myScript.patient.curePatientJS')
+
+{{--
+-- HERE IS THE LOGIC FOR 'TEETH CHART PATIENT'
+--}}
+@include('includes.myScript.patient.teethChartPatientListCureJS')
 
 @endsection

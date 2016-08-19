@@ -1,17 +1,22 @@
 $(document).ready(function () {
 
     var id_patient;
+    var listCuresScope;
     // var $divFirstControlGlob = $('#divFirstControl').hide();
     // var $divLastControlGlob = $('#divLastControl').hide();
 
     // open Modal of Charts patient when button is clicked
     $('#btnCharts').click(function () {
 
+        if(token !== null && token !== '') {
         $('#chartsModal').modal({backdrop: 'static', keyboard: false});
 
         getAllCureOfPerson();
         
         console.log('Open Modal Charts Panel');
+        } else {
+            console.log('Token not cretead yet, value: ' + token);
+        }
     });
     
     // Putting a trigger when change the value can call this method here
@@ -45,6 +50,8 @@ $(document).ready(function () {
 
     function ciclePopulateTableCures(listCures) {
 
+        listCuresScope = listCures;
+
         // Clear the table to not dublicate rows
         $('#populateListCures').children("tr").remove();
         console.log('Clear the table');
@@ -56,6 +63,7 @@ $(document).ready(function () {
             var colorOfRow = setColorRowBaseStatusCure(item.status_cure);
 
             createTR += '<tr class="' + colorOfRow + '">' +
+                            '<td style="display: none;">' + item.id + '</td>' +
                             '<td><i class="fa fa-circle"></i></td>' +
                             '<td>' + item.date + '</td>' +
                             '<td>' + item.short_code + '</td>' +
@@ -69,6 +77,52 @@ $(document).ready(function () {
         });
 
         $('#populateListCures').append(createTR);
+
+        actionAfterCreatedTable();
+    }
+
+    function actionAfterCreatedTable() {
+
+        // select automaticlly the first row
+        $('#populateListCures tr:first').addClass('selectedRow');
+
+        $('#populateListCures tr').click(function(){
+
+            var theListCures = $('#populateListCures tr');
+            $.each(theListCures, function (i, item) {
+
+                var className = item.className ;
+                var hasSelectedRow = className.slice(-11);
+
+                if(hasSelectedRow == 'selectedRow') {
+                    item.className = className.substring(0, className.length - 11);
+                }
+
+            });
+
+            $(this).addClass('selectedRow');
+
+            console.log('ID Cure: ' + $(this).context.children[0].innerText);
+
+            selectedCureId($(this).context.children[0].innerText);
+        });
+    }
+
+    function selectedCureId(selectedCureId) {
+        $.each(listCuresScope, function (i, item) {
+            if(item.id == selectedCureId) {
+                openSelectedCureModal(item);
+            }
+        });
+    }
+
+    function openSelectedCureModal(item) {
+
+        selectedCureOpenModal = item;
+
+        // Starting a trigger and catched by curePatient.js to open the modal
+        $('#call_cure_modal_from_chart').val('Start')
+        $('#call_cure_modal_from_chart').trigger('change');
     }
 
     function splitString(listTeeths) {

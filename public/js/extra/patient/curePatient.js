@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     var id_patient;
@@ -8,6 +9,10 @@ $(document).ready(function () {
     // open Modal of Charts patient when button is clicked
     $('#btnNewCare').click(function () {
 
+        resetTreeCategories();
+    });
+
+    function resetTreeCategories() {
         resetCureModal();
 
         $('.jstree-clicked').removeClass('jstree-clicked').addClass('');
@@ -18,11 +23,54 @@ $(document).ready(function () {
 
         $('#selectAllUp').prop('disabled', true);
         $('#selectAllDown').prop('disabled', true);
-    });
+    }
 
     // Putting a trigger when change the value can call this method here
     $('#id_patient_hidden').change(function () {
         id_patient = $(this).val();
+    });
+
+    /**
+     * Called from TeethChartPatientListCure.js to open modal and edit cure
+     */
+    $('#call_cure_modal_from_chart').change(function () {
+
+        if(selectedCureOpenModal != '' && selectedCureOpenModal != null) {
+            var itemCure = selectedCureOpenModal;
+
+            resetTreeCategories();
+
+            console.log( itemCure );
+            isSelectedCure = true;
+
+            var shortCode = itemCure.short_code;
+            var description = itemCure.description;
+            var price = itemCure.price;
+            var amount = itemCure.amount;
+            var id_teeth_prizes = itemCure.id_teeth_prizes;
+            var listTeeths = itemCure.teeth_no;
+
+
+            $('#shortCode').val( shortCode );
+            $('#description').val( description );
+            $('#price').val( price );
+            $('#amount').val( amount );
+            $('#id_teeth_prizesHide').val( id_teeth_prizes );
+
+            $('#selectAllUp').prop('disabled', false);
+            $('#selectAllDown').prop('disabled', false);
+
+
+            // setTheCureSelected(itemCure);
+            var listTeethsArray = listTeeths.split(',');
+
+            $.each(listTeethsArray, function (i, item) {
+
+                var itemId = '#teeth_' + item.trim();
+
+                setSelectedOrUnSelectTeethImage(itemId);
+            });
+        }
     });
 
     // Child node stelected

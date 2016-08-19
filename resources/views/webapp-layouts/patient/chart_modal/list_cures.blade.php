@@ -1,8 +1,9 @@
 <div class="ibox-content">
     <div class="table-responsive">
-        <table class="table table-hover header-fixed" style="font-weight: bold">
+        <table class="table header-fixed" style="font-weight: bold">
             <thead>
             <tr style="font-weight: bold">
+                <th style="display: none;">#</th>
                 <th>S</th>
                 <th>Date</th>
                 <th>Code</th>

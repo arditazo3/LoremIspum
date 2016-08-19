@@ -30,3 +30,7 @@
 .blue-row { color: blue}
 
 .black-row { color: black}
+
+.selectedRow {
+    background-color: #83f5ff;
+}
