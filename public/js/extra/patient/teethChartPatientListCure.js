@@ -28,7 +28,8 @@ $(document).ready(function () {
             method: 'GET',
             url: getListCuresByPatient,
             data: {
-                _token: token
+                idPatient: id_patient,
+                _token:     token
             }
         })
             .error(function (msg) {
@@ -39,16 +40,16 @@ $(document).ready(function () {
             .done(function (msg) {
                 $('#cureModal').modal('hide');
 
-                ciclePopulateTableCures(msg);
+                ciclePopulateTableCures( msg);
 
                 console.log(msg);
             });
         
     }
 
-    function ciclePopulateTableCures(listCures) {
+    function ciclePopulateTableCures(arrayListAndBoject) {
 
-        listCuresScope = listCures;
+        listCuresScope = arrayListAndBoject[0];
 
         // Clear the table to not dublicate rows
         $('#populateListCures').children("tr").remove();
@@ -56,7 +57,7 @@ $(document).ready(function () {
 
         var createTR = '';
         
-        $.each(listCures, function (i, item) {
+        $.each(listCuresScope, function (i, item) {
 
             var colorOfRow = setColorRowBaseStatusCure(item.status_cure);
 
@@ -77,6 +78,8 @@ $(document).ready(function () {
         $('#populateListCures').append(createTR);
 
         actionAfterCreatedTable();
+
+        calculatePrizeListCures( JSON.parse( arrayListAndBoject[1] ) );
     }
 
     function actionAfterCreatedTable() {
@@ -97,6 +100,7 @@ $(document).ready(function () {
 
             selectedCureId($(this).context.children[0].innerText);
         });
+
     }
 
     function selectedCureId(selectedCureId) {
@@ -123,20 +127,25 @@ $(document).ready(function () {
     });
 
     $('#editSelectedCure').click(function() {
-        var idItemSelected = $('tr.selectedRow td')[0].innerText;
-        selectedCureId(idItemSelected);
+
+        if (typeof listCuresScope !== 'undefined' && listCuresScope != null && listCuresScope.length !== 0) {
+            var idItemSelected = $('tr.selectedRow td')[0].innerText;
+            selectedCureId(idItemSelected);
+        }
     });
 
     $('#deleteSelectedCure').click(function() {
-        
-        var idItemSelected = $('tr.selectedRow td')[0].innerText;
-        $('#id_cure_hidden').val(idItemSelected);
 
-        $('#call_delete_cure_from_teethChart_to_cure').val('Start')
-        $('#call_delete_cure_from_teethChart_to_cure').trigger('change');
-        
-        
-        selectedCureId(idItemSelected);
+        if (typeof listCuresScope !== 'undefined' && listCuresScope != null && listCuresScope.length !== 0) {
+
+            var idItemSelected = $('tr.selectedRow td')[0].innerText;
+            $('#id_cure_hidden').val(idItemSelected);
+
+            $('#call_delete_cure_from_teethChart_to_cure').val('Start')
+            $('#call_delete_cure_from_teethChart_to_cure').trigger('change');
+
+            selectedCureId(idItemSelected);
+        }
     });
 
     function setCSStoRowSelected(itemSelected) {
@@ -152,6 +161,22 @@ $(document).ready(function () {
             }
         });
         $(itemSelected).addClass('selectedRow');
+    }
+
+    function calculatePrizeListCures(balanceChartObj) {
+
+        var overBudget          = balanceChartObj.overBudget;
+        var performedCurePrize  = balanceChartObj.performedCurePrize;
+        var toPerformCurePrize  = balanceChartObj.toPerformCurePrize;
+        var discount            = balanceChartObj.discount;
+        var totalPayment        = balanceChartObj.totalPayment;
+
+        $('#idOverBudget').text( overBudget );
+        $('#idPerformed').text( performedCurePrize );
+        $('#idToPerform').text( toPerformCurePrize );
+        $('#idDiscount').text( discount );
+        $('#idTotalPayment').text( totalPayment );
+
     }
 
     function splitString(listTeeths) {

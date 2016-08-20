@@ -1,5 +1,5 @@
 <div class="ibox-content">
-    <div class="table-responsive">
+    <div class="table-responsive" style="height: 350px;">
         <table class="table header-fixed" style="font-weight: bold">
             <thead>
             <tr style="font-weight: bold">

@@ -395,7 +395,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -486,7 +485,7 @@
                         noClickOnSingleOperation = 0;
                     },
                     error: function () {
-                        console.log('Error' + url);
+                        console.log('Error' + urlAllPatients);
                         console.log('CSRF_TOKEN' + CSRF_TOKEN);
                         noClickOnSingleOperation = 0;
                     },

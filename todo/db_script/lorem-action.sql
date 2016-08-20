@@ -13,7 +13,7 @@ select * from roles;
 
 select * from images;
 
-select * from domains where des_dom = 'typeStatus';
+select * from domains where des_dom = 'statusCure';
 
 select * from categories;
 
