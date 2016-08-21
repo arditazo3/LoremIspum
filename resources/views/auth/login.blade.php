@@ -12,8 +12,8 @@
         {!! Form::open(['method'=>'POST', 'action'=>'Auth\AuthController@login', 'class'=>'m-t', 'role'=>'form']) !!}
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
-                            class="fa fa-envelope"></i></span>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                            class="fa fa-user"></i></span>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Username">
             </div>
         </div>
 
@@ -25,7 +25,7 @@
         </div>
 
         {{--Notifications login--}}
-        @include('includes.form-error-specify', ['field'=>'email', 'typeAlert'=>'danger'])
+        @include('includes.form-error-specify', ['field'=>'username', 'typeAlert'=>'danger'])
         @include('includes.form-error-specify', ['field'=>'password', 'typeAlert'=>'danger'])
 
         {!! Form::submit('Login', ['class'=>'btn btn-primary block full-width m-b']) !!}

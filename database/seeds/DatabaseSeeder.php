@@ -60,6 +60,7 @@ class DatabaseSeeder extends Seeder
             \Illuminate\Support\Facades\DB::table('users')->insert([
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
+                'username' => $faker->userName,
                 'address' => $faker->address,
                 'phone' => $faker->phoneNumber,
                 'email' => $faker->email,

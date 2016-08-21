@@ -21,6 +21,12 @@ class AuthController extends Controller
     |
     */
 
+    /**
+     * Variable that allow to login with username
+     * Remove it to login with email by default
+     */
+    protected $username = 'username';
+
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
@@ -49,6 +55,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'username' => 'required|max:255|unique:users',
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
@@ -65,6 +72,7 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            'username' => $data['username'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],

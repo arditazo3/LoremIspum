@@ -12,7 +12,12 @@
         <p>Create account to see it in action.</p>
         {!! Form::open(['method'=>'POST', 'action'=>'Auth\AuthController@register', 'class'=>'m-t', 'role'=>'form']) !!}
 
-
+        <div class="form-group">
+            <div class="input-group m-b"><span class="input-group-addon"><i
+                            class="fa fa-user"></i></span>
+                {!! Form::text('username', null, ['class'=>'form-control', 'placeholder'=>'Username']) !!}
+            </div>
+        </div>
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-github-alt"></i></span>
@@ -49,6 +54,7 @@
             </div>
         </div>
 
+        @include('includes.form-error-specify', ['field'=>'username', 'typeAlert'=>'danger'])
         @include('includes.form-error-specify', ['field'=>'name', 'typeAlert'=>'danger'])
         @include('includes.form-error-specify', ['field'=>'email', 'typeAlert'=>'danger'])
         @include('includes.form-error-specify', ['field'=>'password', 'typeAlert'=>'danger'])
