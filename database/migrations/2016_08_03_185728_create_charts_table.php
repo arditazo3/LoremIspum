@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobDetailsTable extends Migration
+class CreateChartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateJobDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_details', function (Blueprint $table) {
+        Schema::create('charts', function (Blueprint $table) {
             
             $table->increments('id');
 
@@ -31,12 +31,12 @@ class CreateJobDetailsTable extends Migration
             $table->integer('object')->unsigned()->default(0);
             $table->integer('type_operation')->unsigned()->default(0);
             $table->text('note')->nullable();
-
-            $table->string('id_dentist', 50);                // foreign key
-
             $table->timestamps();
 
-            $table->softDeletes();                                // softDelete
+            $table->string('id_dentist', 50);                // foreign key
+            $table->string('id_patient');                    // foreign key
+
+            $table->softDeletes();                           // softDelete
         });
     }
 
@@ -47,6 +47,6 @@ class CreateJobDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('job_details');
+        Schema::drop('charts');
     }
 }

@@ -1,0 +1,1 @@
+<script src="{{ URL::asset('js/extra/custom_script/myCustomScript.js') }}" type="text/javascript"></script>

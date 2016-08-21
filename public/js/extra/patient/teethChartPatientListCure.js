@@ -3,20 +3,74 @@ $(document).ready(function () {
     var id_patient;
     var listCuresScope;
 
-    // open Modal of Charts patient when button is clicked
+    /**  
+     * Check if the patient has a chart or not, if has one
+     * show the list to select the chart
+     * open Modal of Charts patient when button is clicked
+     */
     $('#btnCharts').click(function () {
 
-        if(token !== null && token !== '') {
-        $('#chartsModal').modal({backdrop: 'static', keyboard: false});
+        /**
+         * Check if the patient has one chart
+         * */
+        var data = {idPatient: id_patient, _token: token};
 
-        getAllCureOfPerson();
-        
-        console.log('Open Modal Charts Panel');
-        } else {
-            console.log('Token not cretead yet, value: ' + token);
-        }
+        ajaxRequest('GET', checkIfPatientHasChartAjax, data,
+            function (msg) {
+
+                // has Chart
+                if (msg.hasChart) {
+
+                    console.log('ajaxRequest: ' + msg);
+
+                    if (token !== null && token !== '') {
+
+                    } else {
+                        console.log('Token not cretead yet, value: ' + token);
+                    }
+
+                    if (msg) {
+
+                        if (token !== null && token !== '') {
+
+                            openListChartToChoose( msg );
+                        } else {
+                            console.log('Token not cretead yet, value: ' + token);
+                        }
+                    }
+                } else {
+                    sendRequestToCreateNewChart();
+                }
+            });
     });
-    
+
+    function openListChartToChoose(chartObj) {
+
+        $('#listChartsModal').modal({backdrop: 'static', keyboard: false});
+        cicleListChartOnTable( chartObj.listCharts );
+
+        console.log('Open Modal Charts Panel');
+    }
+
+    /**
+     * Open selected Chart with event
+     * */
+    function openChartSelectedEventHandler() {
+        $('#populateListCharts tr').dblclick(function () {
+
+            setCSStoRowSelected($(this));
+
+            console.log('ID Chart: ' + $(this).context.children[0].innerText);
+
+            // selectedCureId($(this).context.children[0].innerText);
+        });
+
+        $('#listChartsModal').modal({backdrop: 'static', keyboard: false});
+        getAllCureOfPerson();
+
+        console.log('Open List Charts Modal');
+    }
+
     // Putting a trigger when change the value can call this method here
     $('#id_patient_hidden').change(function () {
         id_patient = $(this).val();
@@ -82,13 +136,42 @@ $(document).ready(function () {
         calculatePrizeListCures( JSON.parse( arrayListAndBoject[1] ) );
     }
 
+    function cicleListChartOnTable( listCharts ) {
+
+        // Clear the table to not dublicate rows
+        $('#populateListCharts').children("tr").remove();
+        console.log('Clear the table of List charts');
+
+        var createTR = '';
+
+        $.each(listCharts, function (i, item) {
+
+
+            createTR += '<tr>' +
+                '<td style="display: none;">' + item.id + '</td>' +
+                '<td>' + item.created_at + '</td>' +
+                '<td>' + item.type_operation + '</td>' +
+                '<td>' + item.description + '</td>' +
+                '<td>' + item.position + '</td>' +
+                '<td>' + item.id_dentist + '</td>' +
+                '<td>' + item.id_dentist + '</td>' +
+                '</tr>';
+
+            console.log( item );
+        });
+
+        $('#populateListCharts').append(createTR);
+
+        openChartSelectedEventHandler();
+    }
+
     function actionAfterCreatedTable() {
 
         // select automaticlly the first row
         $('#populateListCures tr:first').addClass('selectedRow');
 
         // set css if is selected once
-        $('#populateListCures tr').click(function(){
+        $('#populateListCures tr, #populateListCharts tr').click(function(){
 
             setCSStoRowSelected($(this));
         });
@@ -150,7 +233,7 @@ $(document).ready(function () {
 
     function setCSStoRowSelected(itemSelected) {
 
-        var theListCures = $('#populateListCures tr');
+        var theListCures = $('#populateListCures tr, #populateListCharts tr');
         $.each(theListCures, function (i, item) {
 
             var className = item.className ;
@@ -177,6 +260,28 @@ $(document).ready(function () {
         $('#idDiscount').text( discount );
         $('#idTotalPayment').text( totalPayment );
 
+    }
+
+    function sendRequestToCreateNewChart() {
+
+        swal({
+                title: "The patient: " + nameOfPatiengGlog + ' ' + surnameOfPatiengGlog + " does'nt have any chart",
+                text: "Do you want to create a new chart ?",
+                type: "info", showCancelButton: true,
+                confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, i want!",
+                closeOnConfirm: true
+            },
+            function () {
+
+                var data = {idPatient: id_patient, _token: token};
+
+                ajaxRequest('POST', createNewChart, data,
+                    function (msg) {
+
+                        openListChartToChoose(msg);
+                    });
+            }
+        );
     }
 
     function splitString(listTeeths) {
@@ -216,8 +321,3 @@ $(document).ready(function () {
     }
     
 });
-
-
-
-
-

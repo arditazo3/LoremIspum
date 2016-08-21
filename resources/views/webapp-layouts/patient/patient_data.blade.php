@@ -405,6 +405,10 @@
     @include('includes.myPieces.calendar.main_calendar_modal')
     {{--END AGENDA MODAL--}}
 
+    {{-- LIST CHART MODAL --}}
+    @include('includes.myPieces.patient.list_charts_modal_patient')
+    {{-- END LIST CHART MODAL --}}
+
     {{-- CHART MODAL --}}
     @include('includes.myPieces.patient.charts_patient')
     {{-- END CHART MODAL --}}
@@ -427,6 +431,7 @@
     @include('includes.myScript.jquery_validate')
     @include('includes.myScript.sweetalertJS')
     @include('includes.myScript.jsTreeJS')
+    @include('includes.myScript.custom_script.myCustomScriptJS')
 
 <script>
 
@@ -439,6 +444,11 @@
     var urlSaveUpdateCure = '{{ route('api/saveUpdateCureAjax') }}';
     var urlDeleteCure = '{{ route('api/deleteCureAjax') }}';
     var getListCuresByPatient = '{{ route('api/getListCuresByPatient') }}';
+    var checkIfPatientHasChartAjax = '{{ route('api/checkIfPatientHasChart') }}';
+    var createNewChart = '{{ route('api/createNewChart') }}';
+
+    var nameOfPatiengGlog = '';
+    var surnameOfPatiengGlog = '';
 
     {{--
     -- HERE IS THE LOGIC ONLY FOR MAIN MECHANISM AND 'PATIENT DATA'
@@ -652,6 +662,9 @@
 
                 if(value.image_path != null && value.image_path.trim() != "")
                     $('#imageFile').attr('src', '{{ $website }}' + value.image_path );
+
+                nameOfPatiengGlog = value.first_name;
+                surnameOfPatiengGlog = value.last_name;
 
             }
         });

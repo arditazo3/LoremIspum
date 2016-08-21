@@ -19,7 +19,7 @@ select * from categories;
 
 select * from jobs;
 
-select * from job_details;
+select * from charts;
 
 select * from teeths_prizes;
 

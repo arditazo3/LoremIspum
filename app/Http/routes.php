@@ -79,7 +79,9 @@ Route::group(['middleware'=>'admin'], function () {
     /**
      * Teeth Chart Modal (PATIENT)
      */
-    Route::get('api/getListCuresByPatient', ['uses' => 'TeethChartController@getListCuresByPatient', 'as'   => 'api/getListCuresByPatient' ]);
+    Route::get('api/getListCuresByPatient', ['uses' => 'ChartController@getListCuresByPatient', 'as'   => 'api/getListCuresByPatient' ]);
+    Route::get('api/checkIfPatientHasChart', ['uses' => 'ChartController@checkIfPatientHasChart', 'as'   => 'api/checkIfPatientHasChart' ]);
+    Route::post('api/createNewChart', ['uses' => 'ChartController@createNewChart', 'as'   => 'api/createNewChart' ]);
     
     /**
     * USER
