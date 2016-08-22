@@ -42,7 +42,6 @@ $(document).ready(function () {
         $('#listChartsModal').modal({backdrop: 'static', keyboard: false});
         cicleListChartOnTable( chartObj.listCharts );
 
-        console.log('Open Modal Charts Panel');
     }
 
     function cicleListChartOnTable( listCharts ) {
@@ -66,7 +65,7 @@ $(document).ready(function () {
                 '<td>' + item.id_dentist + '</td>' +
                 '</tr>';
 
-            console.log( item );
+            // console.log( item );
         });
 
         $('#populateListCharts').append(createTR);
@@ -97,6 +96,8 @@ $(document).ready(function () {
             $('#chartsModal').modal({backdrop: 'static', keyboard: false});
 
             getAllCureOfPerson();
+
+            console.log('Open Modal Charts Panel');
         });
 
         // $('#listChartsModal').modal({backdrop: 'static', keyboard: false});
@@ -126,7 +127,7 @@ $(document).ready(function () {
 
                 ciclePopulateTableCures( msg);
 
-                console.log(msg);
+                // console.log(msg);
             });
     }
 
@@ -155,7 +156,7 @@ $(document).ready(function () {
                 '<td>' + item.id_dentist + '</td>' +
                 '</tr>';
 
-            console.log( item );
+            // console.log( item );
         });
 
         $('#populateListCures').append(createTR);

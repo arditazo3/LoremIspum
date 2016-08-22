@@ -635,7 +635,7 @@
 
         $.each(listPatientData, function( key, value ) {
             if (value.id_patient === id) {
-                console.log(value);
+                // console.log(value);
 
                 $('#id_patient_hidden').val( value.id_patient );
                 $('#id_patient_hidden').trigger('change');
