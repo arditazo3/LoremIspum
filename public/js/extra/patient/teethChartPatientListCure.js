@@ -10,6 +10,10 @@ $(document).ready(function () {
      */
     $('#btnCharts').click(function () {
 
+        checkIfPatientHasChart();
+    });
+
+    function checkIfPatientHasChart() {
         /**
          * Check if the patient has one chart
          * */
@@ -21,28 +25,17 @@ $(document).ready(function () {
                 // has Chart
                 if (msg.hasChart) {
 
-                    console.log('ajaxRequest: ' + msg);
-
                     if (token !== null && token !== '') {
 
+                        openListChartToChoose(msg);
                     } else {
                         console.log('Token not cretead yet, value: ' + token);
-                    }
-
-                    if (msg) {
-
-                        if (token !== null && token !== '') {
-
-                            openListChartToChoose( msg );
-                        } else {
-                            console.log('Token not cretead yet, value: ' + token);
-                        }
                     }
                 } else {
                     sendRequestToCreateNewChart();
                 }
             });
-    });
+    }
 
     function openListChartToChoose(chartObj) {
 
@@ -50,90 +43,6 @@ $(document).ready(function () {
         cicleListChartOnTable( chartObj.listCharts );
 
         console.log('Open Modal Charts Panel');
-    }
-
-    /**
-     * Open selected Chart with event
-     * */
-    function openChartSelectedEventHandler() {
-        $('#populateListCharts tr').dblclick(function () {
-
-            setCSStoRowSelected($(this));
-
-            console.log('ID Chart: ' + $(this).context.children[0].innerText);
-
-            // selectedCureId($(this).context.children[0].innerText);
-        });
-
-        $('#listChartsModal').modal({backdrop: 'static', keyboard: false});
-        getAllCureOfPerson();
-
-        console.log('Open List Charts Modal');
-    }
-
-    // Putting a trigger when change the value can call this method here
-    $('#id_patient_hidden').change(function () {
-        id_patient = $(this).val();
-    });
-
-    function getAllCureOfPerson() {
-
-        $.ajax({
-            method: 'GET',
-            url: getListCuresByPatient,
-            data: {
-                idPatient: id_patient,
-                _token:     token
-            }
-        })
-            .error(function (msg) {
-                $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
-                // set and/or replace the html code inside it
-                $("#notificationMsg").html(msg.responseText);
-            })
-            .done(function (msg) {
-                $('#cureModal').modal('hide');
-
-                ciclePopulateTableCures( msg);
-
-                console.log(msg);
-            });
-        
-    }
-
-    function ciclePopulateTableCures(arrayListAndBoject) {
-
-        listCuresScope = arrayListAndBoject[0];
-
-        // Clear the table to not dublicate rows
-        $('#populateListCures').children("tr").remove();
-        console.log('Clear the table');
-
-        var createTR = '';
-        
-        $.each(listCuresScope, function (i, item) {
-
-            var colorOfRow = setColorRowBaseStatusCure(item.status_cure);
-
-            createTR += '<tr class="' + colorOfRow + '">' +
-                            '<td style="display: none;">' + item.id + '</td>' +
-                            '<td><i class="fa fa-circle"></i></td>' +
-                            '<td>' + item.date + '</td>' +
-                            '<td>' + item.short_code + '</td>' +
-                            '<td>' + item.description + '</td>' +
-                            '<td>' + splitString(item.teeth_no) + '</td>' +
-                            '<td>' + item.amount + '</td>' +
-                            '<td>' + item.id_dentist + '</td>' +
-                        '</tr>';
-
-            console.log( item );
-        });
-
-        $('#populateListCures').append(createTR);
-
-        actionAfterCreatedTable();
-
-        calculatePrizeListCures( JSON.parse( arrayListAndBoject[1] ) );
     }
 
     function cicleListChartOnTable( listCharts ) {
@@ -164,6 +73,160 @@ $(document).ready(function () {
 
         openChartSelectedEventHandler();
     }
+
+    /**
+     * Open selected Chart with event
+     * */
+    function openChartSelectedEventHandler() {
+
+        $('#populateListCharts tr').click(function () {
+            setCSStoRowSelected($(this));
+        });
+
+        $('#populateListCharts tr').dblclick(function () {
+
+            setCSStoRowSelected($(this));
+
+            idChartGlob = $(this).context.children[0].innerText;
+
+            console.log('ID Chart: ' + $(this).context.children[0].innerText);
+
+            $('#listChartsModal').modal('hide');
+
+            // selectedCureId($(this).context.children[0].innerText);
+            $('#chartsModal').modal({backdrop: 'static', keyboard: false});
+
+            getAllCureOfPerson();
+        });
+
+        // $('#listChartsModal').modal({backdrop: 'static', keyboard: false});
+
+
+        console.log('Open List Charts Modal');
+    }
+
+    function getAllCureOfPerson() {
+
+        $.ajax({
+            method: 'GET',
+            url: getListCuresByPatient,
+            data: {
+                id_chart: idChartGlob,
+                idPatient: id_patient,
+                _token:     token
+            }
+        })
+            .error(function (msg) {
+                $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
+                // set and/or replace the html code inside it
+                $("#notificationMsg").html(msg.responseText);
+            })
+            .done(function (msg) {
+                $('#cureModal').modal('hide');
+
+                ciclePopulateTableCures( msg);
+
+                console.log(msg);
+            });
+    }
+
+    function ciclePopulateTableCures(arrayListAndBoject) {
+
+        listCuresScope = arrayListAndBoject[0];
+
+        // Clear the table to not dublicate rows
+        $('#populateListCures').children("tr").remove();
+        console.log('Clear the table');
+
+        var createTR = '';
+
+        $.each(listCuresScope, function (i, item) {
+
+            var colorOfRow = setColorRowBaseStatusCure(item.status_cure);
+
+            createTR += '<tr class="' + colorOfRow + '">' +
+                '<td style="display: none;">' + item.id + '</td>' +
+                '<td><i class="fa fa-circle"></i></td>' +
+                '<td>' + item.date + '</td>' +
+                '<td>' + item.short_code + '</td>' +
+                '<td>' + item.description + '</td>' +
+                '<td>' + splitString(item.teeth_no) + '</td>' +
+                '<td>' + item.amount + '</td>' +
+                '<td>' + item.id_dentist + '</td>' +
+                '</tr>';
+
+            console.log( item );
+        });
+
+        $('#populateListCures').append(createTR);
+
+        actionAfterCreatedTable();
+
+        calculatePrizeListCures( JSON.parse( arrayListAndBoject[1] ) );
+    }
+
+    function setCSStoRowSelected(itemSelected) {
+
+        var theListCures = $('#populateListCures tr, #populateListCharts tr');
+        $.each(theListCures, function (i, item) {
+
+            var className = item.className ;
+            var hasSelectedRow = className.slice(-11);
+
+            if(hasSelectedRow == 'selectedRow') {
+                item.className = className.substring(0, className.length - 11);
+            }
+        });
+        $(itemSelected).addClass('selectedRow');
+    }
+
+    function sendRequestToCreateNewChart() {
+
+        swal({
+                title: "The patient: " + nameOfPatiengGlog + ' ' + surnameOfPatiengGlog + " does'nt have any chart",
+                text: "Do you want to create a new chart ?",
+                type: "info", showCancelButton: true,
+                confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, i want!",
+                closeOnConfirm: true
+            },
+            function () {
+
+                var data = {idPatient: id_patient, _token: token};
+
+                ajaxRequest('POST', createNewChart, data,
+                    function (msg) {
+
+                        openTheFirstChart(msg);
+                    });
+            }
+        );
+    }
+
+    // create new Chart
+    $('#btnCreateNewChart').click(function() {
+
+        var data = {idPatient: id_patient, _token: token};
+        ajaxRequest('POST', createNewChart, data,
+            function (msg) {
+
+                sweetAlert("New chart created", "", "success");
+
+                checkIfPatientHasChart();
+            });
+    });
+
+    function openTheFirstChart(chartObj) {
+
+        idChartGlob = chartObj.id;
+
+        $('#chartsModal').modal({backdrop: 'static', keyboard: false});
+        
+    }
+
+    // Putting a trigger when change the value can call this method here
+    $('#id_patient_hidden').change(function () {
+        id_patient = $(this).val();
+    });
 
     function actionAfterCreatedTable() {
 
@@ -231,21 +294,6 @@ $(document).ready(function () {
         }
     });
 
-    function setCSStoRowSelected(itemSelected) {
-
-        var theListCures = $('#populateListCures tr, #populateListCharts tr');
-        $.each(theListCures, function (i, item) {
-
-            var className = item.className ;
-            var hasSelectedRow = className.slice(-11);
-
-            if(hasSelectedRow == 'selectedRow') {
-                item.className = className.substring(0, className.length - 11);
-            }
-        });
-        $(itemSelected).addClass('selectedRow');
-    }
-
     function calculatePrizeListCures(balanceChartObj) {
 
         var overBudget          = balanceChartObj.overBudget;
@@ -260,28 +308,6 @@ $(document).ready(function () {
         $('#idDiscount').text( discount );
         $('#idTotalPayment').text( totalPayment );
 
-    }
-
-    function sendRequestToCreateNewChart() {
-
-        swal({
-                title: "The patient: " + nameOfPatiengGlog + ' ' + surnameOfPatiengGlog + " does'nt have any chart",
-                text: "Do you want to create a new chart ?",
-                type: "info", showCancelButton: true,
-                confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, i want!",
-                closeOnConfirm: true
-            },
-            function () {
-
-                var data = {idPatient: id_patient, _token: token};
-
-                ajaxRequest('POST', createNewChart, data,
-                    function (msg) {
-
-                        openListChartToChoose(msg);
-                    });
-            }
-        );
     }
 
     function splitString(listTeeths) {

@@ -8,6 +8,7 @@ use App\Job;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class ChartController extends Controller
 {
@@ -19,8 +20,11 @@ class ChartController extends Controller
         $inputs = $request->all();
 
         $id_patient = $inputs['idPatient'];
+        $id_chart = $inputs['id_chart'];
 
-        $listCures = Job::where('id_patient', $id_patient)->get();
+        $listCures = Job::where('id_patient', $id_patient)
+                          ->where('id_chart', $id_chart)
+                          ->get();
 
         /**
         * Logic method
@@ -52,6 +56,7 @@ class ChartController extends Controller
         $newChart = new Chart();
         
         $newChart->id_patient = $id_patient;
+        $newChart->id_user = Auth::user()->id;
         
         $newChart->save();
         

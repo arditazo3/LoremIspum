@@ -5,6 +5,8 @@ select * from patients;
 
 select * from events;
 
+truncate events;
+
 select * from users;
 
 select * from users where id = 51;
@@ -19,7 +21,11 @@ select * from categories;
 
 select * from jobs;
 
+TRUNCATE jobs;
+
 select * from charts;
+
+truncate charts;
 
 select * from teeths_prizes;
 

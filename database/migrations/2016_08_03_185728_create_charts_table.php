@@ -33,7 +33,8 @@ class CreateChartsTable extends Migration
             $table->text('note')->nullable();
             $table->timestamps();
 
-            $table->string('id_dentist', 50);                // foreign key
+            $table->integer('id_chart')->unsigned();         // foreign key
+            $table->integer('id_user')->nullable();          // foreign key
             $table->string('id_patient');                    // foreign key
 
             $table->softDeletes();                           // softDelete

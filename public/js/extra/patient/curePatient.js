@@ -278,6 +278,7 @@ $(document).ready(function () {
                     id_teeth_prizes: $('#id_teeth_prizesHide').val(),
                     id_patient:      id_patient,
                     isEditableModal: isEditableModal,
+                    id_chart:        idChartGlob,
                     _token:          token
                 }
             })

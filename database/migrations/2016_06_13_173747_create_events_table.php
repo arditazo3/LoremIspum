@@ -22,7 +22,9 @@ class CreateEventsTable extends Migration
             $table->timestamp('end_time');
             $table->timestamps();
 
+            // Using event to delete the childs
             $table->foreign('id_patient')->references('id_patient')->on('patients');
+
         });
 
 

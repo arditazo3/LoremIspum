@@ -35,4 +35,8 @@ class Patient extends Model
         return $this->belongsTo('App\Image');
     }
 
+    public function events() {
+        return $this->hasMany('App\Event', 'id_patient');
+    }
+
 }

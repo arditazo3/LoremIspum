@@ -15,8 +15,4 @@ class Event extends Model
         return $this->belongsTo('App\Patient', 'id_patient');
     }
 
-//    public function setIdPatientAttribute($value) {
-//        $this->attributes['id_patient'] = $value ?: null;
-//    }
-
 }

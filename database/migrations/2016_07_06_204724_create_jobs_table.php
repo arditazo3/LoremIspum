@@ -32,14 +32,12 @@ class CreateJobsTable extends Migration
             $table->string('status_cure', 255)->nullable();
             $table->text('clicnic_note')->nullable();
 
-            $table->string('id_patient');                               // foreign key
-            $table->integer('id_job_detail')->unsigned()->default(0);   // foreign key
-            $table->string('id_dentist', 50);                           // foreign key
-			$table->integer('id_teeth_prizes')->unsigned()->default(0); // foreign key
+            $table->string('id_patient');                                // foreign key
+            $table->integer('id_chart')->unsigned();                     // foreign key
+            $table->string('id_dentist', 50);                            // foreign key
+			$table->integer('id_teeth_prizes')->unsigned()->default(0);  // foreign key
 
-            
             $table->timestamps();
-
             $table->softDeletes();                           // softDelete
         });
     }
