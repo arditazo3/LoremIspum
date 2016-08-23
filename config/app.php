@@ -164,6 +164,8 @@ return [
 		
 		/** PHP Autocomplete */
 		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        /** DomPDF Generation */
+        Barryvdh\DomPDF\ServiceProvider::class,
 		
     ],
 
@@ -214,6 +216,9 @@ return [
         /** Laravel Collective*/
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        /** Dom PDF */
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
         /** Laravel Datatables */
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,

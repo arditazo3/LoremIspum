@@ -35,6 +35,10 @@
                     <h5>Fill up the patient form</h5>
                     <div class="ibox-tools">
 
+                        <a class="btn btn-default btn-sm" href="{{ route('report/patientDataReport') }}" target="_blank" id="btnReportAllPatient"><i class="fa fa-file-pdf-o"></i>
+                            Report all patient
+                        </a>
+
                         <button class="btn btn-info btn-sm" type="button" id="btnNewCare"><i class="fa fa-plus"></i>
                             New Care
                         </button>
@@ -461,6 +465,7 @@
         var allPatientsDataGlob = '';
         var urlAllPatients = '{{ route('api/allPatientsAjax') }}';
         var urlDeletePatient = '{{ route('api/deletePatientAjax') }}';
+        var urlReportAllPatient = '{{ route('report/patientDataReport') }}';
 
         var $btnDeleteGlob = $('#btnDeletePatient').hide();
         var $btnChartsGlob = $('#btnCharts').hide();

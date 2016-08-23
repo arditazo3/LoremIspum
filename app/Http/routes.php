@@ -98,6 +98,17 @@ Route::group(['middleware'=>'admin'], function () {
     Route::post('api/deleteEventAjax', ['uses' => 'CalendarController@deleteEventAjax', 'as'   => 'api/deleteEventAjax' ]);
 
     Route::post('api/createEventAjax', ['uses' => 'CalendarController@createEventAjax', 'as'   => 'api/createEventAjax' ]);
+
+    /**
+     * -------------------------------------------
+     * HERE ARE ALL ROUTE REQUEST FOR REPORTING
+     * -------------------------------------------
+     */
+    
+    /**
+    * PATIENT
+    */
+    Route::get('report/patientDataReport', ['uses' => 'PatientDataReportController@patientDataReport', 'as'   => 'report/patientDataReport' ]);
     
 });
 
