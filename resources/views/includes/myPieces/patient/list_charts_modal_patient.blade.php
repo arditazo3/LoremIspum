@@ -26,9 +26,7 @@
 
             <div class="modal-footer">
 
-                <div class="btn btn-sm btn-info" id="editSelectedCure"><i class="fa fa-edit"></i> Edit</div>
-                <div class="btn btn-sm btn-danger" id="deleteSelectedCure"><i class="fa fa-remove"></i> Delete</div>
-                <button type="submit" class="btn btn-success btn-sm" id="btnCreateCureFromChart">Create cure</button>
+                <div class="btn btn-sm btn-info" id="openSelectedChart"><i class="fa fa-folder-open"></i> Open Selected</div>
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
             </div>
         </div>

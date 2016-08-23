@@ -87,6 +87,50 @@ $(document).ready(function () {
         }
     });
 
+    function setSelectedOrUnSelectTeethImage(idImage) {
+
+        var hasClass = $(idImage).attr('class');
+
+        if (typeof hasClass !== typeof undefined && hasClass !== false) {
+            $(idImage).removeAttr("class");
+
+            if (idImage.substring(0, 7) == '#teeth_') {
+                idImage = idImage.substring(7);
+            }
+            var pos = teethsArray.indexOf(idImage);
+
+            teethsArray.splice(pos, 1);
+
+        } else {
+            $(idImage).addClass("teeth-border-cure");
+
+            if (idImage.substring(0, 7) == '#teeth_') {
+                idImage = idImage.substring(7);
+            }
+
+            teethsArray.push(idImage);
+        }
+
+        calculateTheAmount(teethsArray.length);
+    }
+
+    function calculateTheAmount(countTeeths) {
+
+        var price = $('#price').val();
+        var discount = $('#discount').val();
+        var amount = 0;
+
+        if (discount > 100) {
+            amount = 0;
+        } else {
+            amount = parseFloat(( price * countTeeths ) - (( price * countTeeths ) * (discount / 100) )).toFixed(2);
+        }
+
+        $('#amount').val(amount);
+
+        $('h2.font-bold-teeth').html(countTeeths)
+    }
+
     $('#call_delete_cure_from_teethChart_to_cure').change(function () {
 
         noMoreClickOnSingleOperation++;
@@ -185,50 +229,6 @@ $(document).ready(function () {
 
     });
 
-    function setSelectedOrUnSelectTeethImage(idImage) {
-
-        var hasClass = $(idImage).attr('class');
-
-        if (typeof hasClass !== typeof undefined && hasClass !== false) {
-            $(idImage).removeAttr("class");
-
-            if (idImage.substring(0, 7) == '#teeth_') {
-                idImage = idImage.substring(7);
-            }
-            var pos = teethsArray.indexOf(idImage);
-
-            teethsArray.splice(pos, 1);
-
-        } else {
-            $(idImage).addClass("teeth-border-cure");
-
-            if (idImage.substring(0, 7) == '#teeth_') {
-                idImage = idImage.substring(7);
-            }
-
-            teethsArray.push(idImage);
-        }
-
-        calculateTheAmount(teethsArray.length);
-    }
-
-    function calculateTheAmount(countTeeths) {
-
-        var price = $('#price').val();
-        var discount = $('#discount').val();
-        var amount = 0;
-
-        if (discount > 100) {
-            amount = 0;
-        } else {
-            amount = parseFloat(( price * countTeeths ) - (( price * countTeeths ) * (discount / 100) )).toFixed(2);
-        }
-
-        $('#amount').val(amount);
-
-        $('h2.font-bold-teeth').html(countTeeths)
-    }
-
     $('#price').bind('keyup mouseup', function() {
         calculateTheAmount(teethsArray.length);
     });
@@ -254,6 +254,43 @@ $(document).ready(function () {
         ajaxFormDeleteCure(noMoreClickOnSingleOperation);
 
     });
+
+    function ajaxFormDeleteCure(noMoreClickOnSingleOperation) {
+
+        swal({
+                title: "Delete Cure with ID: " + $('#id_cure_hidden').val(),
+                text: "Are you sure to delete this cure?",
+                type: "error", showCancelButton: true,
+                confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            },
+
+            function () {
+                if (validateFieldsIfEmpty() && noMoreClickOnSingleOperation == 1) {
+                    $.ajax({
+                        method: 'POST',
+                        url: urlDeleteCure,
+                        data: {
+                            id: $('#id_cure_hidden').val(),
+                            _token: token
+                        }
+                    })
+                        .error(function (msg) {
+                            $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
+                            // set and/or replace the html code inside it
+                            $("#notificationMsg").html(msg.responseText);
+                            noMoreClickOnSingleOperation = 0;
+                        })
+                        .done(function (msg) {
+                            $('#cureModal').modal('hide');
+                            $('#call_refresh_list_cures_from_cureDetail_to_chart').val('Start')
+                            $('#call_refresh_list_cures_from_cureDetail_to_chart').trigger('change');
+
+                            console.log(JSON.stringify(msg));
+                        });
+                }
+            });
+    }
 
     function ajaxFormSaveUpdateCure(noMoreClickOnSingleOperation) {
 
@@ -300,43 +337,6 @@ $(document).ready(function () {
                     sweetAlert("The cure has been created!", "", "success");
                 });
         }
-    }
-
-    function ajaxFormDeleteCure(noMoreClickOnSingleOperation) {
-
-        swal({
-                title: "Delete Cure with ID: " + $('#id_cure_hidden').val(),
-                text: "Are you sure to delete this cure?",
-                type: "error", showCancelButton: true,
-                confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, delete it!",
-                closeOnConfirm: true
-            },
-
-            function () {
-                if (validateFieldsIfEmpty() && noMoreClickOnSingleOperation == 1) {
-                    $.ajax({
-                        method: 'POST',
-                        url: urlDeleteCure,
-                        data: {
-                            id: $('#id_cure_hidden').val(),
-                            _token: token
-                        }
-                    })
-                        .error(function (msg) {
-                            $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
-                            // set and/or replace the html code inside it
-                            $("#notificationMsg").html(msg.responseText);
-                            noMoreClickOnSingleOperation = 0;
-                        })
-                        .done(function (msg) {
-                            $('#cureModal').modal('hide');
-                            $('#call_refresh_list_cures_from_cureDetail_to_chart').val('Start')
-                            $('#call_refresh_list_cures_from_cureDetail_to_chart').trigger('change');
-
-                            console.log(JSON.stringify(msg));
-                        });
-                }
-            });
     }
 
     // select all teeth toggle buttons
