@@ -59,7 +59,6 @@ class CreatePatientsTable extends Migration
             $table->text('note2')->nullable();
             $table->text('note3')->nullable();
             $table->text('note4')->nullable();
-            $table->text('note5')->nullable();
             $table->string('sms_notify_news', 1)->nullable();
             $table->string('patient_status', 30)->nullable();
             $table->string('head_household', 1)->nullable();

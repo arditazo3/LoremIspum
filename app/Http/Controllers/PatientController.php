@@ -218,6 +218,11 @@ class PatientController extends Controller
 		$patient->personal_phone =  $inputs['personal_phone'];
 		$patient->office_phone =    $inputs['office_phone'];
 
+        $patient->note1 =           $inputs['note1'];
+        $patient->note2 =           $inputs['note2'];
+        $patient->note3 =           $inputs['note3'];
+        $patient->note4 =           $inputs['note4'];
+
         $user = Auth::user();
         $inputs['user_update'] = $user->id;
         

@@ -28,7 +28,7 @@
 
             {{--START FORM--}}
             {!! Form::open(['method'=>'POST', 'action'=>'PatientController@createUpdatePatientAjax', 'role'=>'form',
-                'id'=>'formSaveNewPatient', 'files'=>true]) !!}
+                'id'=>'formSaveNewPatient', 'files'=>true, 'class'=>'col-lg-12']) !!}
 
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -52,7 +52,7 @@
 						<button type="button" class="btn btn-warning btn-sm" id="btnRestorePatient">
                             Restore form
                         </button>
-					
+
                         <button type="button" class="btn btn-danger btn-sm" id="btnDeletePatient">
                             <i class="fa fa-remove"></i> Delete patient
                         </button>
@@ -172,6 +172,8 @@
                     <div class="row">
 
                         <div class="panel-group" id="accordion">
+
+                            {{--START DATA PATIENT--}}
                             <div class="panel panel-info" id="panel1">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
@@ -289,6 +291,9 @@
                                     </div>
                                 </div>
                             </div>
+                            {{--END DATA PATIENT--}}
+
+                            {{--START CONTROLS--}}
                             <div class="panel panel-info" id="panel2">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
@@ -312,8 +317,7 @@
 
                                             <div class="form-group" id="divFirstControl">
                                                 {!! Form::label('date_first_visit', 'First control', ['class'=>'control-label']) !!}
-                                                {!! Form::text('date_first_visit', null, ['class'=>'form-control', 'placeholder'=>'',
-                                                                'disabled']) !!}
+                                                {!! Form::text('date_first_visit', null, ['class'=>'form-control', 'placeholder'=>'', 'disabled']) !!}
                                             </div>
 
                                             <div class="form-group" id="divLastControl">
@@ -342,21 +346,72 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default" id="panel3">
+                            {{--END CONTROLS--}}
+
+                            {{--START PRICE/AGREEE--}}
+                            <div class="panel panel-info" id="panel3">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-target="#collapseThree"
                                            href="#collapseThree" class="collapsed">
-                                            Collapsible Group Item #3
+                                            Price / Agree
                                         </a>
                                     </h4>
 
                                 </div>
                                 <div id="collapseThree" class="panel-collapse collapse">
-                                    <div class="panel-body">Anim pariatur
+                                    <div class="panel-body">
+
+                                        @include('webapp-layouts.patient.patient_data_main.price_agree')
+
                                     </div>
                                 </div>
                             </div>
+                            {{--END PRICE/AGREEE--}}
+
+                            {{--START RECALLS--}}
+                            <div class="panel panel-info" id="panel4">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-target="#collapseFour"
+                                           href="#collapseFour" class="collapsed">
+                                            Recalls
+                                        </a>
+                                    </h4>
+
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        @include('webapp-layouts.patient.patient_data_main.patient_recalls')
+
+                                    </div>
+                                </div>
+                            </div>
+                            {{--END RECALLS--}}
+
+                            {{--START NOTES--}}
+                            <div class="panel panel-info" id="panel5">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-target="#collapseFive"
+                                           href="#collapseFive" class="collapsed">
+                                            Notes
+                                        </a>
+                                    </h4>
+
+                                </div>
+                                <div id="collapseFive" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        @include('webapp-layouts.patient.patient_data_main.patient_notes')
+
+                                    </div>
+                                </div>
+                            </div>
+                            {{--END NOTES--}}
+
+
                         </div>
                     </div>
                 </div>
@@ -366,6 +421,7 @@
 
         </div>
     </div>
+
 
     {{--SEARCH MODAL--}}
     <div class="modal inmodal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -666,6 +722,11 @@
                 $('#personal_phone').val( value.personal_phone );
                 $('#office_phone').val( value.office_phone );
 
+                $('#note1').val( value.note1 );
+                $('#note2').val( value.note2 );
+                $('#note3').val( value.note3 );
+                $('#note4').val( value.note4 );
+
                 if(value.image_path != null && value.image_path.trim() != "")
                     $('#imageFile').attr('src', '{{ $website }}' + value.image_path );
 
@@ -725,6 +786,11 @@
 		$('div.divSex select').val('0');
 		$('#personal_phone').val('');
 		$('#office_phone').val('');
+
+        $('#note1').val( '' );
+        $('#note2').val( '' );
+        $('#note3').val( '' );
+        $('#note4').val( '' );
 
         $('#imageFile').attr('src', '{{ $website . 'img/user-no_photo.png' }}' );
 

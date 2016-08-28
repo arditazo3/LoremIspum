@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     var id_patient;
     var listCuresScope;
+    var listChartScope;
 
     /**  
      * Check if the patient has a chart or not, if has one
@@ -46,6 +47,8 @@ $(document).ready(function () {
 
     function cicleListChartOnTable( listCharts ) {
 
+        listChartScope = listCharts.length;
+
         // Clear the table to not dublicate rows
         $('#populateListCharts').children("tr").remove();
         console.log('Clear the table of List charts');
@@ -78,8 +81,25 @@ $(document).ready(function () {
      * */
     function openChartSelectedEventHandler() {
 
+        // select automaticlly the first row
+        $('#populateListCharts tr:first').addClass('selectedRow');
+
         $('#populateListCharts tr').click(function () {
             setCSStoRowSelected($(this));
+        });
+
+        $('#openSelectedChart').click(function() {
+
+            if (typeof listChartScope !== 'undefined' && listChartScope != null && listChartScope.length !== 0) {
+                idChartGlob = $('tr.selectedRow td')[0].innerText;
+
+                // selectedCureId($(this).context.children[0].innerText);
+                $('#chartsModal').modal({backdrop: 'static', keyboard: false});
+
+                getAllCureOfPerson();
+
+                console.log('Open Modal Charts Panel');
+            }
         });
 
         $('#populateListCharts tr').dblclick(function () {
@@ -192,6 +212,7 @@ $(document).ready(function () {
             },
             function () {
 
+
                 var data = {idPatient: id_patient, _token: token};
 
                 ajaxRequest('POST', createNewChart, data,
@@ -256,6 +277,8 @@ $(document).ready(function () {
                 openSelectedCureModal(item);
             }
         });
+        // A bug not resolved open first row default, push to create this row, work well
+        openSelectedCureModal(listCuresScope[0].id);
     }
 
     function openSelectedCureModal(item) {
@@ -276,7 +299,8 @@ $(document).ready(function () {
     $('#editSelectedCure').click(function() {
 
         if (typeof listCuresScope !== 'undefined' && listCuresScope != null && listCuresScope.length !== 0) {
-            var idItemSelected = $('tr.selectedRow td')[0].innerText;
+            // $(this).closest('table').find(' tbody tr:first').attr('id');
+            var idItemSelected =  $('tr.selectedRow td')[0].innerText;
             selectedCureId(idItemSelected);
         }
     });
