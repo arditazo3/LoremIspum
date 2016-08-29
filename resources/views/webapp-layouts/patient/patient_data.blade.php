@@ -10,6 +10,7 @@
     @include('includes.myCSS.fullcalendarCSS')
     @include('includes.myCSS.patientDataCSS')
     @include('includes.myCSS.jsTreeCSS')
+    @include('includes.myCSS.icheckCSS')
 @endsection
 
 @section('content')
@@ -491,6 +492,7 @@
     @include('includes.myScript.jquery_validate')
     @include('includes.myScript.sweetalertJS')
     @include('includes.myScript.jsTreeJS')
+    @include('includes.myScript.icheckJS')
     @include('includes.myScript.custom_script.myCustomScriptJS')
 
 <script>

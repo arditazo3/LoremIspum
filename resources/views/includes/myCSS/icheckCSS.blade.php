@@ -1,0 +1,1 @@
+<link href="{{ URL::asset('css/extra/icheck.css') }}" rel="stylesheet" type="text/css"/>

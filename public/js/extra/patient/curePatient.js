@@ -73,7 +73,9 @@ $(document).ready(function () {
             // expand all the tree
             $('#jstree1').jstree('open_all');
 
-            setItemSelectedAtTree(description.substring(1));
+            if(typeof description !== "undefined") {
+                setItemSelectedAtTree(description.substring(1));
+            }
 
             // setTheCureSelected(itemCure);
             var listTeethsArray = listTeeths.split(',');
@@ -425,7 +427,7 @@ $(document).ready(function () {
         $("#description").val('');
         $("#descOfClient").val('');
 
-        var theUser = 'Azo';
+        var theUser = '';
         $("#user option").filter(function() {
             //may want to use $.trim in here
             return $(this).text() == theUser;

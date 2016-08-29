@@ -266,7 +266,6 @@
                             <img id="teeth_31" src="{{ $website . 'images/teeths_chart/teeth_chart_group/31.png' }}"
                                  style="position: absolute; top: 57%; left: 9.3%; width: 7.4%; height: 35%;">
 
-
                         </div>
 
                     </div>

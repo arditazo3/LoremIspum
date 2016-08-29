@@ -278,7 +278,7 @@ $(document).ready(function () {
             }
         });
         // A bug not resolved open first row default, push to create this row, work well
-        openSelectedCureModal(listCuresScope[0].id);
+        // openSelectedCureModal(listCuresScope[0].id);
     }
 
     function openSelectedCureModal(item) {
@@ -300,7 +300,7 @@ $(document).ready(function () {
 
         if (typeof listCuresScope !== 'undefined' && listCuresScope != null && listCuresScope.length !== 0) {
             // $(this).closest('table').find(' tbody tr:first').attr('id');
-            var idItemSelected =  $('tr.selectedRow td')[0].innerText;
+            var idItemSelected =  $('#populateListCures > tr.selectedRow td')[0].innerText;
             selectedCureId(idItemSelected);
         }
     });
@@ -370,5 +370,28 @@ $(document).ready(function () {
         }
         return color;
     }
-    
+
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    });
+
+    // Visibility of Chart Teeths
+    $('#isVisibleChartTeeths').on('ifChecked', function () {
+
+        $('#isVisibleImageOfChart').hide();
+        $('#isVisibleChartText').html('Click to show the chart');
+
+        $('#divChartModalGeneralData').removeClass("col-sm-9").addClass("col-sm-12");
+
+    });
+
+    $('#isVisibleChartTeeths').on('ifUnchecked', function () {
+
+        $('#isVisibleImageOfChart').show();
+        $('#isVisibleChartText').html('Click to hide the chart');
+
+        $('#divChartModalGeneralData').removeClass("col-sm-12").addClass("col-sm-9");
+    });
+
 });

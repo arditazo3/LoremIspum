@@ -10,7 +10,7 @@
 
                 <div class="row">
 
-                    <div class="col-sm-9 b-r">
+                    <div class="col-sm-9 b-r" id="divChartModalGeneralData">
 
                         <div class="panel blank-panel">
 
@@ -97,9 +97,17 @@
                     </div>
 
 
-                    <div class="col-sm-3 b-r">
+                    <div class="col-sm-3 b-r" id="isVisibleImageOfChart">
                         @include('webapp-layouts.patient.chart_modal.teeth_chart_image')
                     </div>
+
+                    <div class="checkbox i-checks pull-right" style="padding-right: 2%"><label class="">
+                            <div class="icheckbox_square-green" style="position: relative;">
+                                <input type="checkbox" value="" id="isVisibleChartTeeths" style="position: absolute; opacity: 0;">
+                                <ins class="iCheck-helper"
+                                     style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins>
+                            </div>
+                            <span id="isVisibleChartText">Click to hide the chart</span></label></div>
 
                 </div>
 
