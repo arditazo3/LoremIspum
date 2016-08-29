@@ -71,7 +71,6 @@
 
         var getPathProfilePicAjax = '{{ route('api/getPathProfilePicAjax') }}';
         var token = '{{ \Illuminate\Support\Facades\Session::token() }}';
-        var noClickOnSingleOperation = 0;
 
         $(document).ready(function () {
 
@@ -90,9 +89,7 @@
         function setProfilePicture(idImange, user) {
 
             var getProfilePicPath = '';
-            noClickOnSingleOperation++;
 
-            if (noClickOnSingleOperation == 1 ) {
                 $.ajax({
                     method: 'POST',
                     url: getPathProfilePicAjax,
@@ -118,9 +115,7 @@
 
                             $('#modalUserProfile').modal({backdrop: 'static', keyboard: false});
 
-                            noClickOnSingleOperation = 0;
                         });
-            }
 
         }
 

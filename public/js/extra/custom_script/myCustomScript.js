@@ -42,3 +42,44 @@ function ajaxRequestFailMsg(call) {
     });
 
 }
+
+/**
+ * Agenda, validation before Ajax Request
+ * */
+function validateFieldsIfEmptyAgenda() {
+
+    var validateBoolean          = true;
+    
+    if ($('.col-sm-5 #first_name').val() == '') {
+        $('.col-sm-5 #first_name').css('border-color', '#FF0000');
+        validateBoolean = false;
+    } else {
+        $('.col-sm-5 #first_name').css('border-color', '');
+    }
+    if ($('.col-sm-5 #last_name').val() == '') {
+        $('.col-sm-5 #last_name').css('border-color', '#FF0000');
+        validateBoolean = false;
+    } else {
+        $('.col-sm-5 #last_name').css('border-color', '');
+    }
+    if ($('#title').val() == '') {
+        $('#title').css('border-color', '#FF0000');
+        validateBoolean = false;
+    } else {
+        $('#title').css('border-color', '');
+    }
+    if ($('#content').val() == '') {
+        $('#content').css('border-color', '#FF0000');
+        validateBoolean = false;
+    } else {
+        $('#content').css('border-color', '');
+    }
+    if ($('#time').val() == '') {
+        $('#time').css('border-color', '#FF0000');
+        validateBoolean = false;
+    } else {
+        $('#time').css('border-color', '');
+    }
+
+    return validateBoolean;
+}

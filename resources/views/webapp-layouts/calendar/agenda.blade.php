@@ -96,6 +96,7 @@
     @include('includes.myScript.toastr')
     @include('includes.myScript.jquery_validate')
     @include('includes.myScript.sweetalertJS')
+    @include('includes.myScript.custom_script.myCustomScriptJS')
 
     <script>
 
@@ -109,7 +110,6 @@
 
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             var allPatientsDataGlob = '';
-            var noClickOnSingleOperation = 0;
 
             $('#calendar').fullCalendar({
                 weekends: true,
@@ -127,7 +127,7 @@
                     }
                 },
                 eventClick: function (event, jsEvent, view) {
-                    noClickOnSingleOperation = 0;
+
                     $('#first_name').val(event.first_name);
                     $('#last_name').val(event.last_name);
                     $('#title').val(event.titleModal);
@@ -189,10 +189,12 @@
 
             $('#btnUpdateEvent').click(function (event) {
                 event.preventDefault();
-                noClickOnSingleOperation++;
 
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
-                if (validateFieldsIfEmpty() && noClickOnSingleOperation == 1) {
+                if (validateFieldsIfEmptyAgenda()) {
+
+                    $($(this)).prop('disabled', false);
+
                     $.ajax({
                         method: 'POST',
                         url: urlUpdateEvent,
@@ -212,23 +214,23 @@
                         $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
                         // set and/or replace the html code inside it
                         $("#notificationMsg").html( msg.responseText );
-                        noClickOnSingleOperation = 0;
+
+                        $($(this)).prop('disabled', false);
                     })
                     .done(function (msg) {
                         $('#calendarModal').modal('hide');
                         $('#calendar').fullCalendar('refetchEvents');
                         console.log(JSON.stringify(msg));
-                        noClickOnSingleOperation = 0;
+                        $($(this)).prop('disabled', false);
                     });
                 }
             });
 
             $('#btnDeleteEvent').click(function () {
 
-                noClickOnSingleOperation++;
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
+                $($(this)).prop('disabled', true);
 
-                if (noClickOnSingleOperation == 1 ) {
                     $.ajax({
                         method: 'POST',
                         url: urlDeleteEvent,
@@ -237,13 +239,13 @@
                             _token: token
                         }
                     })
-                            .done(function (msg) {
-                                $('#calendarModal').modal('hide');
-                                $('#calendar').fullCalendar('refetchEvents');
-                                console.log(JSON.stringify(msg));
-                                noClickOnSingleOperation = 0;
-                            });
-                }
+                    .done(function (msg) {
+                        $($(this)).prop('disabled', false);
+
+                        $('#calendarModal').modal('hide');
+                        $('#calendar').fullCalendar('refetchEvents');
+                        console.log(JSON.stringify(msg));
+                    });
 
             });
 
@@ -263,14 +265,14 @@
                 $btnCreateGlob.show();
 
                 $('#calendarModal').modal({backdrop: 'static', keyboard: false});
-                noClickOnSingleOperation = 0;
             });
 
             $('#btnCreateEvent').click(function (event) {
                 event.preventDefault();
-                noClickOnSingleOperation++;
 
-                if ( validateFieldsIfEmpty() && noClickOnSingleOperation == 1 ) {
+                if ( validateFieldsIfEmptyAgenda() ) {
+                    $($(this)).prop('disabled', true);
+
                     $.ajax({
                             method: 'POST',
                             url: urlCreateEvent,
@@ -283,6 +285,8 @@
                             }
                         })
                         .done(function (msg) {
+
+                            $($(this)).prop('disabled', false);
                             $('#calendarModal').modal('hide');
                             $('#calendar').fullCalendar('refetchEvents');
                             console.log(JSON.stringify(msg));
@@ -294,9 +298,8 @@
             // Create Patient open list of patient when button is clicked
             $('#searchPatientsModal').click(function () {
 
-                noClickOnSingleOperation++;
+                if (allPatientsDataGlob == '') {
 
-                if (allPatientsDataGlob == '' && noClickOnSingleOperation == 1) {
                     // retrive all patients whith AJAX
                     $.ajax({
                         url: urlAllPatients,
@@ -311,14 +314,10 @@
                             console.log(data);
                             allPatientsDataGlob = data;
                             cicleDataPatientsAjax(data);
-
-                            noClickOnSingleOperation = 0;
                         },
                         error: function () {
                             console.log('Error' + urlAllPatients);
                             console.log('CSRF_TOKEN' + CSRF_TOKEN);
-
-                            noClickOnSingleOperation = 0;
                         },
 
                     });
@@ -404,19 +403,6 @@
                     $('#modal_id_patient').val( value.id_patient );
                 }
             });
-        }
-
-        function validateFieldsIfEmpty() {
-
-            var validateBoolean = true;
-
-            if ( $('#first_name').val() == '' ) { validateBoolean = false; }
-            if ( $('#last_name').val() == '' ) { validateBoolean = false; }
-            if ( $('#title').val() == '' ) { validateBoolean = false; }
-            if ( $('#content').val() == '' ) { validateBoolean = false; }
-            if ( $('#time').val() == '' ) { validateBoolean = false; }
-
-            return validateBoolean;
         }
 
     </script>

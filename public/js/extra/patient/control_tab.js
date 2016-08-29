@@ -11,8 +11,6 @@ $(document).ready(function () {
     var $btnUpdateEventGlob = $('#btnUpdateEvent').hide();
     var $searchPatientsModalGlob = $('.col-sm-2 #searchPatientsModal').hide();
 
-    var noClickOnSingleOperation = 0;
-
     // setting the datarangepicker field
     $(function () {
         $('input[name="time"]').daterangepicker({
@@ -36,7 +34,6 @@ $(document).ready(function () {
 
     function theTriggerCheckControls(id_patient) {
         restoreControls();
-        noClickOnSingleOperation++;
 
         console.log(id_patient);
 
@@ -44,7 +41,10 @@ $(document).ready(function () {
             $divPatientAppoitmentsGlob.show();
         }
 
-        if (id_patient != '' && id_patient != null && noClickOnSingleOperation == 1) {
+        if (id_patient != '' && id_patient != null) {
+
+            $($(this)).prop('disabled', true);
+
             $.ajax({
                 url: controlsInfo,
                 type: 'POST',
@@ -57,6 +57,7 @@ $(document).ready(function () {
                     $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
                     // set and/or replace the html code inside it
                     $("#notificationMsg").html(msg.responseText);
+                    $($(this)).prop('disabled', false);
                 })
                 .done(function (msg) {
                     controlIfAppointmentsExist(msg);
@@ -68,6 +69,8 @@ $(document).ready(function () {
                     $('#date_first_visit').val( firstControlEvent );
                     $('#date_last_visit').val( lastControlEvent );
                     $('#date_next_visit').val( nextControlEvent );
+
+                    $($(this)).prop('disabled', false);
                 });
 
         }
@@ -95,7 +98,6 @@ $(document).ready(function () {
         $('#date_first_visit').val( '' );
         $('#date_last_visit').val( '' );
         $('#date_next_visit').val( '' );
-        noClickOnSingleOperation = 0;
     }
 
     $('#btnAppointmentsForThisClient').click(function () {
@@ -112,15 +114,15 @@ $(document).ready(function () {
 
         $('#calendarModal').modal({backdrop: 'static', keyboard: false});
 
-        noClickOnSingleOperation = 0;
     });
 
     // Create new Event for this patient
     $('#btnCreateEvent').click(function (event) {
         event.preventDefault();
-        noClickOnSingleOperation++;
 
-        if ( validateFieldsIfEmpty() && noClickOnSingleOperation == 1 ) {
+        if ( validateFieldsIfEmptyAgenda() ) {
+            $($(this)).prop('disabled', true);
+
             $.ajax({
                 method: 'POST',
                 url: urlCreateEvent,
@@ -133,6 +135,8 @@ $(document).ready(function () {
                 }
             })
                 .done(function (msg) {
+                    $($(this)).prop('disabled', false);
+
                     $('#calendarModal').modal('hide');
                     console.log(JSON.stringify(msg));
 
@@ -141,9 +145,9 @@ $(document).ready(function () {
                     theTriggerCheckControls( id_patient );
 
                     sweetAlert("Appointment successfully created!", "The appointment has been created", "success");
-
-                    noClickOnSingleOperation = 0;
                 });
+        } else {
+
         }
     });
 
@@ -159,18 +163,7 @@ $(document).ready(function () {
         }
     }
 
-    function validateFieldsIfEmpty() {
-
-        var validateBoolean = true;
-
-        if ( $('.col-sm-5 #first_name').val() == '' ) { validateBoolean = false; }
-        if ( $('.col-sm-5 #last_name').val() == '' ) { validateBoolean = false; }
-        if ( $('#title').val() == '' ) { validateBoolean = false; }
-        if ( $('#content').val() == '' ) { validateBoolean = false; }
-        if ( $('#time').val() == '' ) { validateBoolean = false; }
-
-        return validateBoolean;
-    }
+    
 
 });
 
