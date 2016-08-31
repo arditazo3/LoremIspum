@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -28,7 +29,7 @@ trait AuthenticatesUsers
     public function showLoginForm()
     {
         $view = property_exists($this, 'loginView')
-                    ? $this->loginView : 'auth.authenticate';
+            ? $this->loginView : 'auth.authenticate';
 
         if (view()->exists($view)) {
             return view($view);
@@ -58,31 +59,41 @@ trait AuthenticatesUsers
     {
         $this->validateLogin($request);
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        $throttles = $this->isUsingThrottlesLoginsTrait();
+        $inputs = $request->all();
+        $userToVerify = User::where('username', $inputs['username'])->first();
+        try {
+            $isValidatedUser = $userToVerify->validated == 0;
 
-        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
+            if ($isValidatedUser) {
+                return view('auth.login');
+            }
+        } catch (\Exception $e) {
+            // If the class is using the ThrottlesLogins trait, we can automatically throttle
+            // the login attempts for this application. We'll key this by the username and
+            // the IP address of the client making these requests into this application.
+            $throttles = $this->isUsingThrottlesLoginsTrait();
 
-            return $this->sendLockoutResponse($request);
+            if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
+                $this->fireLockoutEvent($request);
+
+                return $this->sendLockoutResponse($request);
+            }
+
+            $credentials = $this->getCredentials($request);
+
+            if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+                return $this->handleUserWasAuthenticated($request, $throttles);
+            }
+
+            // If the login attempt was unsuccessful we will increment the number of attempts
+            // to login and redirect the user back to the login form. Of course, when this
+            // user surpasses their maximum number of attempts they will get locked out.
+            if ($throttles && !$lockedOut) {
+                $this->incrementLoginAttempts($request);
+            }
+
+            return $this->sendFailedLoginResponse($request);
         }
-
-        $credentials = $this->getCredentials($request);
-
-        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
-            return $this->handleUserWasAuthenticated($request, $throttles);
-        }
-
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-        if ($throttles && ! $lockedOut) {
-            $this->incrementLoginAttempts($request);
-        }
-
-        return $this->sendFailedLoginResponse($request);
     }
 
     /**
@@ -94,9 +105,9 @@ trait AuthenticatesUsers
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
-            $this->loginUsername() => 'required', 
+            $this->loginUsername() => 'required',
             'password' => 'required',
-            'captcha' => 'required|captcha'
+
         ]);
     }
 
@@ -143,8 +154,8 @@ trait AuthenticatesUsers
     protected function getFailedLoginMessage()
     {
         return Lang::has('auth.failed')
-                ? Lang::get('auth.failed')
-                : 'These credentials do not match our records.';
+            ? Lang::get('auth.failed')
+            : 'These credentials do not match our records.';
     }
 
     /**
