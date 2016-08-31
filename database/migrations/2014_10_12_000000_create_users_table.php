@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('address', 255)->nullable();
             $table->string('phone', 50)->nullable();
             $table->string('password', 255);
+            $table->integer('validated')->unsigned()->default(0);
             $table->integer('user_update')->unsigned()->default(0);
 
             $table->rememberToken();

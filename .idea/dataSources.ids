@@ -520,171 +520,173 @@
       <column id="152" parent="11" name="note4">
         <data-type>text</data-type>
       </column>
-      <column id="153" parent="11" name="note5">
-        <data-type>text</data-type>
-      </column>
-      <column id="154" parent="11" name="sms_notify_news">
+      <column id="153" parent="11" name="sms_notify_news">
         <data-type>varchar(1)</data-type>
       </column>
-      <column id="155" parent="11" name="patient_status">
+      <column id="154" parent="11" name="patient_status">
         <data-type>varchar(30)</data-type>
       </column>
-      <column id="156" parent="11" name="head_household">
+      <column id="155" parent="11" name="head_household">
         <data-type>varchar(1)</data-type>
       </column>
-      <column id="157" parent="11" name="id_dentist">
+      <column id="156" parent="11" name="id_dentist">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="158" parent="11" name="created_at">
+      <column id="157" parent="11" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="159" parent="11" name="updated_at">
+      <column id="158" parent="11" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="160" parent="11" name="deleted_at">
+      <column id="159" parent="11" name="deleted_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="161" parent="11" name="patients_image_id_index">
+      <index id="160" parent="11" name="patients_image_id_index">
         <columns>image_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="162" parent="11" name="PRIMARY">
+      <key id="161" parent="11" name="PRIMARY">
         <columns>id_patient</columns>
         <primary>1</primary>
       </key>
-      <column id="163" parent="12" name="id">
+      <column id="162" parent="12" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="164" parent="12" name="status">
+      <column id="163" parent="12" name="status">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="165" parent="12" name="created_at">
+      <column id="164" parent="12" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="166" parent="12" name="updated_at">
+      <column id="165" parent="12" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <key id="167" parent="12" name="PRIMARY">
+      <key id="166" parent="12" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="168" parent="13" name="id">
+      <column id="167" parent="13" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="169" parent="13" name="category_id">
+      <column id="168" parent="13" name="category_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="170" parent="13" name="category">
+      <column id="169" parent="13" name="category">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="171" parent="13" name="detail">
+      <column id="170" parent="13" name="detail">
         <data-type>varchar(250)</data-type>
       </column>
-      <column id="172" parent="13" name="date">
+      <column id="171" parent="13" name="date">
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="173" parent="13" name="currency1">
+      <column id="172" parent="13" name="currency1">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="174" parent="13" name="price1">
+      <column id="173" parent="13" name="price1">
         <mandatory>1</mandatory>
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="175" parent="13" name="currency2">
+      <column id="174" parent="13" name="currency2">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="176" parent="13" name="price2">
+      <column id="175" parent="13" name="price2">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="177" parent="13" name="currency3">
+      <column id="176" parent="13" name="currency3">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="178" parent="13" name="price3">
+      <column id="177" parent="13" name="price3">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="179" parent="13" name="currency4">
+      <column id="178" parent="13" name="currency4">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="180" parent="13" name="price4">
+      <column id="179" parent="13" name="price4">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="181" parent="13" name="vat">
+      <column id="180" parent="13" name="vat">
         <data-type>decimal(5,2)</data-type>
       </column>
-      <column id="182" parent="13" name="discount">
+      <column id="181" parent="13" name="discount">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="183" parent="13" name="position">
+      <column id="182" parent="13" name="position">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="184" parent="13" name="note">
+      <column id="183" parent="13" name="note">
         <data-type>text</data-type>
       </column>
-      <column id="185" parent="13" name="created_at">
+      <column id="184" parent="13" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="186" parent="13" name="updated_at">
+      <column id="185" parent="13" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="187" parent="13" name="teeths_prizes_category_id_index">
+      <index id="186" parent="13" name="teeths_prizes_category_id_index">
         <columns>category_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="188" parent="13" name="PRIMARY">
+      <key id="187" parent="13" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="189" parent="14" name="id">
+      <column id="188" parent="14" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="190" parent="14" name="role_id">
+      <column id="189" parent="14" name="role_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="191" parent="14" name="image_id">
+      <column id="190" parent="14" name="image_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="192" parent="14" name="is_active">
+      <column id="191" parent="14" name="is_active">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="193" parent="14" name="first_name">
+      <column id="192" parent="14" name="first_name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="194" parent="14" name="last_name">
+      <column id="193" parent="14" name="last_name">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="195" parent="14" name="email">
-        <mandatory>1</mandatory>
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="196" parent="14" name="username">
+      <column id="194" parent="14" name="email">
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="197" parent="14" name="address">
+      <column id="195" parent="14" name="username">
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="196" parent="14" name="address">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="198" parent="14" name="phone">
+      <column id="197" parent="14" name="phone">
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="199" parent="14" name="password">
+      <column id="198" parent="14" name="password">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
+      </column>
+      <column id="199" parent="14" name="validated">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
       </column>
       <column id="200" parent="14" name="user_update">
         <mandatory>1</mandatory>
