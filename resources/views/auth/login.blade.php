@@ -13,22 +13,30 @@
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-user"></i></span>
-                <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+                <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
             </div>
         </div>
 
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-lock"></i></span>
-                {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password']) !!}
+                {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password', 'required']) !!}
             </div>
         </div>
 
-        {{--Notifications login--}}
-        @include('includes.form-error-specify', ['field'=>'username', 'typeAlert'=>'danger'])
-        @include('includes.form-error-specify', ['field'=>'password', 'typeAlert'=>'danger'])
+        <div class="form-group">
+            {!! captcha_img() !!}
+            <div class="input-group m-b"><span class="input-group-addon"><i>Captcha</i></span>
+                <input type="text" name="captcha" id="captcha" class="form-control" placeholder="" required>
+            </div>
+        </div>
 
-        {!! Form::submit('Login', ['class'=>'btn btn-primary block full-width m-b']) !!}
+         {{--Notifications login--}}
+         @include('includes.form-error-specify', ['field'=>'username', 'typeAlert'=>'danger'])
+         @include('includes.form-error-specify', ['field'=>'password', 'typeAlert'=>'danger'])
+         @include('includes.form-error-specify', ['field'=>'captcha', 'typeAlert'=>'danger'])
+
+         {!! Form::submit('Login', ['class'=>'btn btn-primary block full-width m-b']) !!}
 
         <a href="{{ url('/password/reset') }}" id="forget-password" class="forget-password">Forgot Password?</a>
         <p class="text-muted text-center">

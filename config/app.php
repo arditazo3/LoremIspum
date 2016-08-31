@@ -166,7 +166,9 @@ return [
 		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         /** DomPDF Generation */
         Barryvdh\DomPDF\ServiceProvider::class,
-		
+		/** Captcha */
+        Mews\Captcha\CaptchaServiceProvider::class,
+
     ],
 
     /*
@@ -222,6 +224,9 @@ return [
 
         /** Laravel Datatables */
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+
+        /** Captcha */
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 

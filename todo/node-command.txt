@@ -9,5 +9,14 @@ npm install
 php artisan make:auth
 
 // Adding DomPDF
-
 composer require barryvdh/laravel-dompdf
+
+// Adding Captcha
+composer require mews/captcha
+
+Configuration
+To use your own settings, publish config.
+
+$ php artisan vendor:publish
+
+config/captcha.php

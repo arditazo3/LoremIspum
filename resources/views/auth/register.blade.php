@@ -15,37 +15,44 @@
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-user"></i></span>
-                {!! Form::text('username', null, ['class'=>'form-control', 'placeholder'=>'Username']) !!}
+                {!! Form::text('username', null, ['class'=>'form-control', 'placeholder'=>'Username', 'required']) !!}
             </div>
         </div>
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-github-alt"></i></span>
-                {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'First Name']) !!}
+                {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'First Name', 'required']) !!}
             </div>
         </div>
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-github-alt"></i></span>
-                {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Last Name']) !!}
+                {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Last Name', 'required']) !!}
             </div>
         </div>
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-envelope"></i></span>
-                <input type="email" name="email" class="form-control" placeholder="Email">
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
             </div>
         </div>
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-lock"></i></span>
-                {!! Form::password('password', ['class'=>'form-control placeholder-no-fix', 'placeholder'=>'Password']) !!}
+                {!! Form::password('password', ['class'=>'form-control placeholder-no-fix', 'placeholder'=>'Password', 'required']) !!}
             </div>
         </div>
         <div class="form-group">
             <div class="input-group m-b"><span class="input-group-addon"><i
                             class="fa fa-lock"></i></span>
-                {!! Form::password('password_confirmation', ['class'=>'form-control placeholder-no-fix', 'placeholder'=>'Confirm Password']) !!}
+                {!! Form::password('password_confirmation', ['class'=>'form-control placeholder-no-fix', 'placeholder'=>'Confirm Password', 'required']) !!}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {!! captcha_img() !!}
+            <div class="input-group m-b"><span class="input-group-addon"><i>Captcha</i></span>
+                <input type="text" name="captcha" id="captcha" class="form-control" placeholder="" required>
             </div>
         </div>
 
@@ -58,6 +65,7 @@
         @include('includes.form-error-specify', ['field'=>'name', 'typeAlert'=>'danger'])
         @include('includes.form-error-specify', ['field'=>'email', 'typeAlert'=>'danger'])
         @include('includes.form-error-specify', ['field'=>'password', 'typeAlert'=>'danger'])
+        @include('includes.form-error-specify', ['field'=>'captcha', 'typeAlert'=>'danger'])
 
         {!! Form::submit('Register', ['class'=>'btn btn-primary block full-width m-b']) !!}
 
