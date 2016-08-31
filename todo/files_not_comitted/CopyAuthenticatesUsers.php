@@ -61,39 +61,42 @@ trait AuthenticatesUsers
 
         $inputs = $request->all();
         $userToVerify = User::where('username', $inputs['username'])->first();
-        try {
+
+        // if user exist
+        if ($userToVerify !== null)
             $isValidatedUser = $userToVerify->validated == 0;
+        else
+            $isValidatedUser = false;
 
-            if ($isValidatedUser) {
-                return view('auth.login');
-            }
-        } catch (\Exception $e) {
-            // If the class is using the ThrottlesLogins trait, we can automatically throttle
-            // the login attempts for this application. We'll key this by the username and
-            // the IP address of the client making these requests into this application.
-            $throttles = $this->isUsingThrottlesLoginsTrait();
-
-            if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
-                $this->fireLockoutEvent($request);
-
-                return $this->sendLockoutResponse($request);
-            }
-
-            $credentials = $this->getCredentials($request);
-
-            if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
-                return $this->handleUserWasAuthenticated($request, $throttles);
-            }
-
-            // If the login attempt was unsuccessful we will increment the number of attempts
-            // to login and redirect the user back to the login form. Of course, when this
-            // user surpasses their maximum number of attempts they will get locked out.
-            if ($throttles && !$lockedOut) {
-                $this->incrementLoginAttempts($request);
-            }
-
-            return $this->sendFailedLoginResponse($request);
+        if ($isValidatedUser) {
+            return view('auth.login');
         }
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+
+        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        $credentials = $this->getCredentials($request);
+
+        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        if ($throttles && !$lockedOut) {
+            $this->incrementLoginAttempts($request);
+        }
+
+        return $this->sendFailedLoginResponse($request);
+
     }
 
     /**
@@ -107,7 +110,7 @@ trait AuthenticatesUsers
         $this->validate($request, [
             $this->loginUsername() => 'required',
             'password' => 'required',
-
+            'captcha' => 'required|captcha',
         ]);
     }
 
