@@ -20,3 +20,6 @@ To use your own settings, publish config.
 $ php artisan vendor:publish
 
 config/captcha.php
+
+// Adding best PDF Generator
+composer require barryvdh/laravel-snappy

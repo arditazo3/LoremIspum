@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Patient;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,6 +17,7 @@ class PatientDataReportController extends Controller
 
         $pdf = PDF::loadView('report/patient/patient_data_report', ['patients'=>$patients]);
         return $pdf->download('PatientData.pdf');
-        
+
+
     }
 }
