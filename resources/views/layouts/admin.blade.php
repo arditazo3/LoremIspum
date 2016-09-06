@@ -71,6 +71,9 @@
                         <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'NewPatient' ? 'active' : '' }}">
                             <a href="{{ route('admin.patient.index') }}"><i class="fa fa-user"></i>Patient Data</a></li>
 
+                        <li class="{{ isset($activeOpenSub) && $activeOpenSub == 'ChartPage' ? 'active' : '' }}">
+                            <a href="{{ route('admin.chart.index') }}"><i class="fa fa-folder-open"></i>Charts</a></li>
+
                     </ul>
                 </li>
 

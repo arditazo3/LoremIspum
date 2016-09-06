@@ -471,7 +471,7 @@
     {{-- END LIST CHART MODAL --}}
 
     {{-- CHART MODAL --}}
-    @include('includes.myPieces.patient.charts_patient')
+    @include('includes.myPieces.patient.charts_patient', ['isPage' => false])
     {{-- END CHART MODAL --}}
 
     {{-- CURE MODAL --}}
@@ -749,14 +749,6 @@
         }
     }
 
-    function formatDigitsDate(inputDate) {
-
-        if (inputDate < 10)
-            return '0' + inputDate;
-        else
-            return inputDate;
-    }
-	
 	function restoreAllFields() {
 		
 		$('#id_patient_hidden').val('');

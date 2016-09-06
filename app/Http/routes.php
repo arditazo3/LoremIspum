@@ -83,6 +83,12 @@ Route::group(['middleware'=>'admin'], function () {
     Route::get('api/checkIfPatientHasChart', ['uses' => 'ChartController@checkIfPatientHasChart', 'as'   => 'api/checkIfPatientHasChart' ]);
     Route::post('api/createNewChart', ['uses' => 'ChartController@createNewChart', 'as'   => 'api/createNewChart' ]);
     
+    
+    /**
+    * CHART PAGE
+    */
+    Route::get('admin/chart', ['uses' => 'ChartsPageController@index', 'as'   => 'admin.chart.index' ]);
+    
     /**
     * USER
     */

@@ -1,3 +1,4 @@
+@if(!$isPage)
 <div class="modal inmodal fade" id="chartsModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-larger">
         <div class="modal-content">
@@ -7,7 +8,7 @@
                 <h4 class="modal-title pull-left">Chart panel</h4>
             </div>
             <div class="modal-body">
-
+@endif
                 <div class="row">
 
                     <div class="col-sm-9 b-r" id="divChartModalGeneralData">
@@ -111,15 +112,22 @@
 
                 </div>
 
+         @if(!$isPage)
             </div>
+         @endif
 
             <div class="modal-footer">
 
                 <div class="btn btn-sm btn-info" id="editSelectedCure"><i class="fa fa-edit"></i> Edit</div>
                 <div class="btn btn-sm btn-danger" id="deleteSelectedCure"><i class="fa fa-remove"></i> Delete</div>
                 <button type="submit" class="btn btn-success btn-sm" id="btnCreateCureFromChart">Create cure</button>
+
+                @if(!$isPage)
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-            </div>
+                @endif
+
+@if(!$isPage)
         </div>
     </div>
 </div>
+@endif

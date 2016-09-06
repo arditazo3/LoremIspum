@@ -83,3 +83,11 @@ function validateFieldsIfEmptyAgenda() {
 
     return validateBoolean;
 }
+
+function formatDigitsDate(inputDate) {
+
+    if (inputDate < 10)
+        return '0' + inputDate;
+    else
+        return inputDate;
+}

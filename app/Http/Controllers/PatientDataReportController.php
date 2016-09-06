@@ -18,6 +18,5 @@ class PatientDataReportController extends Controller
         $pdf = PDF::loadView('report/patient/patient_data_report', ['patients'=>$patients]);
         return $pdf->download('PatientData.pdf');
 
-
     }
 }

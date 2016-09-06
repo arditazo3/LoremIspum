@@ -14,7 +14,7 @@ class CalculateListCuresLogic
     /**
      * Calculate all variables to the chart modal for the list of cure
      * @param $listCure
-     * return array() with 2 items, $listCure and object (with variables of costs)
+     * @return array() with 2 items, $listCure and object (with variables of costs)
      */
     public function calculateAllVariablesListCure($listCure)
     {
