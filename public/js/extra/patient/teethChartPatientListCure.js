@@ -128,27 +128,20 @@ $(document).ready(function () {
 
     function getAllCureOfPerson() {
 
-        $.ajax({
-            method: 'GET',
-            url: getListCuresByPatient,
-            data: {
-                id_chart: idChartGlob,
-                idPatient: id_patient,
-                _token:     token
-            }
-        })
-            .error(function (msg) {
-                $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
-                // set and/or replace the html code inside it
-                $("#notificationMsg").html(msg.responseText);
-            })
-            .done(function (msg) {
+        var data = {
+                    id_chart:   idChartGlob,
+                    idPatient:  id_patient,
+                    _token:     token
+                   };
+
+        ajaxRequest('GET', getListCuresByPatient, data,
+            function (msg) {
+
                 $('#cureModal').modal('hide');
 
                 ciclePopulateTableCures( msg);
+         });
 
-                // console.log(msg);
-            });
     }
 
     function ciclePopulateTableCures(arrayListAndBoject) {
@@ -227,9 +220,14 @@ $(document).ready(function () {
     // create new Chart
     $('#btnCreateNewChart').click(function() {
 
+        $($(this)).prop('disabled', true);
+
         var data = {idPatient: id_patient, _token: token};
+
         ajaxRequest('POST', createNewChart, data,
             function (msg) {
+
+                $($(this)).prop('disabled', false);
 
                 sweetAlert("New chart created", "", "success");
 

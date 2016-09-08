@@ -193,36 +193,26 @@
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
                 if (validateFieldsIfEmptyAgenda()) {
 
-                    $($(this)).prop('disabled', false);
+                    $($(this)).prop('disabled', true);
 
-                    $.ajax({
-                        method: 'POST',
-                        url: urlUpdateEvent,
-                        data: {
-                            title:      $('#title').val(),
-                            content:    $('#content').val(),
-                            time:       $('#time').val(),
-                            _token:     token,
-                            id_patient: $('#modal_id_patient').val(),
-                            id:         eventId
-                        }
-                    })
-                    .error(function (msg) {
-                        $('#calendarModal').modal('hide');
-                        $('#calendar').fullCalendar('refetchEvents');
+                    var data = {
+                                title:      $('#title').val(),
+                                content:    $('#content').val(),
+                                time:       $('#time').val(),
+                                _token:     token,
+                                id_patient: $('#modal_id_patient').val(),
+                                id:         eventId
+                                };
 
-                        $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
-                        // set and/or replace the html code inside it
-                        $("#notificationMsg").html( msg.responseText );
+                    ajaxRequest('POST', urlUpdateEvent, data,
+                            function (msg) {
 
-                        $($(this)).prop('disabled', false);
-                    })
-                    .done(function (msg) {
-                        $('#calendarModal').modal('hide');
-                        $('#calendar').fullCalendar('refetchEvents');
-                        console.log(JSON.stringify(msg));
-                        $($(this)).prop('disabled', false);
+                            $('#calendarModal').modal('hide');
+                            $('#calendar').fullCalendar('refetchEvents');
+                            console.log(JSON.stringify(msg));
+                            $($(this)).prop('disabled', false);
                     });
+
                 }
             });
 
@@ -231,21 +221,19 @@
                 var eventId = $('#rowUpdateModalDataAtr').data('eventId');
                 $($(this)).prop('disabled', true);
 
-                    $.ajax({
-                        method: 'POST',
-                        url: urlDeleteEvent,
-                        data: {
-                            id:     eventId,
-                            _token: token
-                        }
-                    })
-                    .done(function (msg) {
+                var data = {
+                        id:     eventId,
+                        _token: token
+                          };
+
+                ajaxRequest('POST', urlDeleteEvent, data,
+                    function (msg) {
                         $($(this)).prop('disabled', false);
 
                         $('#calendarModal').modal('hide');
                         $('#calendar').fullCalendar('refetchEvents');
                         console.log(JSON.stringify(msg));
-                    });
+                });
 
             });
 
@@ -273,24 +261,23 @@
                 if ( validateFieldsIfEmptyAgenda() ) {
                     $($(this)).prop('disabled', true);
 
-                    $.ajax({
-                            method: 'POST',
-                            url: urlCreateEvent,
-                            data: {
-                                title:      $('#title').val(),
-                                content:    $('#content').val(),
-                                time:       $('#time').val(),
-                                id_patient: $('#modal_id_patient').val(),
-                                _token:     token
-                            }
-                        })
-                        .done(function (msg) {
+                    data = {
+                        title:      $('#title').val(),
+                        content:    $('#content').val(),
+                        time:       $('#time').val(),
+                        id_patient: $('#modal_id_patient').val(),
+                        _token:     token
+                            };
 
-                            $($(this)).prop('disabled', false);
-                            $('#calendarModal').modal('hide');
-                            $('#calendar').fullCalendar('refetchEvents');
-                            console.log(JSON.stringify(msg));
+                    ajaxRequest('POST', urlCreateEvent, data,
+                            function (msg) {
+
+                                $($(this)).prop('disabled', false);
+                                $('#calendarModal').modal('hide');
+                                $('#calendar').fullCalendar('refetchEvents');
+                                console.log(JSON.stringify(msg));
                     });
+
                 }
 
             });

@@ -66,6 +66,7 @@
     @include('includes.myScript.jquery_validate')
 
     @include('includes.myScript.my_profileJS')
+    @include('includes.myScript.custom_script.myCustomScriptJS')
 
     <script>
 
@@ -88,34 +89,35 @@
 
         function setProfilePicture(idImange, user) {
 
+            $($(this)).prop('disabled', true);
+
             var getProfilePicPath = '';
 
-                $.ajax({
-                    method: 'POST',
-                    url: getPathProfilePicAjax,
-                    data: {
+            var data = {
                         image_id: idImange,
                         _token:   token
-                    }
-                })
-                        .done(function (msg) {
-                            console.log("Test");
-                            console.log(JSON.stringify(msg));
-                            getProfilePicPath = msg;
+                       };
 
-                            var imagePath = "{{ $website }}" + getProfilePicPath['image_id'];
+            ajaxRequest('POST', getPathProfilePicAjax, data,
+                function (msg) {
 
-                            $('#id_user').val(user["id"]);
-                            $('#first_name').val(user["first_name"]);
-                            $('#last_name').val(user["last_name"]);
-                            $('#email').val(user["email"]);
-                            $('#phone').val(user["phone"]);
-                            $('#address').val(user["address"]);
-                            $('#defaultProfilePicture img').attr("src", imagePath);
+                    $($(this)).prop('disabled', false);
 
-                            $('#modalUserProfile').modal({backdrop: 'static', keyboard: false});
+                    console.log(JSON.stringify(msg));
+                    getProfilePicPath = msg;
 
-                        });
+                    var imagePath = "{{ $website }}" + getProfilePicPath['image_id'];
+
+                    $('#id_user').val(user["id"]);
+                    $('#first_name').val(user["first_name"]);
+                    $('#last_name').val(user["last_name"]);
+                    $('#email').val(user["email"]);
+                    $('#phone').val(user["phone"]);
+                    $('#address').val(user["address"]);
+                    $('#defaultProfilePicture img').attr("src", imagePath);
+
+                    $('#modalUserProfile').modal({backdrop: 'static', keyboard: false});
+            });
 
         }
 

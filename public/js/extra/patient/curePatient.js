@@ -176,22 +176,17 @@ $(document).ready(function () {
             $('#selectAllDown').prop('disabled', true);
         } else {
 
-            $.ajax({
-                type: 'POST',
-                url: selectedCure,
-                data: {
-                    cureName: cureName,
-                    _token:   token
-                }
-            })
-                .error(function (msg) {
-                    $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
-                    // set and/or replace the html code inside it
-                    $("#notificationMsg").html(msg.responseText);
-                })
-                .done(function (msg) {
+            var data = {
+                        cureName: cureName,
+                        _token:   token
+                       };
+
+            ajaxRequest('POST', selectedCure, data,
+                function (msg) {
+
                     setTheCureSelected( msg.theCure );
-                });
+            });
+
         }
     }
 
@@ -269,27 +264,22 @@ $(document).ready(function () {
 
             function () {
                 if (validateFieldsIfEmpty() && noMoreClickOnSingleOperation == 1) {
-                    $.ajax({
-                        method: 'POST',
-                        url: urlDeleteCure,
-                        data: {
-                            id: $('#id_cure_hidden').val(),
-                            _token: token
-                        }
-                    })
-                        .error(function (msg) {
-                            $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
-                            // set and/or replace the html code inside it
-                            $("#notificationMsg").html(msg.responseText);
-                            noMoreClickOnSingleOperation = 0;
-                        })
-                        .done(function (msg) {
+
+                    var data = {
+                                id:     $('#id_cure_hidden').val(),
+                                _token: token
+                               };
+
+                    ajaxRequest('POST', urlDeleteCure, data,
+                        function (msg) {
+
                             $('#cureModal').modal('hide');
                             $('#call_refresh_list_cures_from_cureDetail_to_chart').val('Start')
                             $('#call_refresh_list_cures_from_cureDetail_to_chart').trigger('change');
 
                             console.log(JSON.stringify(msg));
-                        });
+                    });
+
                 }
             });
     }
@@ -297,37 +287,30 @@ $(document).ready(function () {
     function ajaxFormSaveUpdateCure(noMoreClickOnSingleOperation) {
 
         if (validateFieldsIfEmpty() && noMoreClickOnSingleOperation == 1) {
-            $.ajax({
-                method: 'POST',
-                url: urlSaveUpdateCure,
-                data: {
-                    id:              $('#id_cure_hidden').val(),
-                    teeth_no:        sortAndConvertToString(teethsArray),
-                    type_cure:       $('input[name=typeCure]:checked').val(),
-                    status_cure:     $('input[name=statusCure]:checked').val(),
-                    short_code:      $('#shortCode').val(),
-                    date:            changeFormatDate($('#date_cure').datepicker("getDate")),
-                    description:     $('#description').val(),
-                    desc_client:     $('#descOfClient').val(),
-                    currency:        $('#currencyHide').val(),
-                    price:           $('#price').val(),
-                    quantity:        teethsArray.length,
-                    discount:        $('#discount').val(),
-                    amount:          $('#amount').val(),
-                    id_teeth_prizes: $('#id_teeth_prizesHide').val(),
-                    id_patient:      id_patient,
-                    isEditableModal: isEditableModal,
-                    id_chart:        idChartGlob,
-                    _token:          token
-                }
-            })
-                .error(function (msg) {
-                    $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
-                    // set and/or replace the html code inside it
-                    $("#notificationMsg").html(msg.responseText);
-                    noMoreClickOnSingleOperation = 0;
-                })
-                .done(function (msg) {
+
+            var data = {
+                        id:              $('#id_cure_hidden').val(),
+                        teeth_no:        sortAndConvertToString(teethsArray),
+                        type_cure:       $('input[name=typeCure]:checked').val(),
+                        status_cure:     $('input[name=statusCure]:checked').val(),
+                        short_code:      $('#shortCode').val(),
+                        date:            changeFormatDate($('#date_cure').datepicker("getDate")),
+                        description:     $('#description').val(),
+                        desc_client:     $('#descOfClient').val(),
+                        currency:        $('#currencyHide').val(),
+                        price:           $('#price').val(),
+                        quantity:        teethsArray.length,
+                        discount:        $('#discount').val(),
+                        amount:          $('#amount').val(),
+                        id_teeth_prizes: $('#id_teeth_prizesHide').val(),
+                        id_patient:      id_patient,
+                        isEditableModal: isEditableModal,
+                        id_chart:        idChartGlob,
+                        _token:          token
+                    };
+
+            ajaxRequest('POST', urlSaveUpdateCure, data,
+                function (msg) {
 
                     $('#cureModal').modal('hide');
 
@@ -337,7 +320,7 @@ $(document).ready(function () {
                     console.log(JSON.stringify(msg));
 
                     sweetAlert("The cure has been created!", "", "success");
-                });
+            });
         }
     }
 

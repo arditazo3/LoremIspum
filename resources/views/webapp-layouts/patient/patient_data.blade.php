@@ -656,23 +656,19 @@
                         closeOnConfirm: true },
 
 				function(){
-					$.ajax({
-						method: 'POST',
-						url: urlDeletePatient,
-						data: {
-							id_patient: $('#id_patient_hidden').val(),
-							_token:     token
-						}
-					})
-					.error(function (msg) {
-						console.log(JSON.stringify(msg));
-					})
-					.done(function (msg) {
-						// refresh the page if the actions was successfully
-						if(msg.status === 'DELETED')
-							location.reload();
 
-				});
+                    var data = {
+                                id_patient: $('#id_patient_hidden').val(),
+                                _token:     token
+                              };
+
+                    ajaxRequest('POST', urlDeletePatient, data,
+                            function (msg) {
+                                // refresh the page if the actions was successfully
+                                if(msg.status === 'DELETED')
+                                    location.reload();
+                    });
+
             });
         });
 		

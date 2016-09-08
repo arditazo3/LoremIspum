@@ -45,21 +45,14 @@ $(document).ready(function () {
 
             $($(this)).prop('disabled', true);
 
-            $.ajax({
-                url: controlsInfo,
-                type: 'POST',
-                data: {
-                    id_patient: $('#id_patient_hidden').val(),
-                    _token:     token
-                }
-            })
-                .error(function (msg) {
-                    $('#myModalNotifyMsg').modal({backdrop: 'static', keyboard: false});
-                    // set and/or replace the html code inside it
-                    $("#notificationMsg").html(msg.responseText);
-                    $($(this)).prop('disabled', false);
-                })
-                .done(function (msg) {
+            var data = {
+                        id_patient: $('#id_patient_hidden').val(),
+                        _token:     token
+                       };
+
+            ajaxRequest('POST', controlsInfo, data,
+                function (msg) {
+
                     controlIfAppointmentsExist(msg);
 
                     var firstControlEvent = changeFormatDate( msg.firstControl ) || 'No control yet';
@@ -71,7 +64,7 @@ $(document).ready(function () {
                     $('#date_next_visit').val( nextControlEvent );
 
                     $($(this)).prop('disabled', false);
-                });
+             });
 
         }
     }
@@ -123,18 +116,17 @@ $(document).ready(function () {
         if ( validateFieldsIfEmptyAgenda() ) {
             $($(this)).prop('disabled', true);
 
-            $.ajax({
-                method: 'POST',
-                url: urlCreateEvent,
-                data: {
-                    title:      $('#title').val(),
-                    content:    $('#content').val(),
-                    time:       $('#time').val(),
-                    id_patient: $('#id_patient_hidden').val(),
-                    _token:     token
-                }
-            })
-                .done(function (msg) {
+            var data = {
+                        title:      $('#title').val(),
+                        content:    $('#content').val(),
+                        time:       $('#time').val(),
+                        id_patient: $('#id_patient_hidden').val(),
+                        _token:     token
+                        };
+
+            ajaxRequest('POST', urlCreateEvent, data,
+                function (msg) {
+
                     $($(this)).prop('disabled', false);
 
                     $('#calendarModal').modal('hide');
@@ -145,8 +137,7 @@ $(document).ready(function () {
                     theTriggerCheckControls( id_patient );
 
                     sweetAlert("Appointment successfully created!", "The appointment has been created", "success");
-                });
-        } else {
+             });
 
         }
     });
