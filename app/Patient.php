@@ -40,4 +40,8 @@ class Patient extends Model
         return $this->hasMany('App\Event', 'id_patient');
     }
 
+    public function charts() {
+        return $this->hasMany('App\Chart', 'id_patient');
+    }
+
 }

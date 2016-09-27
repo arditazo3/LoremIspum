@@ -30,15 +30,19 @@ class CreateJobsTable extends Migration
             $table->decimal('amount', 7, 2);
             $table->string('type_cure', 255)->nullable();
             $table->string('status_cure', 255)->nullable();
-            $table->text('clicnic_note')->nullable();
+            $table->text('clinic_note')->nullable();
 
-            $table->string('id_patient');                                // foreign key
-            $table->integer('id_chart')->unsigned();                     // foreign key
+            // $table->string('id_patient');                                // foreign key
+            $table->integer('id_chart')->unsigned()->index();            // foreign key
             $table->string('id_dentist', 50);                            // foreign key
 			$table->integer('id_teeth_prizes')->unsigned()->default(0);  // foreign key
 
             $table->timestamps();
-            $table->softDeletes();                           // softDelete
+            $table->softDeletes();                                       // softDelete
+
+            // deleting the chart you are deleting all the childs related
+            $table->foreign('id_chart')->references('id_chart')->on('charts');
+            
         });
     }
 

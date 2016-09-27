@@ -4,10 +4,11 @@
             <thead>
             <tr style="font-weight: bold">
                 <th style="display: none;">#</th>
-                <th>Start date</th>
-                <th>Type of cure</th>
+                <th>Created date</th>
+                {{--<th>Type of cure</th>--}}
                 {{--open or close chart--}}
-                <th>Chart</th>
+                <th>Name of Patient</th>
+                <th>Description of Chart</th>
                 <th>Date of birth</th>
                 <th>Address</th>
                 <th>Phone</th>

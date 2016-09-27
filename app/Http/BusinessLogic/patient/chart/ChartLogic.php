@@ -3,11 +3,13 @@
 namespace App\Http\BusinessLogic\patient\chart;
 
 use App\Domain;
+use App\Patient;
+use Illuminate\Support\Facades\Auth;
 
-class CalculateListCuresLogic
+class ChartLogic
 {
     /**
-     * CalculateListCuresLogic constructor.
+     * ChartLogic constructor.
      */
     public function __construct() { }
 
@@ -48,6 +50,21 @@ class CalculateListCuresLogic
         $arrayListAndBoject = array($listCure, json_encode($balancedListCureOfPatient) );
 
         return $arrayListAndBoject;
+    }
+    
+    public function createNewChartDefault($newChart, $inputs) {
+
+        $id_patient = $inputs['idPatient'];
+
+        $chartsNo = Patient::findOrFail($id_patient)->charts()->get()->count();
+
+        $newChart->id_patient = $id_patient;
+        $newChart->detail = 'Chart no' + ($chartsNo + 1);
+        $newChart->id_user = Auth::user()->id;
+
+        $newChart->save();
+        
+        return $newChart;
     }
 
 }

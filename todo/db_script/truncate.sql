@@ -1,21 +1,15 @@
-
-TRUNCATE TABLE categories;
-
-TRUNCATE TABLE domains;
-
-TRUNCATE TABLE events;
-
-TRUNCATE TABLE images;
-
-TRUNCATE TABLE migrations;
-
-TRUNCATE TABLE options;
-
-TRUNCATE TABLE password_resets;
-
-TRUNCATE TABLE patients;
-
-TRUNCATE TABLE roles;
-
-TRUNCATE TABLE users;
-
+ALTER TABLE laravel_loremispum.events DROP FOREIGN KEY events_id_patient_foreign;
+ALTER TABLE laravel_loremispum.charts DROP FOREIGN KEY charts_id_patient_foreign;
+DROP TABLE laravel_loremispum.events;
+DROP TABLE laravel_loremispum.charts;
+DROP TABLE laravel_loremispum.patients;
+DROP TABLE laravel_loremispum.users;
+DROP TABLE laravel_loremispum.teeths_prizes;
+DROP TABLE laravel_loremispum.roles;
+DROP TABLE laravel_loremispum.password_resets;
+DROP TABLE laravel_loremispum.options;
+DROP TABLE laravel_loremispum.migrations;
+DROP TABLE laravel_loremispum.jobs;
+DROP TABLE laravel_loremispum.images;
+DROP TABLE laravel_loremispum.domains;
+DROP TABLE laravel_loremispum.categories;

@@ -14,7 +14,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_patient');
+            $table->string('id_patient')->index();
             $table->string('title', 250);
             $table->text('content');
             $table->string('backgroundColor');
@@ -22,7 +22,7 @@ class CreateEventsTable extends Migration
             $table->timestamp('end_time');
             $table->timestamps();
 
-            // Using event to delete the childs
+            // deleting the patient you are deleting all the childs related
             $table->foreign('id_patient')->references('id_patient')->on('patients');
 
         });

@@ -3,28 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Chart;
-use App\Http\BusinessLogic\patient\chart\CalculateListCuresLogic;
+use App\Http\BusinessLogic\patient\chart\ChartLogic;
 use App\Job;
+use App\Patient;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use Illuminate\Support\Facades\Auth;
 
 class ChartController extends Controller
 {
 
     public function getListCuresByPatient(Request $request) {
 
-        $logicCalculateCuresOfPatient = new CalculateListCuresLogic();
+        $logicCalculateCuresOfPatient = new ChartLogic();
         
         $inputs = $request->all();
 
-        $id_patient = $inputs['idPatient'];
         $id_chart = $inputs['id_chart'];
 
-        $listCures = Job::where('id_patient', $id_patient)
-                          ->where('id_chart', $id_chart)
-                          ->get();
+        $chart = Chart::findOrFail($id_chart);
+
+        $listCures = $chart->jobs()->get();
 
         /**
         * Logic method
@@ -38,27 +36,28 @@ class ChartController extends Controller
         
         $inputs     = $request->all();
         $id_patient = $inputs['idPatient'];
-        
-        $charts = Chart::where('id_patient', $id_patient)->get();
+
+        $patient = Patient::findOrFail($id_patient);
+
+        $charts = $patient->charts()->get();
 
         if (sizeof( $charts ) > 0 ) {
-            return response()->json(['hasChart' => true, 'listCharts' => $charts], 200);
+            return response()->json(['hasChart' => true, 'listCharts' => $charts, 
+                'patient' => $patient], 200);
         } else {
-            return response()->json(['hasChart' => false, 'listCharts' => $charts], 200);
+            return response()->json(['hasChart' => false, 'listCharts' => $charts, 
+                'patient' => $patient], 200);
         }
     }
     
     public function createNewChart(Request $request) {
 
+        $logicCalculateCuresOfPatient = new ChartLogic();
+
         $inputs     = $request->all();
-        $id_patient = $inputs['idPatient'];
-        
         $newChart = new Chart();
-        
-        $newChart->id_patient = $id_patient;
-        $newChart->id_user = Auth::user()->id;
-        
-        $newChart->save();
+
+        $newChart = $logicCalculateCuresOfPatient->createNewChartDefault($newChart, $inputs);
         
         return $newChart;
     }

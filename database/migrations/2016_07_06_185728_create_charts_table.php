@@ -14,7 +14,7 @@ class CreateChartsTable extends Migration
     {
         Schema::create('charts', function (Blueprint $table) {
             
-            $table->increments('id');
+            $table->increments('id_chart');
 
             $table->integer('category_id')->index()->unsigned();
             $table->string('detail', 250)->nullable();
@@ -33,11 +33,13 @@ class CreateChartsTable extends Migration
             $table->text('note')->nullable();
             $table->timestamps();
 
-            $table->integer('id_chart')->unsigned();         // foreign key
             $table->integer('id_user')->nullable();          // foreign key
-            $table->string('id_patient');                    // foreign key
+            // $table->string('id_patient')->index();           // foreign key
 
             $table->softDeletes();                           // softDelete
+
+            // deleting the patient you are deleting all the childs related
+            $table->foreign('id_patient')->references('id_patient')->on('patients');
         });
     }
 

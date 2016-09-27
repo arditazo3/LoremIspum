@@ -10,9 +10,20 @@ class Chart extends Model
 
     use SoftDeletes;
     
-    protected $fillable = ['id_patient', 'id_user'];
+    // 'id_patient'
+    protected $fillable = ['id_user', 'id_chart'];
 
+    public $primaryKey = 'id_chart';
+    
     // softDelete field
     protected $dates = ['deleted_at'];
 
+    public function patient() {
+        return $this->belongsTo('App\Patient', 'id_patient');
+    }
+
+    public function jobs() {
+        return $this->hasMany('App\Job', 'id_chart');
+    }
+    
 }

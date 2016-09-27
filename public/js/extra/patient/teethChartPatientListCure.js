@@ -41,11 +41,11 @@ $(document).ready(function () {
     function openListChartToChoose(chartObj) {
 
         $('#listChartsModal').modal({backdrop: 'static', keyboard: false});
-        cicleListChartOnTable( chartObj.listCharts );
+        cicleListChartOnTable( chartObj.listCharts, chartObj.patient );
 
     }
 
-    function cicleListChartOnTable( listCharts ) {
+    function cicleListChartOnTable( listCharts, patient ) {
 
         listChartScope = listCharts.length;
 
@@ -59,13 +59,14 @@ $(document).ready(function () {
 
 
             createTR += '<tr>' +
-                '<td style="display: none;">' + item.id + '</td>' +
+                '<td style="display: none;">' + item.id_chart + '</td>' +
                 '<td>' + item.created_at + '</td>' +
-                '<td>' + item.type_operation + '</td>' +
-                '<td>' + item.description + '</td>' +
-                '<td>' + item.position + '</td>' +
-                '<td>' + item.id_dentist + '</td>' +
-                '<td>' + item.id_dentist + '</td>' +
+                // '<td>' + item.type_operation + '</td>' +
+                '<td>' + patient.first_name + patient.last_name + '</td>' +
+                '<td>' + item.detail + '</td>' +
+                '<td>' + patient.date_birth + '</td>' +
+                '<td>' + patient.address + '</td>' +
+                '<td>' + patient.personal_phone + '</td>' +
                 '</tr>';
 
             // console.log( item );
@@ -227,17 +228,16 @@ $(document).ready(function () {
         ajaxRequest('POST', createNewChart, data,
             function (msg) {
 
-                $($(this)).prop('disabled', false);
-
                 sweetAlert("New chart created", "", "success");
 
                 checkIfPatientHasChart();
-            });
+        });
+        $($(this)).prop('disabled', false);
     });
 
     function openTheFirstChart(chartObj) {
 
-        idChartGlob = chartObj.id;
+        idChartGlob = chartObj.id_chart;
 
         $('#chartsModal').modal({backdrop: 'static', keyboard: false});
         
